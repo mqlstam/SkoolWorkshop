@@ -1,11 +1,17 @@
-const express = require('express')
+import * as dotenv from 'dotenv'
+dotenv.config()
+
+import express from 'express'
+import {WorkshopController} from "./controller/WorkshopController.js"
+import {ProductController} from './controller/ProductController.js'
+
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const workshopController = new WorkshopController()
+const productController = new ProductController()
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.get('/workshops', (req, res) => workshopController.get(req, res))
+   .get('/products', (req, res) => productController.get(req, res))
+
+app.listen(port, () => console.log(`listening on port ${port}`))
