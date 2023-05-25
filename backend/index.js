@@ -11,7 +11,7 @@ const port = 3000
 const workshopController = new WorkshopController()
 const productController = new ProductController()
 
-app.get('/workshops', (req, res) => workshopController.get(req, res))
-   .get('/products', (req, res) => productController.get(req, res))
+app.get('/api/workshops', (req, res) => workshopController.get(req, res))
+   .get('/api/products', (req, res) => productController.get(req, res))
 
 app.listen(port, () => console.log(`listening on port ${port}`))
