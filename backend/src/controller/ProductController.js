@@ -1,14 +1,11 @@
 export class ProductController {
-    constructor(prisma) {
-        this.prisma = prisma
+    constructor(db) {
+        this.db = db
     }
 
-    /**
-     * GET /products
-     */
     async get(req, res) {
-        const products = await this.prisma.product.findMany()
-        if(!products) {
+        const products = await this.db.product.findMany()
+        if(!products.length) {
             res.status(404).send({message: 'No products found'})
             return
         }

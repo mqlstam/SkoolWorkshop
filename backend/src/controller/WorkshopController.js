@@ -1,14 +1,11 @@
 export class WorkshopController {
-    constructor(prisma) {
-        this.prisma = prisma
+    constructor(db) {
+        this.db = db
     }
 
-    /**
-     * GET /workshops
-     */
     async get(req, res) {
-        const workshops = await this.prisma.workshop.findMany()
-        if(!workshops) {
+        const workshops = await this.db.workshop.findMany()
+        if(!workshops.length) {
             res.status(404).send({message: 'No workshops found'})
             return
         }
