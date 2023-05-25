@@ -1,10 +1,10 @@
 import * as dotenv from 'dotenv'
-dotenv.config()
 
 import express from 'express'
-import {WorkshopController} from "./controller/WorkshopController.js"
-import {ProductController} from './controller/ProductController.js'
-import {PrismaClient} from "@prisma/client";
+import { WorkshopController } from './controller/WorkshopController.js'
+import { ProductController } from './controller/ProductController.js'
+import { PrismaClient } from '@prisma/client'
+dotenv.config()
 
 const db = new PrismaClient()
 const workshopController = new WorkshopController(db)

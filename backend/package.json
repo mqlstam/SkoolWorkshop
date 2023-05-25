@@ -4,9 +4,9 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha 'test/**/*.test.js' --exit",
-    "lint": "eslint --fix --ext .js,.ts .",
-    "serve": "nodemon"
+    "serve": "nodemon",
+    "lint": "eslint --fix --ext .js .",
+    "test": "mocha 'test/**/*.test.js' --exit"
   },
   "dependencies": {
     "@prisma/client": "^4.14.1",
@@ -15,6 +15,11 @@
   },
   "devDependencies": {
     "chai": "^4.3.7",
+    "eslint": "^8.41.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
     "prisma": "^4.14.1",

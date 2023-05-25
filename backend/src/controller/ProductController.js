@@ -1,12 +1,12 @@
 export class ProductController {
-    constructor(db) {
+    constructor (db) {
         this.db = db
     }
 
-    async get(req, res) {
+    async get (req, res) {
         const products = await this.db.product.findMany()
-        if(!products.length) {
-            res.status(404).send({message: 'No products found'})
+        if (!products.length) {
+            res.status(404).send({ message: 'No products found' })
             return
         }
 
