@@ -1,7 +1,7 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
-const Products = () => import ('../views/Products.vue')
-const Workshops = () => import ('../views/Workshops.vue')
+const Products = () => import('../views/Products.vue')
+const Workshops = () => import('../views/Workshops.vue')
 
 const routes = [
     {
