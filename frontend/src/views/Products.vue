@@ -8,7 +8,7 @@ productStore.fetchProducts()
 
 <template>
 
-  <div>
+  <div class="text-bg-dark">
     {{productStore.products}}
   </div>
 
