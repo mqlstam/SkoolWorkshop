@@ -2,10 +2,6 @@
 
 import { useProductStore } from '../store/productStore.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ref } from 'vue'
-
-const isVisible = ref(false)
-const productSelected = ref(null)
 
 const productStore = useProductStore()
 productStore.fetchProducts()
@@ -13,7 +9,6 @@ productStore.fetchProducts()
 </script>
 
 <template>
-
   <div class="row justify-content-center">
     <div class="col-md-5" v-for="product in productStore.products" :key="product.name">
       <div class="card m-3">
@@ -25,7 +20,7 @@ productStore.fetchProducts()
               <h5>{{ product.name }}</h5>
               <p class="m-0">Variaties in opslag: </p>
             </div>
-          <button @click="isVisible=!isVisible; productSelected=product" class="m-2 align-self-center border-0" style="color: #f49700"><font-awesome-icon :icon="['fas', 'circle-info']" class="fa-2x"/></button>
+          <button class="m-2 align-self-center border-0" style="color: #f49700"><font-awesome-icon :icon="['fas', 'circle-info']" class="fa-2x"/></button>
         </div>
       </div>
     </div>

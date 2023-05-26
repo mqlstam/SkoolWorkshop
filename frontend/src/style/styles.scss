@@ -1,3 +1,7 @@
+$theme-colors: (
+  'primary': #f49700,
+);
+
 @import "~bootstrap/scss/bootstrap";
 
 .card {
@@ -35,28 +39,4 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 2em;
-}
-
-.btn-primary {
-  margin-top: 20px;
-  background-color: #f49700;
-  border: none;
-}
-
-.btn {
-  margin-top: 20px;
-  background-color: #f49700;
-  border: none;
-  color: white;
-}
-
-.btn:hover {
-  margin-top: 20px;
-  background-color: #f49700;
-  border: none;
-}
-
-.btn:active {
-  color: #f49700;
-  border: none;
 }
