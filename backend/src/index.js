@@ -14,6 +14,8 @@ const app = express()
     .use(express.json())
     .use(express.static('public'))
     .get('/api/workshops', (req, res) => workshopController.get(req, res))
+    .put('/api/workshops/:id', (req, res) => workshopController.put(req, res))
+    .delete('/api/workshops/:id', (req, res) => workshopController.delete(req ,res))
     .get('/api/products', (req, res) => productController.get(req, res))
 
 
