@@ -1,7 +1,7 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
-const Products = () => import ('../views/Products.vue')
-const Workshops = () => import ('../views/Workshops.vue')
+const Products = () => import('../views/Products.vue')
+const Workshops = () => import('../views/Workshops.vue')
 const WorkshopForm = () => import ('../views/WorkshopForm.vue')
 
 const routes = [
@@ -15,7 +15,6 @@ const routes = [
         path: '/products',
         name: 'products',
         component: Products
-    },
     {
         path: '/workshops/create',
         name: 'workshop-create',

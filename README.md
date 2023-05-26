@@ -10,7 +10,7 @@ The backend is written in nodejs using [express](https://expressjs.com/) and [pr
 Use the following commands to create and import the database. If not using
 docker edit the `.env` file to match your database settings.
 ```bash
-$ docker run -d -e MARIADB_ROOT_PASSWORD=sk00l -p 3306:3306 mariadb:latest
+$ docker run -d -e MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true -p 3306:3306 mariadb:latest
 $ npx prisma db push
 ```
 
