@@ -32,6 +32,8 @@ const app = express()
 app
     .get('/api/workshops', (req, res) => controller.workshop.get(req, res))
     .get('/api/products', (req, res) => controller.product.get(req, res))
+    .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
+    .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))
 
 // Register error handlers.
 app
