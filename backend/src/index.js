@@ -16,6 +16,9 @@ const app = express()
     .get('/api/workshops', (req, res) => workshopController.get(req, res))
     .get('/api/products', (req, res) => productController.get(req, res))
 
+
+// catch-all routes, always return the index.html when route is not
+// an API. vue-router will direct the user to the correct page.
 app.all('/api/*', (req, res) => res.status(404).json({ error: 'API route not found' }))
     .get('*', (req, res) => res.sendFile(join(process.cwd(), 'public', 'index.html')))
 
