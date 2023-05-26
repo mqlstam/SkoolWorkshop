@@ -8,11 +8,11 @@ export class API {
      * @param headers additional headers of request
      * @returns {Promise<{response: *, ok: boolean, status: number}>}
      */
-    static async Req(method, url, {body = null, headers = new Headers()} = {}) {
-        const response = await fetch(url, {headers, method, body})
-        const contentType = response.headers.get("content-type")
+    static async Req (method, url, { body = null, headers = new Headers() } = {}) {
+        const response = await fetch(url, { headers, method, body })
+        const contentType = response.headers.get('content-type')
         return {
-            response: contentType && contentType.indexOf("application/json") !== -1 ? await response.json() : await response.text(),
+            response: contentType && contentType.indexOf('application/json') !== -1 ? await response.json() : await response.text(),
             ok: response.ok,
             status: response.status
         }

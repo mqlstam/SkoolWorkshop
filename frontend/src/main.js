@@ -9,8 +9,8 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 library.add(faInbox)
 library.add(faCircleInfo)
-//
-// /* add font awesome icon component */
-// Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-createApp(App).use(createPinia()).use(router).mount('#app')
+createApp(App)
+    .use(router)
+    .use(createPinia())
+    .mount('#app')
