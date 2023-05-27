@@ -14,8 +14,8 @@ const app = express()
     .use(express.json())
     .use(express.static('public'))
     .get('/api/workshops', (req, res) => workshopController.get(req, res))
-    .get('/api/products', (req, res) => productController.get(req, res))
-
+    // .get('/api/products', (req, res) => productController.get(req, res))
+    .post('/api/workshops', (req, res) => workshopController.post(req, res))
 
 // catch-all routes, always return the index.html when route is not
 // an API. vue-router will direct the user to the correct page.
