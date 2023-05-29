@@ -1,21 +1,43 @@
+<template>
+  <div class="vh-100 d-flex flex-column">
+    <div class="d-md-none text-center mx-0" style="margin-bottom: -80%;">
+      <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid">
+    </div>
+    <div class="row justify-content-end mx-0 flex-grow-1">
+      <div class="col-md-3 d-flex flex-column p-4 p-md-5 card-overlay">
+        <div class="mb-3 mb-5">
+          <div class="text-center">
+            <h1>Workshop toevoegen</h1>
+            <p>"Een Nieuwe Workshop, ,<br>Een Nieuwe Ontdekkingsreis"</p>
+          </div>
+        </div>
+        <div class="mt-5 flex-grow-1 d-flex flex-column">
+          <form @submit.prevent="workshop.submitForm" class="flex-grow-1">
+            <div class="mb-3">
+              <label for="workshop-name" class="form-label">Workshop Name</label>
+              <input id="workshop-name" v-model="workshop.name" required class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="group-size" class="form-label">Group Size</label>
+              <input id="group-size" v-model.number="workshop.groupSize" type="number" min="1" required
+                class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="image-upload" class="form-label">Upload afbeelding</label>
+              <input type="file" class="form-control" id="image-upload">
+            </div>
+          </form>
+          <button type="submit" class="btn btn-primary mt-auto">Create Workshop</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { useWorkshopStore } from '../store/workshopStore.js'
 
 const workshop = useWorkshopStore()
 </script>
-
-<template>
-  <form @submit.prevent="workshop.submitForm">
-    <div>
-      <label for="workshop-name">Workshop Name</label>
-      <input id="workshop-name" v-model="workshop.name" required />
-    </div>
-
-    <div>
-      <label for="group-size">Group Size</label>
-      <input id="group-size" v-model.number="workshop.groupSize" type="number" min="1" required />
-    </div>
-
-    <button type="submit">Create Workshop</button>
-  </form>
-</template>
