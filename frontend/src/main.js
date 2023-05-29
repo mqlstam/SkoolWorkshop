@@ -7,7 +7,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faInbox, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 library.add(faInbox)
 library.add(faCircleInfo)
-import WorkshopForm from './views/WorkshopForm.vue';
 
 createApp(App)
     .use(router)
