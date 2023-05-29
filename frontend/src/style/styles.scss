@@ -1,14 +1,33 @@
+
 $theme-colors: (
   'primary': #f49700,
   'black': #444444,
   'green': #8EA604,
-  'red': #DF2935
+  'red': #DF2935,
   'grey': #666666,
   'light-grey': #CACACA,
-  'white': #FFFFFF,
+  'white': #FFFFFF 
 );
 
+$font-family-sans-serif: 'Roboto', sans-serif;
+
+
+
+
 @import "~bootstrap/scss/bootstrap";
+.btn {
+  color: white;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+.card-overlay{
+  background-color: white; 
+  border-radius: 1.875rem 1.875rem 0 0;
+}
+
 
 .card {
   background-color: #ededed;
