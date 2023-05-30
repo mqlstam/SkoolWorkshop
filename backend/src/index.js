@@ -17,6 +17,7 @@ const app = express()
     .put('/api/workshops/:id', (req, res) => workshopController.put(req, res))
     .delete('/api/workshops/:id', (req, res) => workshopController.delete(req ,res))
     .get('/api/products', (req, res) => productController.get(req, res))
+    .delete('/api/products/:id', (req, res) => productController.delete(req, res))
 
 
 // catch-all routes, always return the index.html when route is not

@@ -32,4 +32,10 @@ describe('ProductController', () => {
             expect(res.send.calledOnceWith({ message: 'No products found' })).to.be.true
         })
     })
+
+    describe('delete', () => {
+        it('Product not found', async () => {
+
+        })
+    })
 })

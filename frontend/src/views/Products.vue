@@ -11,7 +11,7 @@ productStore.fetchProducts()
 <template>
   <ProductCard
       v-for="product in productStore.products"
-      :key="product.name"
+      :key="product.id"
       :product="product">
   </ProductCard>
 </template>
