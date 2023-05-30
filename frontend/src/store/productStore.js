@@ -10,6 +10,9 @@ export const useProductStore = defineStore('product', {
             const { response, ok } = await API.Req('GET', '/api/products')
             if (ok) this.products = response
             else this.products = []
+        },
+        async deleteProduct (productId) {
+            const { response, ok } = await API.Req('DELETE', '/api/products/' + productId)
         }
     }
 })
