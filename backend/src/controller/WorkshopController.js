@@ -1,3 +1,5 @@
+import { HttpError } from './error/HttpError.js'
+
 export class WorkshopController {
     constructor (db) {
         this.db = db
@@ -6,8 +8,7 @@ export class WorkshopController {
     async get (req, res) {
         const workshops = await this.db.workshop.findMany()
         if (!workshops.length) {
-            res.status(404).send({ message: 'No workshops found' })
-            return
+            throw new HttpError(404, 'no workshops found')
         }
 
         res.status(200).send(workshops)

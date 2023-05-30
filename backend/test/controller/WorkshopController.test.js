@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import { WorkshopController } from '../../src/controller/WorkshopController.js'
 
-describe('WorkshopController', () => {
+describe('controller/WorkshopController', () => {
     const workshops = [
         { id: 1, name: 'Workshop 1', groupSize: 10 },
         { id: 2, name: 'Workshop 2', groupSize: 25 }
@@ -26,10 +26,13 @@ describe('WorkshopController', () => {
             const db = { workshop: { findMany: sinon.stub().returns([]) } }
             const controller = new WorkshopController(db)
 
-            await controller.get({}, res)
-            expect(db.workshop.findMany.calledOnce).to.be.true
-            expect(res.status.calledOnceWith(404)).to.be.true
-            expect(res.send.calledOnceWith({ message: 'No workshops found' })).to.be.true
+            try {
+                await controller.get({}, res)
+                expect.fail('should have thrown an error')
+            } catch (err) {
+                expect(err.message).to.equal('no workshops found')
+                expect(db.workshop.findMany.calledOnce).to.be.true
+            }
         })
     })
 })

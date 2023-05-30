@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import { ProductController } from '../../src/controller/ProductController.js'
 
-describe('ProductController', () => {
+describe('controller/ProductController', () => {
     const products = [
         { id: 1, name: 'Product 1', stock: 100, minStock: 10 },
         { id: 2, name: 'Product 2', stock: 200, minStock: 20 }
@@ -26,10 +26,13 @@ describe('ProductController', () => {
             const db = { product: { findMany: sinon.stub().returns([]) } }
             const controller = new ProductController(db)
 
-            await controller.get({}, res)
-            expect(db.product.findMany.calledOnce).to.be.true
-            expect(res.status.calledOnceWith(404)).to.be.true
-            expect(res.send.calledOnceWith({ message: 'No products found' })).to.be.true
+            try {
+                await controller.get({}, res)
+                expect.fail('should have thrown an error')
+            } catch (err) {
+                expect(err.message).to.equal('no products found')
+                expect(db.product.findMany.calledOnce).to.be.true
+            }
         })
     })
 })
