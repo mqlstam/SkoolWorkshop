@@ -37,14 +37,18 @@ describe('controller/ProductController', () => {
     })
 
     describe('delete', () => {
-        it('Product not found', async () => {
+        it('Product not found, return 404', async () => {
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { product: { delete: sinon.stub() } }
+            const controller = new ProductController(db)
 
-        })
-    })
-
-    describe('delete', () => {
-        it('Product not found', async () => {
-
+            try {
+                await controller.delete({params: 10}, res)
+                expect.fail('should have thrown an error')
+            } catch (err) {
+                expect(err.message).to.equal('Product not found')
+                expect(db.product.delete.calledOnce).to.be.true
+            }
         })
     })
 })

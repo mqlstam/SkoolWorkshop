@@ -24,9 +24,10 @@ export class ProductController {
             })
             res.status(200).send({message: `Product with ID ${productId} removed`})
         } catch (err) {
-            if(err.meta.cause === 'Record to delete does not exist.') {
-                res.status(404).send({ message: `Product with ID  ${productId} not found`})
+            if(err.code === 'P2025') {
+                throw new HttpError(404, 'Product not found')
             }
+            throw new HttpError(400, 'Could not delete product')
         }
     }
 }
