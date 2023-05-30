@@ -24,9 +24,9 @@ export class WorkshopController {
                     id: parseInt(workshopId)
                 }
             })
-            res.status(200).send({message: `Workshop with ID ${workshopId} removed`, data: deletedWorkshop})
+            res.status(200).send({ message: `Workshop with ID ${workshopId} removed`, data: deletedWorkshop })
         } catch (err) {
-            res.status(404).send({ message: `Workshop with ID  ${workshopId} not found`})
+            res.status(404).send({ message: `Workshop with ID  ${workshopId} not found` })
         }
     }
 
@@ -43,9 +43,9 @@ export class WorkshopController {
                     groupSize: updatedData.groupSize
                 }
             })
-            res.status(200).send({message: `Workshop with ID ${workshopId} edited`, data: updatedWorkshop})
+            res.status(200).send({ message: `Workshop with ID ${workshopId} edited`, data: updatedWorkshop })
         } catch (err) {
-            res.status(404).send({ message: `Workshop with ID  ${workshopId} not found`})
+            res.status(404).send({ message: `Workshop with ID  ${workshopId} not found` })
         }
     }
 }
