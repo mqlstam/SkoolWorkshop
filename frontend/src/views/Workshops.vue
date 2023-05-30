@@ -6,7 +6,11 @@ import { ref } from 'vue'
 
 const edit = ref(false)
 const workshopStore = useWorkshopStore()
-workshopStore.fetchWorkshops()
+workshopStore.fetch()
+
+async function remove (workshop) {
+    await workshopStore.delete(workshop.id)
+}
 </script>
 
 <template>
@@ -33,6 +37,7 @@ workshopStore.fetchWorkshops()
         v-for="workshop in workshopStore.workshops"
         :key="workshop.name"
         :workshop="workshop"
-        :edit="edit" />
+        :edit="edit"
+        @delete="remove" />
   </div>
 </template>
