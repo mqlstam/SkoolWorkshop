@@ -1,5 +1,6 @@
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { useProductStore } from "../store/productStore.js";
 
 const props = defineProps({
   product: {
@@ -7,6 +8,11 @@ const props = defineProps({
     required: true
   }
 })
+
+function deleteProduct(id) {
+  useProductStore().deleteProduct(id)
+  location.reload()
+}
 
 </script>
 
@@ -24,7 +30,7 @@ const props = defineProps({
           </div>
           <div class="d-flex align-items-center">
             <button class="m-2 btn btn-info fw-bolder">Edit</button>
-            <button @click="" class="m-2 btn btn-warning fw-bolder">X</button>
+            <button @click="deleteProduct(props.product.id)" class="m-2 btn btn-warning fw-bolder">X</button>
             <button class="m-2 align-self-center border-0" style="color: #f49700"><font-awesome-icon :icon="['fas', 'circle-info']" class="fa-2x"/></button>
           </div>
         </div>

@@ -26,7 +26,6 @@ const controller = {
 const app = express()
     .use(express.json())
     .use(express.static('public'))
-    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
 
 // Register routes.
 app
