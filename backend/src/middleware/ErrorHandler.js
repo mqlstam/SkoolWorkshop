@@ -10,13 +10,17 @@ export class ErrorHandler {
     exec (err, req, res, next) {
         const status = err.status || 500
         const response = { error: err.message }
-        this.logger.error(req.ip, ' ', req.method, ' ', req.path, '\n', err.stack)
 
         if (this.production && status === 500) {
             // Hide internal error messages when running in production.
             response.error = 'internal server error'
         }
 
+        if (err.data) {
+            response.data = err.data
+        }
+
+        this.logger.error(req.ip, ' ', req.method, ' ', req.path, '\n', err.stack)
         res.status(status).send(response)
     }
 }

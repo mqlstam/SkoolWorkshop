@@ -1,6 +1,5 @@
-import {PrismaClient} from "@prisma/client";
-
 import { HttpError } from './error/HttpError.js'
+import { PutWorkshopRequest } from './request/workshop/PutWorkshopRequest.js'
 
 export class WorkshopController {
     constructor (db) {
@@ -16,36 +15,38 @@ export class WorkshopController {
         res.status(200).send(workshops)
     }
 
-    async delete (req, res) {
-        const workshopId = req.params.id
+    async put (req, res) {
+        const id = req.params.id
+        const workshop = new PutWorkshopRequest(req).data()
+
         try {
-            const deletedWorkshop = await this.db.workshop.delete({
-                where: {
-                    id: parseInt(workshopId)
-                }
+            const result = await this.db.workshop.update({
+                where: { id: parseInt(id) },
+                data: workshop
             })
-            res.status(200).send({ message: `Workshop with ID ${workshopId} removed` })
+
+            res.status(200).send(result)
         } catch (err) {
-            res.status(404).send({ message: `Workshop with ID  ${workshopId} not found` })
+            if (err.code === 'P2025') {
+                throw new HttpError(404, 'workshop not found')
+            }
+            throw new HttpError(404, 'could not edit workshop')
         }
     }
 
-    async put (req, res) {
-        const workshopId = req.params.id
-        const updatedData = req.body
+    async delete (req, res) {
+        const id = req.params.id
         try {
-            const updatedWorkshop = await this.db.workshop.update({
-                where: {
-                    id: parseInt(workshopId)
-                },
-                data: {
-                    name: updatedData.name,
-                    groupSize: updatedData.groupSize
-                }
+            await this.db.workshop.delete({
+                where: { id: parseInt(id) }
             })
-            res.status(200).send({ message: `Workshop with ID ${workshopId} edited`, data: updatedWorkshop })
+
+            res.status(200).send({ message: 'workshop removed' })
         } catch (err) {
-            res.status(404).send({ message: `Workshop with ID  ${workshopId} not found` })
+            if (err.code === 'P2025') {
+                throw new HttpError(404, 'workshop not found')
+            }
+            throw new HttpError(404, 'could not remove workshop')
         }
     }
 }
