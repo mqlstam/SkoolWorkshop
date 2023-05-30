@@ -1,6 +1,6 @@
 <template>
   <div class="vh-100 d-flex flex-column">
-    <div class="d-md-none text-center mx-0" style="margin-bottom: -80%;">
+    <div class="d-md-none text-center mx-0 emoijbg">
       <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid">
     </div>
     <div class="row justify-content-end mx-0 flex-grow-1">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="mt-5 flex-grow-1 d-flex flex-column">
-          <form @submit.prevent="workshop.submitForm" class="flex-grow-1">
+          <form @submit.prevent="submitForm" class="flex-grow-1">
             <div class="mb-3">
               <label for="workshop-name" class="form-label">Workshop Name</label>
               <input id="workshop-name" v-model="workshop.name" required class="form-control" />
@@ -26,10 +26,11 @@
 
             <div class="mb-3">
               <label for="image-upload" class="form-label">Upload afbeelding</label>
-              <input type="file" class="form-control" id="image-upload">
+              <input type="file" class="form-control" id="image-upload" ref="image" accept="image/png, image/jpeg">
             </div>
+             <button type="submit" class="btn btn-primary mt-auto">Create Workshop</button>
           </form>
-          <button type="submit" class="btn btn-primary mt-auto">Create Workshop</button>
+
         </div>
       </div>
     </div>
@@ -37,7 +38,18 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useWorkshopStore } from '../store/workshopStore.js'
 
+const image = ref(null)
 const workshop = useWorkshopStore()
+
+async function submitForm () {
+    try {
+        console.log('submitForm function called') // Add this line
+        await workshop.submitForm(image)
+    } catch (error) {
+        console.error('Error in submitForm: ', error)
+    }
+}
 </script>
