@@ -1,3 +1,5 @@
+import { HttpError } from './error/HttpError.js'
+
 export class ProductController {
     constructor (db) {
         this.db = db
@@ -6,8 +8,7 @@ export class ProductController {
     async get (req, res) {
         const products = await this.db.product.findMany()
         if (!products.length) {
-            res.status(404).send({ message: 'No products found' })
-            return
+            throw new HttpError(404, 'no products found')
         }
 
         res.status(200).send(products)

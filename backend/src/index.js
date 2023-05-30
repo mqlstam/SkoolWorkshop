@@ -1,25 +1,41 @@
 import * as dotenv from 'dotenv'
 import express from 'express'
+import 'express-async-errors'
 import { WorkshopController } from './controller/WorkshopController.js'
 import { ProductController } from './controller/ProductController.js'
 import { PrismaClient } from '@prisma/client'
-import { join } from 'path'
+import { colorConsole } from 'tracer'
+import { AccessLogger } from './middleware/AccessLogger.js'
+import { ErrorHandler } from './middleware/ErrorHandler.js'
+import { UnknownRouteHandler } from './middleware/UnknownRouteHandler.js'
 dotenv.config()
 
 const db = new PrismaClient()
-const workshopController = new WorkshopController(db)
-const productController = new ProductController(db)
+const logger = colorConsole()
+const middleware = {
+    accessLogger: new AccessLogger(logger),
+    errorHandler: new ErrorHandler(logger, process.env.NODE_ENV === 'production'),
+    unknownRouteHandler: new UnknownRouteHandler()
+}
+const controller = {
+    workshop: new WorkshopController(db),
+    product: new ProductController(db)
+}
 
+// Create express app and register middleware.
 const app = express()
     .use(express.json())
     .use(express.static('public'))
-    .get('/api/workshops', (req, res) => workshopController.get(req, res))
-    .get('/api/products', (req, res) => productController.get(req, res))
+    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
 
+// Register routes.
+app
+    .get('/api/workshops', (req, res) => controller.workshop.get(req, res))
+    .get('/api/products', (req, res) => controller.product.get(req, res))
 
-// catch-all routes, always return the index.html when route is not
-// an API. vue-router will direct the user to the correct page.
-app.all('/api/*', (req, res) => res.status(404).json({ error: 'API route not found' }))
-    .get('*', (req, res) => res.sendFile(join(process.cwd(), 'public', 'index.html')))
+// Register error handlers.
+app
+    .use((err, req, res, next) => middleware.errorHandler.exec(err, req, res, next))
+    .use((req, res, next) => middleware.unknownRouteHandler.exec(req, res, next))
 
 app.listen(process.env.PORT, () => console.log(`listening on port ${process.env.PORT}`))
