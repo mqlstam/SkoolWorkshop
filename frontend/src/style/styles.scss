@@ -1,8 +1,17 @@
+$body-bg: #fafafa;
 $theme-colors: (
   'primary': #f49700,
+  'success': #28a745,
+  'secondary': #6c757d,
+  'danger': #dc3545,
 );
 
 @import "~bootstrap/scss/bootstrap";
+@import "box";
+
+.hover-darken:hover {
+  background-color: #7771;
+}
 
 .card {
   background-color: #ededed;
