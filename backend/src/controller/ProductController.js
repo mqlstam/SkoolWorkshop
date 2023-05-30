@@ -15,16 +15,16 @@ export class ProductController {
     }
 
     async delete (req, res) {
-        const productId = req.params.id;
+        const productId = req.params.id
         try {
             await this.db.product.delete({
                 where: {
                     id: parseInt(productId)
                 }
             })
-            res.status(200).send({message: `Product with ID ${productId} removed`})
+            res.status(200).send({ message: `Product with ID ${productId} removed` })
         } catch (err) {
-            if(err.code === 'P2025') {
+            if (err.code === 'P2025') {
                 throw new HttpError(404, 'Product not found')
             }
             throw new HttpError(400, 'Could not delete product')

@@ -43,7 +43,7 @@ describe('controller/ProductController', () => {
             const controller = new ProductController(db)
 
             try {
-                await controller.delete({params: 10}, res)
+                await controller.delete({ params: 10 }, res)
                 expect.fail('should have thrown an error')
             } catch (err) {
                 expect(err.message).to.equal('Product not found')

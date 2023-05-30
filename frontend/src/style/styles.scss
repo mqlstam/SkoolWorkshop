@@ -1,10 +1,17 @@
+$body-bg: #fafafa;
 $theme-colors: (
-        'primary': #f49700,
-        'warning': #d1001f,
-        'info': #f4f186
+  'primary': #f49700,
+  'success': #28a745,
+  'secondary': #6c757d,
+  'danger': #dc3545,
 );
 
 @import "~bootstrap/scss/bootstrap";
+@import "box";
+
+.hover-darken:hover {
+  background-color: #7771;
+}
 
 .card {
   background-color: #ededed;
@@ -41,4 +48,30 @@ $theme-colors: (
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 2em;
+}
+
+.scale-up-center {
+  animation: scale-up-center 0.05s ease-in both;
+}
+
+@keyframes scale-up-center {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-down-center {
+  animation: scale-down-center 0.4s ease-out both;
+}
+
+@keyframes scale-down-center {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
 }
