@@ -23,7 +23,7 @@ export class WorkshopController {
                     id: parseInt(workshopId)
                 }
             })
-            res.status(200).send({message: `Workshop with ID ${workshopId} removed`, data: deletedWorkshop})
+            res.status(200).send({message: `Workshop with ID ${workshopId} removed`})
         } catch (err) {
             res.status(404).send({ message: `Workshop with ID  ${workshopId} not found`})
         }
