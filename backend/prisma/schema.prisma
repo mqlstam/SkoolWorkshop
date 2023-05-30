@@ -11,7 +11,9 @@ model Workshop {
   id        Int    @id @default(autoincrement())
   name      String @unique
   groupSize Int
+   imagePath String?
 }
+
 
 model Product {
   id       Int    @id @default(autoincrement())
