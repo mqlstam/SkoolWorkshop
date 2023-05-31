@@ -1,37 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const Products = () => import('../views/Products.vue')
-const Workshops = () => import('../views/Workshops.vue')
-const WorkshopDetails = () => import('../views/WorkshopDetails.vue')
-const CreateProduct = () => import('../views/CreateProduct.vue')
-const UpdateProduct = () => import('../views/UpdateProduct.vue')
-
 const routes = [
     {
         path: '/',
         alias: '/workshops',
         name: 'workshops',
-        component: Workshops
+        component: () => import('../views/Workshops.vue')
     },
     {
         path: '/products',
         name: 'products',
-        component: Products
+        component: () => import('../views/Products.vue')
     },
     {
         path: '/workshops/:id',
         name: 'workshop-details',
-        component: WorkshopDetails
+        component: () => import('../views/WorkshopDetails.vue')
     },
     {
         path: '/products/create',
         name: 'createProduct',
-        component: CreateProduct
+        component: () => import('../views/CreateProduct.vue')
     },
     {
         path: '/product/:id',
         name: 'updateProduct',
-        component: UpdateProduct
+        component: () => import('../views/UpdateProduct.vue')
+
     }
 ]
 
