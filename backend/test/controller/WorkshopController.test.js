@@ -9,7 +9,7 @@ describe('controller/WorkshopController', () => {
         { id: 2, name: 'Workshop 2', groupSize: 25 }
     ]
 
-    describe('get', () => {
+    describe('all', () => {
         it('should return a list of workshops', async () => {
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
             const db = { workshop: { findMany: sinon.stub().returns(workshops) } }
@@ -32,6 +32,33 @@ describe('controller/WorkshopController', () => {
             } catch (err) {
                 expect(err.message).to.equal('no workshops found')
                 expect(db.workshop.findMany.calledOnce).to.be.true
+            }
+        })
+    })
+
+    describe('get', () => {
+        it('should return a specific workshop', async () => {
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { workshop: { findUnique: sinon.stub().returns(workshops[0]) } }
+            const controller = new WorkshopController(db)
+
+            await controller.get({params: 1}, res)
+            expect(db.workshop.findUnique.calledOnce).to.be.true
+            expect(res.status.calledOnceWith(200)).to.be.true
+            expect(res.send.calledOnceWith(workshops[0])).to.be.true
+        })
+
+        it('should return 404 if no workshop is found', async () => {
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { workshop: { findUnique: sinon.stub().returns(null) } }
+            const controller = new WorkshopController(db)
+
+            try {
+                await controller.get({params: 1}, res)
+                expect.fail('should have thrown an error')
+            } catch (err) {
+                expect(err.message).to.equal('workshop not found')
+                expect(db.workshop.findUnique.calledOnce).to.be.true
             }
         })
     })
