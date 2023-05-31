@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import NumberInput from '../component/input/NumberInput.vue'
 import TextInput from '../component/input/TextInput.vue'
 
+
 const router = useRouter()
 const productStore = useProductStore()
 
@@ -37,17 +38,17 @@ const submitForm = (e) => {
             <form @submit.prevent="submitForm">
                 <div class="mb-4">
                     <label class="form-label">Name</label>
-                    <TextInput v-model:value="product.name" @update:value="submitForm" placeholder="Name" />
+                    <TextInput v-model:value="product.name" @update:value="submitForm" placeholder="name" />
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label">Stock</label>
-                    <NumberInput v-model:value="product.stock"  @update:value="submitForm" />
+                    <NumberInput v-model:value="product.stock"  @update:value="submitForm" placeholder="stock"/>
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label">Minimum Stock</label>
-                    <NumberInput v-model:value="product.minStock" @update:value="submitForm" />
+                    <NumberInput v-model:value="product.minStock" @update:value="submitForm" placeholder="minStock"/>
                 </div>
 
                 <p class="text-danger">{{ message }}</p>
