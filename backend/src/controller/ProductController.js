@@ -22,7 +22,7 @@ export class ProductController {
                     id: parseInt(productId)
                 }
             })
-            res.status(200).send({ message: `Product with ID ${productId} removed` })
+            res.status(200).send({ message: 'Product removed' })
         } catch (err) {
             if (err.code === 'P2025') {
                 throw new HttpError(404, 'Product not found')
