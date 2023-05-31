@@ -21,7 +21,7 @@ const props = defineProps({
 
 <template>
   <div role="button"
-       class="d-flex align-items-center border-bottom hover-darken productCard"
+       class="d-flex align-items-center border-bottom hover-darken card-hover"
        @click="emit('click', props.product)">
 
     <!-- image and title -->

@@ -30,7 +30,7 @@ export class WorkshopController {
             if (err.code === 'P2025') {
                 throw new HttpError(404, 'workshop not found')
             }
-            throw new HttpError(404, 'could not edit workshop')
+            throw new HttpError(500, 'could not edit workshop')
         }
     }
 
@@ -46,7 +46,7 @@ export class WorkshopController {
             if (err.code === 'P2025') {
                 throw new HttpError(404, 'workshop not found')
             }
-            throw new HttpError(404, 'could not remove workshop')
+            throw new HttpError(500, 'could not remove workshop')
         }
     }
 }

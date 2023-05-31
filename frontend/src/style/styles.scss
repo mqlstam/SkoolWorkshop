@@ -8,6 +8,7 @@ $theme-colors: (
 
 @import "~bootstrap/scss/bootstrap";
 @import "box";
+@import "animations";
 
 .hover-darken:hover {
   background-color: #7771;
@@ -48,51 +49,4 @@ $theme-colors: (
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 2em;
-}
-
-.scale-up-center {
-  animation: scale-up-center 0.05s ease-in both;
-}
-
-@keyframes scale-up-center {
-  0% {
-    transform: scale(0.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.scale-down-center {
-  animation: scale-down-center 0.4s ease-out both;
-}
-
-@keyframes scale-down-center {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.5);
-  }
-}
-
-.productCard:hover {
-  animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-@-webkit-keyframes shadow-drop-2-center {
-  0% {
-    transform: translateZ(0);
-  }
-  100% {
-    transform: translateZ(50px);
-  }
-}
-@keyframes shadow-drop-2-center {
-  0% {
-    transform: translateZ(0);
-  }
-  100% {
-    transform: translateZ(50px);
-  }
 }

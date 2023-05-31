@@ -27,7 +27,7 @@ export class ProductController {
             if (err.code === 'P2025') {
                 throw new HttpError(404, 'Product not found')
             }
-            throw new HttpError(400, 'Could not delete product')
+            throw new HttpError(500, 'Could not delete product')
         }
     }
 }

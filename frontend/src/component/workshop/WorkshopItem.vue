@@ -30,7 +30,7 @@ const props = defineProps({
     <div v-else class="ms-auto">
       <!-- edit mode buttons -->
       <button class="btn p-2 hover-darken" @click="emit('delete', workshop)">
-        <font-awesome-icon :icon="['fas', 'trash']" class="fa-xl rounded-circle p-3 bg-danger text-white"/>
+        <font-awesome-icon :icon="['fas', 'trash']" class="scale-up-center fa-xl rounded-circle p-3 bg-danger text-white"/>
       </button>
     </div>
   </div>
