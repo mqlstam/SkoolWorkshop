@@ -35,9 +35,7 @@ const submitForm = (e) => {
       message.value = 'All fields are required'
   }
 
-  if (product.value.stock < product.value.minStock) {
-      message.value = 'Stock must be higher than minimum stock'
-  }
+  
 }
 </script>
 
