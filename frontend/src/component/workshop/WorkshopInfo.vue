@@ -2,7 +2,7 @@
 import { useWorkshopStore } from '../../store/workshopStore.js'
 import NumberInput from '../input/NumberInput.vue'
 import TextInput from '../input/TextInput.vue'
-import {useRouter} from "vue-router";
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
     workshopId: {
