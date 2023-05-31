@@ -51,4 +51,20 @@ export class ProductController {
         })
         res.status(200).send(product)
     }
+    async delete (req, res) {
+        const productId = req.params.id
+        try {
+            await this.db.product.delete({
+                where: {
+                    id: parseInt(productId)
+                }
+            })
+            res.status(200).send({ message: 'Product removed' })
+        } catch (err) {
+            if (err.code === 'P2025') {
+                throw new HttpError(404, 'Product not found')
+            }
+            throw new HttpError(500, 'Could not delete product')
+        }
+    }
 }

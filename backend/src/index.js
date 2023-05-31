@@ -26,10 +26,10 @@ const controller = {
 const app = express()
     .use(express.json())
     .use(express.static('public'))
-    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
 
 // Register routes.
 app
+    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
     .get('/api/workshops', (req, res) => controller.workshop.get(req, res))
     .get('/api/products', (req, res) => controller.product.getAll(req, res))
     .get('/api/products/:id', (req, res) => controller.product.get(req, res))
@@ -37,6 +37,8 @@ app
     .put('/api/products/:id', (req, res) => controller.product.put(req, res))
     .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))
+    .get('/api/products', (req, res) => controller.product.get(req, res))
+    .delete('/api/products/:id', (req, res) => controller.product.delete(req, res))
 
 // Register error handlers.
 app

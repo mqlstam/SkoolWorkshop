@@ -8,6 +8,7 @@ $theme-colors: (
 
 @import "~bootstrap/scss/bootstrap";
 @import "box";
+@import "animations";
 
 .hover-darken:hover {
   background-color: #7771;

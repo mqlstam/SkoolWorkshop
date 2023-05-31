@@ -52,33 +52,35 @@ describe('controller/ProductController', () => {
             expect(res.status.calledOnceWith(201)).to.be.true
             expect(res.send.calledOnceWith(req.body)).to.be.true
         })
+
+        it('should return 400 if product name is already taken', async () => {
+            const error = new Error()
+            error.code = 'P2002'
+
+            const product = { ...products[0] }
+            const req = {
+                body: product
+            }
+
+            delete req.body.id
+
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { product: { create: sinon.stub().throws(error) } }
+            const controller = new ProductController(db)
+
+            try {
+                await controller.post(req, res)
+                expect.fail('should have thrown an error')
+            } catch (error) {
+                expect(db.product.create.called).to.be.true
+                expect(error.message).to.equal('Product already exists.')
+                expect(error.status).to.equal(400)
+            }
+        })
     })
+})
 
-    it('should return 400 if product name is already taken', async () => {
-        const error = new Error()
-        error.code = 'P2002'
-
-        const product = { ...products[0] }
-        const req = {
-            body: product
-        }
-
-        delete req.body.id
-
-        const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
-        const db = { product: { create: sinon.stub().throws(error) } }
-        const controller = new ProductController(db)
-
-        try {
-            await controller.post(req, res)
-            expect.fail('should have thrown an error')
-        } catch (error) {
-            expect(db.product.create.called).to.be.true
-            expect(error.message).to.equal('Product already exists.')
-            expect(error.status).to.equal(400)
-        }
-    })
-
+describe('controller/ProductController', () => {
     describe('put', () => {
         it('should successfully edit a product', async () => {
             const req = {
@@ -104,4 +106,38 @@ describe('controller/ProductController', () => {
             expect(res.send.calledOnceWith(req.body)).to.be.true
         })
     })
+
+    describe('delete', () => {
+        it('should delete a product', async () => {
+            const req = { params: { id: 1 } }
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { product: { delete: sinon.stub() } }
+            const controller = new ProductController(db)
+
+            await controller.delete(req, res)
+            expect(db.product.delete.calledOnce).to.be.true
+            expect(res.status.calledOnceWith(200)).to.be.true
+            expect(res.send.calledOnceWith({ message: 'Product removed' })).to.be.true
+        })
+
+        it('should return 404 when a product does not exist', async () => {
+            const error = new Error()
+            error.code = 'P2025'
+
+            const req = { params: { id: 1 } }
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { product: { delete: sinon.stub().throws(error) } }
+            const controller = new ProductController(db)
+
+            try {
+                await controller.delete(req, res)
+                expect.fail('should have thrown an error')
+            } catch (err) {
+                expect(db.product.delete.calledOnce).to.be.true
+                expect(err.message).to.equal('Product not found')
+                expect(err.status).to.equal(404)
+            }
+        })
+    })
 })
+
