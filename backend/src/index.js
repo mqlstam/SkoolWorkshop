@@ -30,7 +30,8 @@ const app = express()
 // Register routes.
 app
     .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
-    .get('/api/workshops', (req, res) => controller.workshop.get(req, res))
+    .get('/api/workshops', (req, res) => controller.workshop.all(req, res))
+    .get('/api/workshops/:id', (req, res) => controller.workshop.get(req, res))
     .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))
     .get('/api/products', (req, res) => controller.product.get(req, res))

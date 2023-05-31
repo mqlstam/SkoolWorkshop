@@ -6,13 +6,26 @@ export class WorkshopController {
         this.db = db
     }
 
-    async get (req, res) {
+    async all (req, res) {
         const workshops = await this.db.workshop.findMany()
         if (!workshops.length) {
             throw new HttpError(404, 'no workshops found')
         }
 
         res.status(200).send(workshops)
+    }
+
+    async get (req, res) {
+        const id = req.params.id
+        const workshop = await this.db.workshop.findUnique({
+            where: { id: parseInt(id) }
+        })
+
+        if (!workshop) {
+            throw new HttpError(404, 'workshop not found')
+        }
+
+        res.status(200).send(workshop)
     }
 
     async put (req, res) {

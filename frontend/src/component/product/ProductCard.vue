@@ -21,7 +21,7 @@ const props = defineProps({
 
 <template>
   <div role="button"
-       class="d-flex align-items-center border-bottom hover-darken card-hover"
+       class="d-flex align-items-center border-bottom hover-darken"
        @click="emit('click', props.product)">
 
     <!-- image and title -->
@@ -30,8 +30,8 @@ const props = defineProps({
 
     <div v-if="!props.edit" class="ms-auto">
       <!-- product stock status -->
-      <font-awesome-icon v-if="props.product.stock >= props.product.minStock" :icon="['fas', 'check']" class="fa-1x rounded-circle bg-success p-1 m-3 text-white" />
-      <font-awesome-icon v-else :icon="['fas', 'xmark']" class="fa-1x rounded-circle bg-danger p-1 m-3 text-white" />
+      <font-awesome-icon v-if="props.product.stock >= props.product.minStock" :icon="['fas', 'check']" class="fa-1x rounded-circle bg-success p-1 m-4 text-white" />
+      <font-awesome-icon v-else :icon="['fas', 'xmark']" class="fa-1x rounded-circle bg-danger p-1 m-4 text-white" />
     </div>
     <div v-else class="ms-auto">
       <!-- edit mode buttons -->

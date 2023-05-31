@@ -8,6 +8,19 @@ $theme-colors: (
   'danger': #dc3545,
 );
 
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 960px,
+        xxl: 960px
+);
+
+a {
+  color: unset !important;
+  text-decoration: none !important;
+}
+
 @import "~bootstrap/scss/bootstrap";
 @import "box";
 @import "animations";
