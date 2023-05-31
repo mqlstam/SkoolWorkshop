@@ -6,7 +6,9 @@ import {
     faPenToSquare,
     faTrash,
     faPlus,
-    faXmark
+    faMinus,
+    faXmark,
+    faPen
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -16,5 +18,7 @@ library.add(
     faPenToSquare,
     faTrash,
     faPlus,
-    faXmark
+    faMinus,
+    faXmark,
+    faPen
 )
