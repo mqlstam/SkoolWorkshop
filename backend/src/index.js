@@ -31,7 +31,10 @@ const app = express()
 // Register routes.
 app
     .get('/api/workshops', (req, res) => controller.workshop.get(req, res))
-    .get('/api/products', (req, res) => controller.product.get(req, res))
+    .get('/api/products', (req, res) => controller.product.getAll(req, res))
+    .get('/api/products/:id', (req, res) => controller.product.get(req, res))
+    .post('/api/products', (req, res) => controller.product.post(req, res))
+    .put('/api/products/:id', (req, res) => controller.product.put(req, res))
     .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))
 
