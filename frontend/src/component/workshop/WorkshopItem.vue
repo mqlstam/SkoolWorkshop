@@ -15,9 +15,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <div role="button"
+  <router-link
        class="d-flex align-items-center border-bottom hover-darken"
-       @click="emit('click', props.workshop)">
+       @click="emit('click', props.workshop)" :to="`/workshops/${props.workshop.id}`">
 
     <!-- image and title -->
     <font-awesome-icon :icon="['fas', 'inbox']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>
@@ -25,7 +25,7 @@ const props = defineProps({
 
     <div v-if="!props.edit" class="ms-auto">
       <!-- workshop stock status -->
-      <font-awesome-icon :icon="['fas', 'check']" class="fa-1x rounded-circle p-1 m-3 bg-success text-white"/>
+      <font-awesome-icon :icon="['fas', 'check']" class="fa-1x rounded-circle p-1 m-4 bg-success text-white"/>
     </div>
     <div v-else class="ms-auto">
       <!-- edit mode buttons -->
@@ -33,5 +33,5 @@ const props = defineProps({
         <font-awesome-icon :icon="['fas', 'trash']" class="scale-up-center fa-xl rounded-circle p-3 bg-danger text-white"/>
       </button>
     </div>
-  </div>
+  </router-link>
 </template>
