@@ -31,7 +31,7 @@ async function remove (workshop) {
     </div>
   </div>
 
-  <div class="row box-md bg-white border-top slide-in-blurred-tr">
+  <div class="row box-md bg-white border-top">
     <!-- workshop list -->
     <workshop-item
         v-for="workshop in workshopStore.workshops"

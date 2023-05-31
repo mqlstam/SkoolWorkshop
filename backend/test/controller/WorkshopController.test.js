@@ -15,7 +15,7 @@ describe('controller/WorkshopController', () => {
             const db = { workshop: { findMany: sinon.stub().returns(workshops) } }
             const controller = new WorkshopController(db)
 
-            await controller.get({}, res)
+            await controller.all({}, res)
             expect(db.workshop.findMany.calledOnce).to.be.true
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(workshops)).to.be.true
@@ -27,7 +27,7 @@ describe('controller/WorkshopController', () => {
             const controller = new WorkshopController(db)
 
             try {
-                await controller.get({}, res)
+                await controller.all({}, res)
                 expect.fail('should have thrown an error')
             } catch (err) {
                 expect(err.message).to.equal('no workshops found')
