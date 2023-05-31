@@ -1,6 +1,6 @@
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { useProductStore} from "../../store/productStore.js"
+import { useProductStore } from '../../store/productStore.js'
 
 const store = useProductStore()
 store.fetchProducts()
@@ -21,7 +21,7 @@ const props = defineProps({
 
 <template>
   <div role="button"
-       class="d-flex align-items-center border-bottom hover-darken"
+       class="d-flex align-items-center border-bottom hover-darken productCard"
        @click="emit('click', props.product)">
 
     <!-- image and title -->
@@ -30,7 +30,8 @@ const props = defineProps({
 
     <div v-if="!props.edit" class="ms-auto">
       <!-- product stock status -->
-      <font-awesome-icon :icon="['fas', 'check']" class="fa-1x rounded-circle p-1 m-3 text-white" v-bind:class="{ 'bg-success': props.product.stock >  props.product.minStock, 'bg-danger': props.product.stock <  props.product.minStock}"/>
+      <font-awesome-icon v-if="props.product.stock >= props.product.minStock" :icon="['fas', 'check']" class="fa-1x rounded-circle bg-success p-1 m-3 text-white" />
+      <font-awesome-icon v-else :icon="['fas', 'xmark']" class="fa-1x rounded-circle bg-danger p-1 m-3 text-white" />
     </div>
     <div v-else class="ms-auto">
       <!-- edit mode buttons -->

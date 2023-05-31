@@ -5,7 +5,8 @@ import {
     faCheck,
     faPenToSquare,
     faTrash,
-    faPlus
+    faPlus,
+    faXmark
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -14,5 +15,6 @@ library.add(
     faCheck,
     faPenToSquare,
     faTrash,
-    faPlus
+    faPlus,
+    faXmark
 )
