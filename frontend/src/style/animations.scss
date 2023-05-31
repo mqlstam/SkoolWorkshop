@@ -1,0 +1,25 @@
+.scale-up-center {
+  animation: scale-up-center 0.05s ease-in both;
+}
+
+@keyframes scale-up-center {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-down-center {
+  animation: scale-down-center 0.4s ease-out both;
+}
+
+@keyframes scale-down-center {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
