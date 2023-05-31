@@ -21,6 +21,7 @@ watch(() => props.value, (newValue) => { value.value = newValue })
 
 const edit = ref(false)
 function update () {
+    if (value.value === '' && edit.value) value.value = props.value
     if (edit.value) emit('update:value', value.value)
     edit.value = !edit.value
 }

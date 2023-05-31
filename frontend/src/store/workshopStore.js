@@ -26,12 +26,11 @@ export const useWorkshopStore = defineStore('workshop', {
             if (ok) {
                 this.workshops.push(response)
                 return response
-            }
-            else throw new Error(response.message)
+            } else throw new Error(response.message)
         },
 
-        async update(data, id) {
-            const { response, ok } = await API.Req('PUT', `/api/workshops/${id}`, { body: data})
+        async update (data, id) {
+            const { response, ok } = await API.Req('PUT', `/api/workshops/${id}`, { body: data })
             if (!ok) {
                 throw new Error(response.message)
             }
