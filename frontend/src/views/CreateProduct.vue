@@ -10,9 +10,9 @@ const router = useRouter()
 const productStore = useProductStore()
 
 const product = ref({
-    name: '',
-    stock: 0,
-    minStock: 0
+  name: '',
+  stock: 0,
+  minStock: 0
 })
 
 const message = ref('')

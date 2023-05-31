@@ -11,11 +11,7 @@ export const useProductStore = defineStore('product', {
             if (ok) this.products = response
             else this.products = []
         },
-        async delete(id) {
-            const { response, ok } = await API.Req('DELETE', `/api/products/${id}`)
-            if (ok) this.products = this.products.filter(w => w.id !== id)
-            else throw new Error(response.message)
-        },
+
         async getProduct(id) {
             const { response, ok } = await API.Req('GET', `/api/products/${id}`)
             if (ok) return response
@@ -35,8 +31,13 @@ export const useProductStore = defineStore('product', {
                 const index = this.products.findIndex(p => p.id === product.id)
                 this.products[index] = response
             }
-        }
+        },
 
-
+        async delete(id) {
+            const { response, ok } = await API.Req('DELETE', `/api/products/${id}`)
+            if (ok) this.products = this.products.filter(w => w.id !== id)
+            else throw new Error(response.message)
+        },
     }
 })
+
