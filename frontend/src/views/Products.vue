@@ -1,7 +1,7 @@
 <script setup>
 
 import { useProductStore } from '../store/productStore.js'
-import ProductCard from '../component/product/ProductCard.vue'
+import ProductCard from '../component/product/ProductItem.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref } from 'vue'
 

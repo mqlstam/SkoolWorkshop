@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { useWorkshopStore } from '../store/workshopStore.js'
-import EditWorkshopForm from '../component/workshop/EditWorkshopForm.vue'
+import WorkshopInfo from '../component/workshop/WorkshopInfo.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const route = useRoute()
@@ -28,5 +28,5 @@ const workshop = await workshopStore.get(workshopId)
       </button>
     </div>
   </div>
-  <edit-workshop-form :workshopId="workshop.id"/>
+  <workshop-info :workshopId="workshop.id"/>
 </template>
