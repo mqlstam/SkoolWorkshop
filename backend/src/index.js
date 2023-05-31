@@ -29,12 +29,12 @@ const app = express()
 
 // Register routes.
 app
+    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
     .get('/api/workshops', (req, res) => controller.workshop.get(req, res))
     .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))
     .get('/api/products', (req, res) => controller.product.get(req, res))
     .delete('/api/products/:id', (req, res) => controller.product.delete(req, res))
-    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
 
 // Register error handlers.
 app
