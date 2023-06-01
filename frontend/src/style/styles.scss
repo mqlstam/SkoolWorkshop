@@ -1,6 +1,20 @@
+$body-bg: #fafafa;
+$input-focus-border-color: #f49700;
+$input-focus-box-shadow: unset;
 
 $theme-colors: (
   'primary': #f49700,
+  'success': #28a745,
+  'secondary': #ededed,
+  'danger': #dc3545,
+);
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 960px,
+        xxl: 960px
   'black': #444444,
   'green': #8EA604,
   'red': #DF2935,
@@ -9,25 +23,18 @@ $theme-colors: (
   'white': #FFFFFF 
 );
 
-$font-family-sans-serif: 'Roboto', sans-serif;
-
-
-
+a {
+  color: unset !important;
+  text-decoration: none !important;
+}
 
 @import "~bootstrap/scss/bootstrap";
-.btn {
-  color: white;
-}
+@import "box";
+@import "animations";
 
-h1 {
-  font-weight: bold;
+.hover-darken:hover {
+  background-color: #7771;
 }
-
-.card-overlay{
-  background-color: white; 
-  border-radius: 1.875rem 1.875rem 0 0;
-}
-
 
 .card {
   background-color: #ededed;

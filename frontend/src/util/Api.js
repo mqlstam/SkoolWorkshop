@@ -9,7 +9,13 @@ export class API {
      * @returns {Promise<{response: *, ok: boolean, status: number}>}
      */
     static async Req (method, url, { body = null, headers = new Headers() } = {}) {
-        const response = await fetch(url, { headers, method, body })
+        if (body) headers.append('Content-Type', 'application/json')
+        const response = await fetch(url, {
+            headers,
+            method,
+            body: body ? JSON.stringify(body) : undefined
+        })
+
         const contentType = response.headers.get('content-type')
         return {
             response: contentType && contentType.indexOf('application/json') !== -1 ? await response.json() : await response.text(),
