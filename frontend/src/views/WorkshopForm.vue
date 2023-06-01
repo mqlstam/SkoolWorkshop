@@ -1,10 +1,34 @@
+<script setup>
+import { ref } from 'vue'
+import { useWorkshopStore } from '../store/workshopStore.js'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+const image = ref(null)
+const workshop = useWorkshopStore()
+
+async function submitForm () {
+    try {
+        console.log('submitForm function called') // Add this line
+        await workshop.submitForm(image)
+    } catch (error) {
+        console.error('Error in submitForm: ', error)
+    }
+}
+</script>
 <template>
   <div class="vh-100 d-flex flex-column">
     <div class="d-md-none text-center mx-0 emoijbg">
       <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid">
     </div>
-    <div class="row justify-content-end mx-0 flex-grow-1">
-      <div class="col-md-3 d-flex flex-column p-4 p-md-5 card-overlay">
+    <div class="row justify-content-center mx-0 flex-grow-1">
+
+      <div class="col-md-6 d-flex flex-column card-overlay flex-grow-1">
+        <div>
+          <router-link to="/workshops" class="btn float-end hover-darken mt-2">
+            <font-awesome-icon :icon="['fas', 'x']" />
+          </router-link>
+        </div>
+        <div class="p-4 p-md-5 d-flex flex-column flex-grow-1 ">
         <div class="mb-3 mb-5">
           <div class="text-center">
             <h1>Workshop toevoegen</h1>
@@ -27,27 +51,10 @@
               <label for="image-upload" class="form-label">Upload afbeelding</label>
               <input type="file" class="form-control" id="image-upload" ref="image" accept="image/png, image/jpeg">
             </div>
-             <button type="submit" class="btn btn-primary mt-auto w-100">Create Workshop</button>
+             <button type="submit" class="submitbtn btn btn-primary mt-auto w-100">Create Workshop</button>
           </form>
-
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import { useWorkshopStore } from '../store/workshopStore.js'
-
-const image = ref(null)
-const workshop = useWorkshopStore()
-
-async function submitForm () {
-    try {
-        console.log('submitForm function called') // Add this line
-        await workshop.submitForm(image)
-    } catch (error) {
-        console.error('Error in submitForm: ', error)
-    }
-}
-</script>
