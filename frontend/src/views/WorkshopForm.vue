@@ -28,7 +28,7 @@ const postWorkshop = async () => {
 <template>
   <div class="vh-100 d-flex flex-column">
     <div class="d-md-none text-center mx-0 emoijbg">
-      <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid">
+      <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid w-100">
     </div>
     <div class="row justify-content-center mx-0 flex-grow-1">
 
