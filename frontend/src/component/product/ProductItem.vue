@@ -29,8 +29,8 @@ const props = defineProps({
 
     <div v-if="!props.edit" class="ms-auto">
       <!-- product stock status -->
-      <font-awesome-icon v-if="props.product.stock >= props.product.minStock" :icon="['fas', 'check']" class="fa-1x rounded-circle bg-success p-1 m-4 text-white" />
-      <font-awesome-icon v-else :icon="['fas', 'xmark']" class="fa-1x rounded-circle bg-danger p-1 m-4 text-white" />
+      <font-awesome-icon v-if="props.product.stock >= props.product.minStock" :icon="['fas', 'check']" class="fa-1x rounded-circle bg-success p-1 m-4 text-white" style="width:20px;height:20px;"/>
+      <font-awesome-icon v-else :icon="['fas', 'xmark']" class="fa-1x rounded-circle bg-danger p-1 m-4 text-white" style="width:20px;height:20px;"/>
     </div>
     <div v-else class="ms-auto">
       <!-- edit mode buttons -->
