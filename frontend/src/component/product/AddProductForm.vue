@@ -22,10 +22,8 @@ const product = ref({
 })
 
 async function create () {
-    if (product.value.name && product.value.stock && product.value.minStock) {
         await productStore.createProduct(product.value)
-        router.push('/products')
-    }
+        router.push('/products')    
 }
 </script>
 
