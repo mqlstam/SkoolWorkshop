@@ -1,12 +1,13 @@
 import { HttpError } from './error/HttpError.js'
 import { PostProductRequest } from './request/product/PostProductRequest.js'
+import { PutProductRequest } from './request/product/PutProductRequest.js'
 
 export class ProductController {
     constructor (db) {
         this.db = db
     }
 
-    async getAll (req, res) {
+    async all (req, res) {
         const products = await this.db.product.findMany()
         if (!products.length) {
             throw new HttpError(404, 'no products found')
@@ -15,57 +16,65 @@ export class ProductController {
         res.status(200).send(products)
     }
 
+    async get (req, res) {
+        const id = req.params.id
+        const product = await this.db.product.findUnique({
+            where: { id: parseInt(id) }
+        })
+
+        if (!product) {
+            throw new HttpError(404, 'product not found')
+        }
+
+        res.status(200).send(product)
+    }
+
     async post (req, res) {
         const product = new PostProductRequest(req).data()
 
         try {
-            const result = await this.db.product.create({
-                data: product
-            })
+            const result = await this.db.product.create({ data: product })
             res.status(201).send(result)
-        } catch (error) {
-            console.log(error.code)
-            if (error.code === 'P2002') {
-                throw new HttpError(400, 'Product already exists.')
+        } catch (err) {
+            if (err.code === 'P2002') {
+                throw new HttpError(400, 'product already exists')
             }
+            throw new HttpError(500, 'could not create product')
         }
     }
 
     async put (req, res) {
-        const { id } = req.params
-        const updatedProductData = req.body
+        const id = req.params.id
+        const product = new PutProductRequest(req).data()
 
-        const updatedProduct = await this.db.product.update({
-            where: { id: Number(id) },
-            data: updatedProductData
-        })
+        try {
+            const result = await this.db.product.update({
+                where: { id: parseInt(id) },
+                data: product
+            })
 
-        res.status(200).send(updatedProduct)
-    }
-
-    async get (req, res) {
-        const { id } = req.params
-
-        const product = await this.db.product.findFirst({
-            where: { id: Number(id) }
-        })
-        res.status(200).send(product)
+            res.status(200).send(result)
+        } catch (err) {
+            if (err.code === 'P2025') {
+                throw new HttpError(404, 'product not found')
+            }
+            throw new HttpError(500, 'could not edit product')
+        }
     }
 
     async delete (req, res) {
-        const productId = req.params.id
+        const id = req.params.id
         try {
             await this.db.product.delete({
-                where: {
-                    id: parseInt(productId)
-                }
+                where: { id: parseInt(id) }
             })
-            res.status(200).send({ message: 'Product removed' })
+
+            res.status(200).send({ message: 'product removed' })
         } catch (err) {
             if (err.code === 'P2025') {
-                throw new HttpError(404, 'Product not found')
+                throw new HttpError(404, 'product not found')
             }
-            throw new HttpError(500, 'Could not delete product')
+            throw new HttpError(500, 'could not delete product')
         }
     }
 }
