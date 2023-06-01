@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
-import { PostProductRequest } from '../../../../src/controller/request/product/PostProductRequest.js'
+import { PutProductRequest } from '../../../../src/controller/request/product/PutProductRequest.js'
 
-describe('controller/request/product/PostProductRequest', () => {
+describe('controller/request/product/PutProductRequest', () => {
     it('should accept valid requests', async () => {
         const req = {
             body: {
@@ -12,7 +12,7 @@ describe('controller/request/product/PostProductRequest', () => {
             }
         }
 
-        const data = new PostProductRequest(req).data()
+        const data = new PutProductRequest(req).data()
         expect(data).to.deep.equal(req.body)
     })
 })
