@@ -16,13 +16,18 @@ export const useWorkshopStore = defineStore('workshop', {
             this.name = ''
             this.groupSize = null
         },
-        async submitForm () {
+        async submitForm (imageRef) {
+            console.log(`Submitting form with name ${this.name} and group size ${this.groupSize}`)
+            const formData = new FormData()
+            formData.append('name', this.name)
+            formData.append('groupSize', this.groupSize)
+            if (imageRef.value?.files[0]) {
+                formData.append('image', imageRef.value.files[0])
+            }
+
             const response = await fetch('/api/workshops', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name: this.name, groupSize: this.groupSize })
+                body: formData
             })
 
             if (!response.ok) {

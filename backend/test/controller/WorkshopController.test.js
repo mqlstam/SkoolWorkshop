@@ -34,47 +34,100 @@ describe('WorkshopController', () => {
     })
 
     describe('post', () => {
-        it('should post a new workshop', async () => {
+        it('should post a workshop', async () => {
             const req = {
-                body: { name: 'Workshop 3', groupSize: 15 }
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                body: {
+                    name: 'Workshop 3',
+                    groupSize: 15
+                },
+                file: {
+                    path: '../../uploads/test.jpg',
+                    originalname: 'test.jpg'
+                    // Add other necessary properties for the file
+                }
             }
+            const workshopToCreate = { name: req.body.name, groupSize: parseInt(req.body.groupSize), imagePath: req.file.path }
+            const createdWorkshop = { id: 3, ...workshopToCreate }
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
-            const db = { workshop: { findUnique: sinon.stub().returns(null), post: sinon.stub().returns(req.body) } }
+            const db = {
+                workshop: {
+                    findUnique: sinon.stub().returns(null),
+                    create: sinon.stub().returns(createdWorkshop)
+                }
+            }
             const controller = new WorkshopController(db)
 
             await controller.post(req, res)
             expect(db.workshop.findUnique.calledOnce).to.be.true
-            expect(db.workshop.post.calledOnce).to.be.true
+            expect(db.workshop.create.calledOnceWith({ data: workshopToCreate })).to.be.true
             expect(res.status.calledOnceWith(201)).to.be.true
-            expect(res.send.calledOnceWith(req.body)).to.be.true
+            expect(res.send.calledOnceWith(createdWorkshop)).to.be.true
         })
 
         it('should return 400 if workshop name is already taken', async () => {
             const req = {
-                body: { name: 'Workshop 1', groupSize: 15 }
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                body: {
+                    name: 'Workshop 3',
+                    groupSize: 15
+                },
+                file: {
+                    path: '../../uploads/test.jpg',
+                    originalname: 'test.jpg'
+                    // Add other necessary properties for the file
+                }
             }
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
-            const db = { workshop: { findUnique: sinon.stub().returns(workshops[0]), post: sinon.stub() } }
+            const db = {
+                workshop: {
+                    findUnique: sinon.stub().returns(workshops[0]),
+                    create: sinon.stub()
+                }
+            }
             const controller = new WorkshopController(db)
 
             await controller.post(req, res)
             expect(db.workshop.findUnique.calledOnce).to.be.true
-            expect(db.workshop.post.called).to.be.false
-            expect(res.status.calledOnceWith(400)).to.be.true
-            expect(res.send.calledOnceWith({ message: `Workshop with name ${req.body.name} already exists.` })).to.be.true
+            expect(db.workshop.create.called).to.be.false
+            expect(res.status.calledOnce).to.be.true
+            expect(res.status.firstCall.args[0]).to.equal(400)
+            expect(res.send.calledOnce).to.be.true
+            expect(res.send.firstCall.args[0]).to.deep.equal({
+                message: `Workshop with name ${req.body.name} already exists.`
+            })
         })
 
         it('should return 400 if workshop name or groupSize is missing', async () => {
-            const req = { body: {} }
+            const req = {
+                headers: {
+                    'content-type': 'multipart/form-data' // Add the appropriate content-type header
+                },
+                body: {},
+                file: {}
+            }
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
-            const db = { workshop: { findUnique: sinon.stub(), post: sinon.stub() } }
+            const db = {
+                workshop: {
+                    findUnique: sinon.stub(),
+                    create: sinon.stub()
+                }
+            }
             const controller = new WorkshopController(db)
 
             await controller.post(req, res)
             expect(db.workshop.findUnique.called).to.be.false
-            expect(db.workshop.post.called).to.be.false
-            expect(res.status.calledOnceWith(400)).to.be.true
-            expect(res.send.calledOnceWith({ message: 'Workshop name and groupSize are required.' })).to.be.true
+            expect(db.workshop.create.called).to.be.false
+            expect(res.status.calledOnce).to.be.true
+            expect(res.status.firstCall.args[0]).to.equal(400)
+            expect(res.send.calledOnce).to.be.true
+            expect(res.send.firstCall.args[0]).to.deep.equal({
+                message: 'Workshop name and group size are required.'
+            })
         })
     })
 })
