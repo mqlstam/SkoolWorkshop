@@ -1,6 +1,6 @@
 <script setup>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const emit = defineEmits(['update:value'])
 const props = defineProps({
@@ -20,6 +20,7 @@ const value = ref(props.value)
 watch(() => props.value, (newValue) => { value.value = newValue })
 
 const edit = ref(false)
+
 function update () {
     if (value.value === '' && edit.value) value.value = props.value
     if (edit.value) emit('update:value', value.value)
