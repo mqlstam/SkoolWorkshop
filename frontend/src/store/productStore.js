@@ -6,26 +6,26 @@ export const useProductStore = defineStore('product', {
         products: []
     }),
     actions: {
-        async fetchProducts() {
+        async fetchProducts () {
             const { response, ok } = await API.Req('GET', '/api/products')
             if (ok) this.products = response
             else this.products = []
         },
 
-        async getProduct(id) {
+        async getProduct (id) {
             const { response, ok } = await API.Req('GET', `/api/products/${id}`)
             if (ok) return response
             else this.products = []
         },
 
-        async createProduct(product) {
+        async createProduct (product) {
             const { response, ok } = await API.Req('POST', '/api/products', { body: product })
             console.log('Response:', response, 'OK:', ok)
 
             if (ok) this.products.push(response)
         },
 
-        async updateProduct(product, id) {
+        async updateProduct (product, id) {
             const { response, ok } = await API.Req('PUT', `/api/products/${id}`, { body: product })
             if (ok) {
                 const index = this.products.findIndex(p => p.id === product.id)
@@ -33,11 +33,10 @@ export const useProductStore = defineStore('product', {
             }
         },
 
-        async delete(id) {
+        async delete (id) {
             const { response, ok } = await API.Req('DELETE', `/api/products/${id}`)
             if (ok) this.products = this.products.filter(w => w.id !== id)
             else throw new Error(response.message)
-        },
+        }
     }
 })
-

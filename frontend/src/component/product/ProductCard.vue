@@ -5,7 +5,7 @@ import { useProductStore } from '../../store/productStore.js'
 const store = useProductStore()
 store.fetchProducts()
 
-const emit = defineEmits(['click', 'delete'])
+const emit = defineEmits(['delete'])
 const props = defineProps({
     product: {
         type: Object,
@@ -17,12 +17,13 @@ const props = defineProps({
     }
 })
 
+
 </script>
 
 <template>
-  <div role="button"
+  <router-link
        class="d-flex align-items-center border-bottom hover-darken"
-       @click="emit('click', props.product)">
+       :to="`/product/${props.product.id}`">
 
     <!-- image and title -->
     <font-awesome-icon :icon="['fas', 'inbox']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>
@@ -35,9 +36,9 @@ const props = defineProps({
     </div>
     <div v-else class="ms-auto">
       <!-- edit mode buttons -->
-      <button class="btn p-2 hover-darken" @click="emit('delete', product)">
+      <button class="btn p-2 hover-darken" @click.stop="emit('delete', product)">
         <font-awesome-icon :icon="['fas', 'trash']" class="scale-up-center fa-xl rounded-circle p-3 bg-danger text-white"/>
       </button>
     </div>
-  </div>
+  </router-link>
 </template>

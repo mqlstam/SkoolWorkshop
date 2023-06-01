@@ -10,18 +10,18 @@ const productStore = useProductStore()
 productStore.fetchProducts()
 const router = useRouter()
 
-async function remove(product) {
-  await productStore.delete(product.id)
+async function remove (product) {
+    await productStore.delete(product.id)
 }
 
-function redirectToCreate() {
-  router.push('/products/create')
+function redirectToCreate () {
+    router.push('/products/create')
 }
 
-function redirectToUpdate(product) {
-  if (edit.value) {
-    router.push(`/product/${product.id}`)
-  }
+function redirectToUpdate (product) {
+    if (edit.value) {
+        router.push(`/product/${product.id}`)
+    }
 }
 </script>
 
@@ -59,4 +59,3 @@ function redirectToUpdate(product) {
     />
   </div>
 </template>
-

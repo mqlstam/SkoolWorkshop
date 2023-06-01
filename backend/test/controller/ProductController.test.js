@@ -3,12 +3,14 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import { ProductController } from '../../src/controller/ProductController.js'
 
-describe('controller/ProductController', () => {
-    const products = [
-        { id: 1, name: 'Product 1', stock: 100, minStock: 10 },
-        { id: 2, name: 'Product 2', stock: 200, minStock: 20 }
-    ]
+const products = [
+    { id: 1, name: 'Product 1', stock: 100, minStock: 10 },
+    { id: 2, name: 'Product 2', stock: 200, minStock: 20 }
+]
 
+
+describe('controller/ProductController', () => {
+   
     describe('get', () => {
         it('should return a list of products', async () => {
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
