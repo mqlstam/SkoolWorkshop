@@ -42,7 +42,7 @@ describe('controller/WorkshopController', () => {
             const db = { workshop: { findUnique: sinon.stub().returns(workshops[0]) } }
             const controller = new WorkshopController(db)
 
-            await controller.get({params: 1}, res)
+            await controller.get({ params: 1 }, res)
             expect(db.workshop.findUnique.calledOnce).to.be.true
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(workshops[0])).to.be.true
@@ -54,7 +54,7 @@ describe('controller/WorkshopController', () => {
             const controller = new WorkshopController(db)
 
             try {
-                await controller.get({params: 1}, res)
+                await controller.get({ params: 1 }, res)
                 expect.fail('should have thrown an error')
             } catch (err) {
                 expect(err.message).to.equal('workshop not found')
