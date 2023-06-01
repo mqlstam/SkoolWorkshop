@@ -105,7 +105,7 @@ export class WorkshopController {
             }
 
             const workshop = await this.db.workshop.create({
-                data: { name: req.body.name, groupSize: parseInt(req.body.groupSize), imagePath: req.file.path }
+                data: { name: req.body.name, groupSize: parseInt(req.body.groupSize), imagePath: req.file ? req.file.path : null }
             })
 
             res.status(201).send(workshop)
