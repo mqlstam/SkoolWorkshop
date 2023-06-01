@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useWorkshopStore } from '../store/workshopStore.js'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const workshopStore = useWorkshopStore()
 
