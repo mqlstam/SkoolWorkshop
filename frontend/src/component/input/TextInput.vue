@@ -1,29 +1,33 @@
 <script setup>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const emit = defineEmits(['update:value', 'createProduct'])
+const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
     name: {
         type: String,
         required: true
     },
-    value: {
+    modelValue: {
         type: String,
         default: ''
     }
 })
 
-// create a copy of the value prop to be able to edit it
+// create a copy of the modelValue prop to be able to edit it
 // without directly changing the prop
-const value = ref(props.value)
-watch(() => props.value, (newValue) => { value.value = newValue })
+const value = ref(props.modelValue)
+watch(() => props.modelValue, (newValue) => { value.value = newValue })
 
 const edit = ref(false)
+function handleChange () {
+    emit('update:modelValue', value.value)
+}
+
 function update () {
-    if (value.value === '' && edit.value) value.value = props.value
-    if (edit.value) emit('update:value', value.value)
+    if (value.value === '' && edit.value) value.value = props.modelValue
     edit.value = !edit.value
+    if (edit.value) handleChange()
 }
 </script>
 
@@ -33,7 +37,7 @@ function update () {
 
     <div class="ms-auto d-flex align-items-center">
       <span v-if="!edit">{{value}}</span>
-      <input v-else type="text" class="form-control" v-model="value" autofocus />
+      <input v-else type="text" class="form-control" v-model="value" @input="handleChange" autofocus />
       <div role="button" @click="update">
         <font-awesome-icon
             :icon="['fas', 'pen']"
@@ -56,3 +60,5 @@ input[type=number] {
   -moz-appearance:textfield;
 }
 </style>
+
+

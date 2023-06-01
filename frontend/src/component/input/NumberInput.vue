@@ -2,27 +2,27 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
 
-const emit = defineEmits(['update:value', 'createProduct'])
+const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
     name: {
         type: String,
         required: true
     },
-    value: {
+    modelValue: {
         type: Number,
         default: 1
     }
 })
 
-// create a copy of the value prop to be able to edit it
+// create a copy of the modelValue prop to be able to edit it
 // without directly changing the prop
-const value = ref(props.value)
-watch(() => props.value, (newValue) => {
+const value = ref(props.modelValue)
+watch(() => props.modelValue, (newValue) => {
     value.value = newValue
 })
 
 function update () {
-    emit('update:value', value.value)
+    emit('update:modelValue', value.value)
 }
 </script>
 
@@ -31,7 +31,7 @@ function update () {
     <span class="mx-3">{{ name }}</span>
 
     <div class="ms-auto d-flex align-items-center">
-      <div role="button" @click="value = Math.max(value -1, 0); update()">
+      <div role="button" @click="value = Math.max(value - 1, 0); update()">
         <font-awesome-icon
             :icon="['fas', 'minus']"
             class="p-3 mx-2 rounded-3 hover-darken" />
@@ -47,3 +47,4 @@ function update () {
     </div>
   </div>
 </template>
+
