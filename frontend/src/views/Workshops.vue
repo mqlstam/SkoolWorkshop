@@ -5,25 +5,31 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref } from 'vue'
 
 const edit = ref(false)
-const image = ref(null)
-const workshop = ref({
-    name: '',
-    groupSize: ''
-})
 
 const workshopStore = useWorkshopStore()
+
+const workshop = ref({
+    name: '',
+    groupSize: null
+})
+const imageRef = ref(null)
 workshopStore.fetch()
 
 async function remove (workshop) {
     await workshopStore.delete(workshop.id)
 }
 
-async function submitForm () {
+const postWorkshop = async () => {
+    const imageFile = imageRef.value?.files[0]
     try {
-        console.log('submitForm function called')
-        await workshopStore.add(workshop.value, image.value)
+        await workshopStore.post(workshop.value, imageFile)
+        // clear form fields after successful submission
+        workshop.value = {
+            name: '',
+            groupSize: null
+        }
     } catch (error) {
-        console.error('Error in submitForm: ', error)
+        console.error('Error in postWorkshop: ', error)
     }
 }
 </script>
@@ -59,7 +65,7 @@ async function submitForm () {
     <div class="col d-none d-lg-block">
       <div class="vh-100 d-flex flex-column">
         <div class="d-md-none text-center mx-0 emoijbg">
-          <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid">
+          <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid w-100">
         </div>
         <div class="row mx-0 flex-grow-1">
           <div class="d-flex flex-column p-4 p-md-5 card-overlay">
@@ -69,7 +75,7 @@ async function submitForm () {
                 <p>"Een Nieuwe Workshop, ,<br>Een Nieuwe Ontdekkingsreis"</p>
               </div>
             </div>
-              <form @submit.prevent="submitForm" class="flex-grow-1 d-flex flex-column mt-5">
+              <form @submit.prevent="postWorkshop" class="flex-grow-1 d-flex flex-column mt-5">
                 <div class="mb-3">
                   <label for="workshop-name" class="form-label">Workshop Name</label>
                   <input id="workshop-name" v-model="workshop.name" required class="form-control" />
@@ -83,7 +89,7 @@ async function submitForm () {
 
                 <div class="mb-3">
                   <label for="image-upload" class="form-label">Upload afbeelding</label>
-                  <input type="file" class="form-control" id="image-upload" ref="image" accept="image/png, image/jpeg">
+                  <input type="file" class="form-control" id="image-upload" ref="imageRef" accept="image/png, image/jpeg">
                 </div>
                  <button type="submit" class="submitbtn btn  btn-primary mt-auto w-100">Create Workshop</button>
               </form>
