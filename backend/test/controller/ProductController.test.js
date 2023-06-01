@@ -8,9 +8,7 @@ const products = [
     { id: 2, name: 'Product 2', stock: 200, minStock: 20 }
 ]
 
-
 describe('controller/ProductController', () => {
-   
     describe('get', () => {
         it('should return a list of products', async () => {
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
@@ -211,4 +209,3 @@ describe('controller/ProductController', () => {
         })
     })
 })
-

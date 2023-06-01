@@ -8,8 +8,6 @@
   </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
 import AddProductForm from '../component/product/AddProductForm.vue'
 
-const router = useRouter()
 </script>

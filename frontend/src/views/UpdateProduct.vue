@@ -1,30 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import { useProductStore } from '../store/productStore.js'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 import EditProductForm from '../component/product/EditProductForm.vue'
 
 const rout = useRoute()
-const router = useRouter()
 
 const productStore = useProductStore()
 
 const productId = rout.params.id
 const product = ref(await productStore.getProduct(productId))
 console.log(product.value)
-const message = ref('')
-async function submitForm (e) {
-    e.preventDefault()
-    // Check if all fields are filled in
-    if (product.value.name && product.value.stock && product.value.minStock) {
-        console.log(product.value)
-        await productStore.updateProduct(product.value, productId)
-        message.value = ''
-    } else {
-        message.value = 'All fields are required'
-    }
-}
 </script>
 
 <template>

@@ -5,13 +5,6 @@ import NumberInput from '../input/NumberInput.vue'
 import TextInput from '../input/TextInput.vue'
 import { useRouter } from 'vue-router'
 
-const props = defineProps({
-    productId: {
-        type: Number,
-        required: true
-    }
-})
-
 const router = useRouter()
 const productStore = useProductStore()
 
@@ -22,8 +15,8 @@ const product = ref({
 })
 
 async function create () {
-        await productStore.createProduct(product.value)
-        router.push('/products')    
+    await productStore.createProduct(product.value)
+    router.push('/products')
 }
 </script>
 
