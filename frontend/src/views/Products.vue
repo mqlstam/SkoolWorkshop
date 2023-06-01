@@ -3,25 +3,13 @@ import { useProductStore } from '../store/productStore.js'
 import ProductItem from '../component/product/ProductItem.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 const edit = ref(false)
 const productStore = useProductStore()
-productStore.fetchProducts()
-const router = useRouter()
+productStore.fetch()
 
 async function remove (product) {
     await productStore.delete(product.id)
-}
-
-function redirectToCreate () {
-    router.push('/products/create')
-}
-
-function redirectToUpdate (product) {
-    if (edit.value) {
-        router.push(`/product/${product.id}`)
-    }
 }
 </script>
 
@@ -33,9 +21,9 @@ function redirectToUpdate (product) {
 
     <div class="col-10 p-1">
       <!-- action buttons -->
-      <button class="btn float-end p-3 hover-darken" @click="redirectToCreate">
+      <router-link class="btn float-end p-3 hover-darken" to="/products/new">
         <font-awesome-icon :icon="['fas', 'plus']" class="fa-2x" />
-      </button>
+      </router-link>
 
       <button
         class="btn float-end p-3 hover-darken"
@@ -54,8 +42,6 @@ function redirectToUpdate (product) {
       :key="product.id"
       :product="product"
       :edit="edit"
-      @delete="remove"
-      @click="redirectToUpdate(product)"
-    />
+      @delete="remove" />
   </div>
 </template>

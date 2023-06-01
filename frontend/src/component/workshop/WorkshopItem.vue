@@ -17,7 +17,8 @@ const props = defineProps({
 <template>
   <router-link
        class="d-flex align-items-center border-bottom hover-darken"
-       @click="emit('click', props.workshop)" :to="`/workshops/${props.workshop.id}`">
+       @click="emit('click', props.workshop)"
+       :to="`/workshops/${props.workshop.id}`">
 
     <!-- image and title -->
     <font-awesome-icon :icon="['fas', 'inbox']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>

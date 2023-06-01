@@ -5,7 +5,7 @@ import WorkshopInfo from '../component/workshop/WorkshopInfo.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const route = useRoute()
-const workshopId = route.params.id
+const workshopId = Number(route.params.id)
 
 const workshopStore = useWorkshopStore()
 const workshop = await workshopStore.get(workshopId)

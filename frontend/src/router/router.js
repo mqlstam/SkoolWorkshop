@@ -18,15 +18,14 @@ const routes = [
         component: () => import('../views/WorkshopDetails.vue')
     },
     {
-        path: '/products/create',
-        name: 'createProduct',
-        component: () => import('../views/CreateProduct.vue')
+        path: '/products/new',
+        name: 'product-create',
+        component: () => import('../views/ProductCreate.vue')
     },
     {
-        path: '/product/:id',
-        name: 'updateProduct',
-        component: () => import('../views/UpdateProduct.vue')
-
+        path: '/products/:id',
+        name: 'product-details',
+        component: () => import('../views/ProductDetails.vue')
     }
 ]
 
