@@ -1,6 +1,6 @@
 <script setup>
 import { useProductStore } from '../store/productStore.js'
-import ProductCard from '../component/product/ProductItem.vue'
+import ProductItem from '../component/product/ProductItem.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -49,7 +49,7 @@ function redirectToUpdate (product) {
 
   <div class="row box-md bg-white border-top">
     <!-- product list -->
-    <ProductCard
+    <ProductItem
       v-for="product in productStore.products"
       :key="product.id"
       :product="product"
