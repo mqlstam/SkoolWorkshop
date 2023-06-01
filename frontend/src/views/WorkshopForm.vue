@@ -30,7 +30,6 @@
              <button type="submit" class="btn btn-primary mt-auto w-100">Create Workshop</button>
           </form>
 
-      
       </div>
     </div>
   </div>
