@@ -7,6 +7,12 @@ $theme-colors: (
   'success': #28a745,
   'secondary': #ededed,
   'danger': #dc3545,
+  'black': #444444,
+  'green': #8EA604,
+  'red': #DF2935,
+  'grey': #666666,
+  'light-grey': #CACACA,
+  'white': #FFFFFF 
 );
 
 $container-max-widths: (
@@ -15,12 +21,6 @@ $container-max-widths: (
         lg: 960px,
         xl: 960px,
         xxl: 960px
-  'black': #444444,
-  'green': #8EA604,
-  'red': #DF2935,
-  'grey': #666666,
-  'light-grey': #CACACA,
-  'white': #FFFFFF 
 );
 
 a {
