@@ -11,8 +11,7 @@
             <p>"Een Nieuwe Workshop, ,<br>Een Nieuwe Ontdekkingsreis"</p>
           </div>
         </div>
-        <div class="mt-5 flex-grow-1 d-flex flex-column">
-          <form @submit.prevent="submitForm" class="flex-grow-1">
+          <form @submit.prevent="submitForm" class="flex-grow-1 d-flex flex-column mt-5">
             <div class="mb-3">
               <label for="workshop-name" class="form-label">Workshop Name</label>
               <input id="workshop-name" v-model="workshop.name" required class="form-control" />
@@ -28,10 +27,10 @@
               <label for="image-upload" class="form-label">Upload afbeelding</label>
               <input type="file" class="form-control" id="image-upload" ref="image" accept="image/png, image/jpeg">
             </div>
-             <button type="submit" class="btn btn-primary mt-auto">Create Workshop</button>
+             <button type="submit" class="btn btn-primary mt-auto w-100">Create Workshop</button>
           </form>
 
-        </div>
+      
       </div>
     </div>
   </div>
