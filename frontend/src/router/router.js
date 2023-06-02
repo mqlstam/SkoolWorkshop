@@ -16,7 +16,12 @@ const routes = [
         path: '/workshops/:id',
         name: 'workshop-details',
         component: () => import('../views/WorkshopDetails.vue')
-    }
+    },
+    {
+        path: '/workshops/:id/products',
+        name: 'workshop-products',
+        component: () => import('../views/WorkshopProductItem.vue')
+    },
 ]
 
 export default createRouter({
