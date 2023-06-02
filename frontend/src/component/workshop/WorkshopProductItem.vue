@@ -15,8 +15,11 @@ const props = defineProps({
 </script>
 
 <template>
+    
   <div class="d-flex align-items-center border-bottom hover-darken" @click="emit('click', props.product)">
 
+    
+   
     <!-- image and title -->
     <font-awesome-icon :icon="['fas', 'inbox']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>
     <span class="h5"> {{ props.product.name }} </span>
