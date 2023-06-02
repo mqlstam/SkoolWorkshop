@@ -48,7 +48,7 @@ const postWorkshop = async () => {
                 class="form-control" />
             </div>
 
-             <button type="submit" class="submitbtn btn btn-primary mt-auto w-100">Create Workshop</button>
+             <button type="submit" class="text-white btn btn-primary mt-auto w-100">Create Workshop</button>
           </form>
         </div>
 
