@@ -18,6 +18,16 @@ const routes = [
         component: () => import('../views/WorkshopDetails.vue')
     },
     {
+        path: '/products/new',
+        name: 'product-create',
+        component: () => import('../views/ProductCreate.vue')
+    },
+    {
+        path: '/products/:id',
+        name: 'product-details',
+        component: () => import('../views/ProductDetails.vue')
+    },
+    {
         path: '/workshops/create',
         name: 'workshop-create',
         component: () => import('../views/WorkshopForm.vue')

@@ -26,15 +26,21 @@ const controller = {
 const app = express()
     .use(express.json())
     .use(express.static('public'))
+    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
+
 // Register routes.
 app
-    .use((req, res, next) => middleware.accessLogger.exec(req, res, next))
     .get('/api/workshops', (req, res) => controller.workshop.all(req, res))
     .post('/api/workshops', (req, res) => controller.workshop.post(req, res))
     .get('/api/workshops/:id', (req, res) => controller.workshop.get(req, res))
     .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))
-    .get('/api/products', (req, res) => controller.product.get(req, res))
+
+app
+    .get('/api/products', (req, res) => controller.product.all(req, res))
+    .get('/api/products/:id', (req, res) => controller.product.get(req, res))
+    .post('/api/products', (req, res) => controller.product.post(req, res))
+    .put('/api/products/:id', (req, res) => controller.product.put(req, res))
     .delete('/api/products/:id', (req, res) => controller.product.delete(req, res))
 
 // Register error handlers.
