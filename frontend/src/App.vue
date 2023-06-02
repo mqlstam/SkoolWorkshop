@@ -1,5 +1,5 @@
 <template>
-  <div class="container justify-content-center">
+    <div class="container justify-content-center ">
     <suspense>
       <router-view />
     </suspense>
