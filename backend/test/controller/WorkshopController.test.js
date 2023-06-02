@@ -134,6 +134,4 @@ describe('controller/WorkshopController', () => {
             }
         })
     })
-
-
 })

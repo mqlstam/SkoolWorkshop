@@ -32,6 +32,15 @@ export const useWorkshopStore = defineStore('workshop', {
             }
         },
 
+        async create (workshop) {
+            const { response, ok } = await API.Req('POST', '/api/workshops', { body: workshop })
+            if (ok) {
+                this.workshops.push(response)
+            } else {
+                throw new Error(response.message)
+            }
+        },
+
         async update (data, id) {
             const { response, ok } = await API.Req('PUT', `/api/workshops/${id}`, { body: data })
             if (ok) {
@@ -49,13 +58,6 @@ export const useWorkshopStore = defineStore('workshop', {
             } else {
                 throw new Error(response.message)
             }
-        },
-
-        async post (product) {
-            const { response, ok } = await API.Req('POST', '/api/workshops', { body: product })
-            console.log('Response:', response, 'OK:', ok)
-
-            if (ok) this.workshops.push(response)
         }
     }
 })

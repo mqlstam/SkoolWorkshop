@@ -26,7 +26,7 @@ async function remove (workshop) {
 
         <div class="col-10 p-1">
           <!-- action buttons -->
-          <router-link to="/workshops/create" class="btn float-end p-3 hover-darken">
+          <router-link to="/workshops/new" class="btn float-end p-3 hover-darken">
             <font-awesome-icon :icon="['fas', 'plus']" class="fa-2x" />
           </router-link>
 
