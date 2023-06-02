@@ -8,7 +8,20 @@ export class WorkshopController {
     }
 
     async all (req, res) {
-        const workshops = await this.db.workshop.findMany()
+        const workshops = await this.db.workshop.findMany({
+            select: {
+                id: true,
+                name: true,
+                groupSize: true,
+                items: {
+                    select: {
+                        quantity: true,
+                        product: true
+                    }
+                }
+            }
+        })
+
         if (!workshops.length) {
             throw new HttpError(404, 'no workshops found')
         }
@@ -19,7 +32,18 @@ export class WorkshopController {
     async get (req, res) {
         const id = req.params.id
         const workshop = await this.db.workshop.findUnique({
-            where: { id: parseInt(id) }
+            where: { id: parseInt(id) },
+            select: {
+                id: true,
+                    name: true,
+                    groupSize: true,
+                    items: {
+                    select: {
+                        quantity: true,
+                            product: true
+                    }
+                }
+            }
         })
 
         if (!workshop) {
