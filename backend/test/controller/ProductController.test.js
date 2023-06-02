@@ -63,6 +63,43 @@ describe('controller/ProductController', () => {
         })
     })
 
+    describe('post', () => {
+        it('should create a new product', async () => {
+            const req = { body: products[0] }
+            delete req.body.id
+
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { product: { create: sinon.stub().returns(products[0]) } }
+            const controller = new ProductController(db)
+
+            await controller.post(req, res)
+            expect(db.product.create.calledOnce).to.be.true
+            expect(res.status.calledOnceWith(201)).to.be.true
+            expect(res.send.calledOnceWith(products[0])).to.be.true
+        })
+
+        it('should return 400 when there is a conflict', async () => {
+            const error = new Error()
+            error.code = 'P2002'
+
+            const req = { body: products[0] }
+            delete req.body.id
+
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { product: { create: sinon.stub().throws(error) } }
+            const controller = new ProductController(db)
+
+            try {
+                await controller.post(req, res)
+                expect.fail('should have thrown an error')
+            } catch (err) {
+                expect(db.product.create.calledOnce).to.be.true
+                expect(err.message).to.equal('product already exists')
+                expect(err.status).to.equal(400)
+            }
+        })
+    })
+
     describe('put', () => {
         it('should update a product', async () => {
             const product = { ...products[0], name: 'Product 1 updated' }

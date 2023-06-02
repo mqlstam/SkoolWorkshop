@@ -28,10 +28,9 @@ const routes = [
         component: () => import('../views/ProductDetails.vue')
     },
     {
-        path: '/workshops/create',
+        path: '/workshops/new',
         name: 'workshop-create',
         component: () => import('../views/WorkshopForm.vue')
-        // TODO Add any necessary route guards to restrict access to admins
     }
 ]
 

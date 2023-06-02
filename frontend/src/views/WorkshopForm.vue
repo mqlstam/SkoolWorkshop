@@ -7,19 +7,15 @@ const workshopStore = useWorkshopStore()
 
 const workshop = ref({
     name: '',
-    groupSize: null
+    groupSize: 0
 })
 
-const postWorkshop = async () => {
-    try {
-        await workshopStore.post(workshop.value)
-        workshop.value = { name: '', groupSize: null }
-    } catch (err) {
-        console.error(err)
-    }
+async function create () {
+    await workshopStore.create(workshop.value)
+    workshop.value = { name: '', groupSize: 0 }
 }
-
 </script>
+
 <template>
   <div class="row vh-100">
 
@@ -36,7 +32,7 @@ const postWorkshop = async () => {
             <p>"Een Nieuwe Workshop, ,<br>Een Nieuwe Ontdekkingsreis"</p>
           </div>
         </div>
-          <form @submit.prevent="postWorkshop" class="flex-grow-1 d-flex flex-column mt-5">
+          <form @submit.prevent="create" class="flex-grow-1 d-flex flex-column mt-5">
             <div class="mb-3">
               <label for="workshop-name" class="form-label">Workshop Name</label>
               <input id="workshop-name" v-model="workshop.name" required class="form-control" />
