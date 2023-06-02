@@ -36,26 +36,11 @@ export const useWorkshopStore = defineStore('workshop', {
             }
         },
 
-        async post (workshopData, imageFile) {
-            const formData = new FormData()
-            formData.append('name', workshopData.name)
-            formData.append('groupSize', workshopData.groupSize)
-            if (imageFile) {
-                formData.append('image', imageFile)
-            }
+        async post (product) {
+            const { response, ok } = await API.Req('POST', '/api/workshops', { body: product })
+            console.log('Response:', response, 'OK:', ok)
 
-            const response = await fetch('/api/workshops', {
-                method: 'POST',
-                body: formData
-            })
-
-            if (!response.ok) {
-                const message = await response.text()
-                throw new Error(message)
-            }
-
-            const createdWorkshop = await response.json()
-            this.workshops.push(createdWorkshop)
+            if (ok) this.workshops.push(response)
         }
     }
 })

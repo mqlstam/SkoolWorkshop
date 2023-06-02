@@ -139,30 +139,40 @@ describe('controller/WorkshopController', () => {
         it('should post a workshop', async () => {
             const req = {
                 headers: {
-                    'content-type': 'multipart/form-data'
+                    'content-type': 'application/json'
                 },
                 body: {
                     name: 'Workshop 3',
                     groupSize: 15
-                },
-                file: {
-                    path: '../../uploads/test.jpg',
-                    originalname: 'test.jpg'
-                    // Add other necessary properties for the file
                 }
             }
-            const workshopToCreate = { name: req.body.name, groupSize: parseInt(req.body.groupSize), imagePath: req.file.path }
-            const createdWorkshop = { id: 3, ...workshopToCreate }
-            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+
+            const workshopToCreate = {
+                name: req.body.name,
+                groupSize: parseInt(req.body.groupSize)
+            }
+
+            const createdWorkshop = {
+                id: 3,
+                ...workshopToCreate
+            }
+
+            const res = {
+                status: sinon.stub().returnsThis(),
+                send: sinon.stub()
+            }
+
             const db = {
                 workshop: {
                     findUnique: sinon.stub().returns(null),
                     create: sinon.stub().returns(createdWorkshop)
                 }
             }
+
             const controller = new WorkshopController(db)
 
             await controller.post(req, res)
+
             expect(db.workshop.findUnique.calledOnce).to.be.true
             expect(db.workshop.create.calledOnceWith({ data: workshopToCreate })).to.be.true
             expect(res.status.calledOnceWith(201)).to.be.true
@@ -203,7 +213,6 @@ describe('controller/WorkshopController', () => {
                 message: `Workshop with name ${req.body.name} already exists.`
             })
         })
-
         it('should return 400 if workshop name or groupSize is missing', async () => {
             const req = {
                 headers: {

@@ -9,21 +9,16 @@ const workshop = ref({
     name: '',
     groupSize: null
 })
-const imageRef = ref(null)
 
 const postWorkshop = async () => {
-    const imageFile = imageRef.value?.files[0]
     try {
-        await workshopStore.post(workshop.value, imageFile)
-        // clear form fields after successful submission
-        workshop.value = {
-            name: '',
-            groupSize: null
-        }
-    } catch (error) {
-        console.error('Error in postWorkshop: ', error)
+        await workshopStore.post(workshop.value)
+        workshop.value = { name: '', groupSize: null }
+    } catch (err) {
+        console.error(err)
     }
 }
+
 </script>
 <template>
   <div class="row vh-100">
@@ -41,7 +36,7 @@ const postWorkshop = async () => {
             <p>"Een Nieuwe Workshop, ,<br>Een Nieuwe Ontdekkingsreis"</p>
           </div>
         </div>
-          <form @submit.prevent="postWorkshop" enctype="multipart/form-data" class="flex-grow-1 d-flex flex-column mt-5">
+          <form @submit.prevent="postWorkshop" class="flex-grow-1 d-flex flex-column mt-5">
             <div class="mb-3">
               <label for="workshop-name" class="form-label">Workshop Name</label>
               <input id="workshop-name" v-model="workshop.name" required class="form-control" />
@@ -53,10 +48,6 @@ const postWorkshop = async () => {
                 class="form-control" />
             </div>
 
-            <!-- <div class="mb-3">
-              <label for="image-upload" class="form-label">Upload afbeelding</label>
-              <input type="file" class="form-control" id="image-upload" ref="imageRef" accept="image/png, image/jpeg">
-            </div> -->
              <button type="submit" class="submitbtn btn btn-primary mt-auto w-100">Create Workshop</button>
           </form>
         </div>
