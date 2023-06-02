@@ -2,11 +2,17 @@
 import { useWorkshopStore } from '../store/workshopStore.js'
 import WorkshopItem from '../component/workshop/WorkshopItem.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const edit = ref(false)
 const workshopStore = useWorkshopStore()
 workshopStore.fetch()
+const search = ref('')
+
+const filteredWorkshops = computed(() => {
+    return workshopStore.workshops.filter(workshop => workshop.name.toLowerCase().includes(search.value.toLowerCase()));
+})
+
 
 async function remove (workshop) {
     await workshopStore.delete(workshop.id)
@@ -32,9 +38,11 @@ async function remove (workshop) {
   </div>
 
   <div class="row box-md bg-white border-top">
+    <input type="text" v-model="search" placeholder="Search workshops..." class="form-control search p-4">
+
     <!-- workshop list -->
     <workshop-item
-        v-for="workshop in workshopStore.workshops"
+        v-for="workshop in filteredWorkshops"
         :key="workshop.name"
         :workshop="workshop"
         :edit="edit"

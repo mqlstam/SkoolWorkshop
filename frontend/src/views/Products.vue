@@ -2,11 +2,16 @@
 import { useProductStore } from '../store/productStore.js'
 import ProductItem from '../component/product/ProductItem.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const edit = ref(false)
 const productStore = useProductStore()
 productStore.fetch()
+const search = ref('')
+
+const filteredProducts = computed(() => {
+    return productStore.products.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
+})
 
 async function remove (product) {
     await productStore.delete(product.id)
@@ -36,10 +41,12 @@ async function remove (product) {
   </div>
 
   <div class="row box-md bg-white border-top">
+    <input type="text" v-model="search" placeholder="Search products..." class="form-control search p-4">
+
     <!-- product list -->
     <ProductItem
-      v-for="product in productStore.products"
-      :key="product.id"
+  v-for="product in filteredProducts"
+  :key="product.id"
       :product="product"
       :edit="edit"
       @delete="remove" />
