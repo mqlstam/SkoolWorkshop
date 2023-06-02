@@ -1,18 +1,27 @@
 <script setup>
 import { useWorkshopStore } from '../store/workshopStore.js'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import WorkshopProductItem from '../component/workshop/WorkshopProductItem.vue'
 
 const route = useRoute()
+const router = useRouter()
 const workshopId = route.params.id
 
 const workshopStore = useWorkshopStore()
 const workshop = await workshopStore.get(workshopId)
 
+
 </script>
 
 <template>
   <div>
+    <div class="container pt-2">
+      <button class="btn btn-primary rounded-pill" @click="router.back()">
+        Back
+      </button>
+    </div>
+
+  
     <h2>{{ workshop.name }}</h2>
     <p>Group Size: {{ workshop.groupSize }}</p>
     <div>
@@ -23,3 +32,8 @@ const workshop = await workshopStore.get(workshopId)
     </div>
   </div>
 </template>
+
+
+
+
+
