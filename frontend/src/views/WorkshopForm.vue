@@ -26,11 +26,7 @@ const postWorkshop = async () => {
 }
 </script>
 <template>
-  <div class="vh-100 d-flex flex-column">
-    <div class="d-md-none text-center mx-0 emoijbg">
-      <img src="../../public/images/Emoijachtergrond.jpg" alt="Mobile Image" class="img-fluid w-100">
-    </div>
-    <div class="row justify-content-center mx-0 flex-grow-1">
+  <div class="row vh-100">
 
       <div class="col-md-6 d-flex flex-column card-overlay flex-grow-1">
         <div>
@@ -57,14 +53,14 @@ const postWorkshop = async () => {
                 class="form-control" />
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="image-upload" class="form-label">Upload afbeelding</label>
               <input type="file" class="form-control" id="image-upload" ref="imageRef" accept="image/png, image/jpeg">
-            </div>
+            </div> -->
              <button type="submit" class="submitbtn btn btn-primary mt-auto w-100">Create Workshop</button>
           </form>
         </div>
-      </div>
+
     </div>
   </div>
 </template>
