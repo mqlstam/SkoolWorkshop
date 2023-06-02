@@ -11,8 +11,8 @@ const workshop = ref({
 })
 
 async function create () {
-  await workshopStore.create(workshop.value)
-  workshop.value = { name: '', groupSize: 0 }
+    await workshopStore.create(workshop.value)
+    workshop.value = { name: '', groupSize: 0 }
 }
 </script>
 
