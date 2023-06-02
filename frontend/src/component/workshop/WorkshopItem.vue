@@ -1,5 +1,6 @@
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { useRouter } from 'vue-router'
 
 const emit = defineEmits(['click', 'delete'])
 const props = defineProps({
@@ -12,10 +13,18 @@ const props = defineProps({
         default: false
     }
 })
+
+const router = useRouter()
+
+const handleClick = (workshop) => {
+    emit('click', workshop)
+    const route = props.edit ? `/workshops/${workshop.id}` : `/workshops/${workshop.id}/products`
+    router.push(route)
+}
 </script>
 
 <template>
-  <router-link
+  <div role="button"
        class="d-flex align-items-center border-bottom hover-darken"
        @click="emit('click', props.workshop)"
        :to="`/workshops/${props.workshop.id}`">
@@ -30,9 +39,10 @@ const props = defineProps({
     </div>
     <div v-else class="ms-auto">
       <!-- edit mode buttons -->
-      <button class="btn p-2 hover-darken" @click.prevent="emit('delete', workshop)">
+      <button class="btn p-2 hover-darken" @click.prevent="emit('delete', props.workshop)">
         <font-awesome-icon :icon="['fas', 'trash']" class="scale-up-center fa-xl rounded-circle p-3 bg-danger text-white"/>
       </button>
     </div>
-  </router-link>
+  </div>
 </template>
+
