@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
-import { PostWorkshopRequest } from '../../../../src/controller/request/workshop/PostworkshopRequest.js'
+import { PostWorkshopRequest } from '../../../../src/controller/request/workshop/PostWorkshopRequest.js'
 
-describe('controller/request/workshop/PostworkshopRequest', () => {
+describe('controller/request/workshop/PostWorkshopRequest', () => {
     it('should accept valid requests', async () => {
         const req = {
             body: {
