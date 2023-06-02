@@ -11,6 +11,8 @@ model Workshop {
   id        Int    @id @default(autoincrement())
   name      String @unique
   groupSize Int
+
+  items WorkshopProduct[]
 }
 
 model Product {
@@ -18,4 +20,17 @@ model Product {
   name     String @unique
   stock    Int
   minStock Int
+
+  workshops WorkshopProduct[]
+}
+
+model WorkshopProduct {
+  workshopId Int
+  productId  Int
+  workshop   Workshop @relation(references: [id], fields: [workshopId])
+  product    Product  @relation(references: [id], fields: [productId])
+
+  quantity Int
+
+  @@id([workshopId, productId])
 }
