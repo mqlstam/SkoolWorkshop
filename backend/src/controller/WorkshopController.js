@@ -1,6 +1,6 @@
 import { HttpError } from './error/HttpError.js'
 import { PutWorkshopRequest } from './request/workshop/PutWorkshopRequest.js'
-
+import { PostWorkshopRequest } from './request/workshop/PostWorkshopRequest.js'
 
 export class WorkshopController {
     constructor (db) {
@@ -65,28 +65,16 @@ export class WorkshopController {
     }
 
     async post (req, res) {
-        const { name, groupSize } = req.body
-
-        if (!name || !groupSize) {
-            res.status(400).send({ message: 'Name or Groupsize is missing' })
-            return
-        }
+        const workshop = new PostWorkshopRequest(req).data()
 
         try {
-            const workshop = await this.db.workshop.create({
-                data: {
-                    name,
-                    groupSize: parseInt(groupSize)
-                }
-            })
-
-            res.status(201).send(workshop)
-        } catch (error) {
-            console.log(error.code)
-
-            if (error.code === 'P2002') {
-                res.status(400).send({ message: `Workshop with name ${name} already exists.` })
+            const result = await this.db.workshop.create({ data: workshop })
+            res.status(201).send(result)
+        } catch (err) {
+            if (err.code === 'P2002') {
+                throw new HttpError(400, 'workshop already exists')
             }
+            throw new HttpError(500, 'could not create workshop')
         }
-    
+    }
 }
