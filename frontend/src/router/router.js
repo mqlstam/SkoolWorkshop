@@ -22,6 +22,21 @@ const routes = [
         name: 'workshop-products',
         component: () => import('../views/WorkshopProductItem.vue')
     },
+    {
+        path: '/products/new',
+        name: 'product-create',
+        component: () => import('../views/ProductCreate.vue')
+    },
+    {
+        path: '/products/:id',
+        name: 'product-details',
+        component: () => import('../views/ProductDetails.vue')
+    },
+    {
+        path: '/workshops/new',
+        name: 'workshop-create',
+        component: () => import('../views/WorkshopForm.vue')
+    }
 ]
 
 export default createRouter({

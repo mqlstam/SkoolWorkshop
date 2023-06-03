@@ -1,5 +1,6 @@
 import { HttpError } from './error/HttpError.js'
 import { PutWorkshopRequest } from './request/workshop/PutWorkshopRequest.js'
+import { PostWorkshopRequest } from './request/workshop/PostWorkshopRequest.js'
 
 export class WorkshopController {
     constructor (db) {
@@ -84,6 +85,20 @@ export class WorkshopController {
                 throw new HttpError(404, 'workshop not found')
             }
             throw new HttpError(500, 'could not remove workshop')
+        }
+    }
+
+    async post (req, res) {
+        const workshop = new PostWorkshopRequest(req).data()
+
+        try {
+            const result = await this.db.workshop.create({ data: workshop })
+            res.status(201).send(result)
+        } catch (err) {
+            if (err.code === 'P2002') {
+                throw new HttpError(400, 'workshop already exists')
+            }
+            throw new HttpError(500, 'could not create workshop')
         }
     }
 }

@@ -3,19 +3,20 @@ import { API } from '../util/Api.js'
 
 export const useWorkshopStore = defineStore('workshop', {
     state: () => ({
+        fetched: false,
         workshops: []
     }),
     actions: {
-        async fetch () {
-            const { response, ok } = await API.Req('GET', '/api/workshops')
-            if (ok) this.workshops = response
-            else this.workshops = []
-        },
+        async fetch (force) {
+            if (this.fetched && !force) return
 
-        async delete (id) {
-            const { response, ok } = await API.Req('DELETE', `/api/workshops/${id}`)
-            if (ok) this.workshops = this.workshops.filter(w => w.id !== id)
-            else throw new Error(response.message)
+            const { response, ok } = await API.Req('GET', '/api/workshops')
+            if (ok) {
+                this.workshops = response
+                this.fetched = true
+            } else {
+                this.workshops = []
+            }
         },
 
         async get (id) {
@@ -26,12 +27,35 @@ export const useWorkshopStore = defineStore('workshop', {
             if (ok) {
                 this.workshops.push(response)
                 return response
-            } else throw new Error(response.message)
+            } else {
+                throw new Error(response.message)
+            }
+        },
+
+        async create (workshop) {
+            const { response, ok } = await API.Req('POST', '/api/workshops', { body: workshop })
+            if (ok) {
+                this.workshops.push(response)
+            } else {
+                throw new Error(response.message)
+            }
         },
 
         async update (data, id) {
             const { response, ok } = await API.Req('PUT', `/api/workshops/${id}`, { body: data })
-            if (!ok) {
+            if (ok) {
+                const idx = this.workshops.findIndex(p => p.id === data.id)
+                this.workshops[idx] = response
+            } else {
+                throw new Error(response.message)
+            }
+        },
+
+        async delete (id) {
+            const { response, ok } = await API.Req('DELETE', `/api/workshops/${id}`)
+            if (ok) {
+                this.workshops = this.workshops.filter(w => w.id !== id)
+            } else {
                 throw new Error(response.message)
             }
         }

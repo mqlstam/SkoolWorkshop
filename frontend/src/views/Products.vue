@@ -1,16 +1,15 @@
 <script setup>
-
 import { useProductStore } from '../store/productStore.js'
-import ProductCard from '../component/product/ProductItem.vue'
+import ProductItem from '../component/product/ProductItem.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref } from 'vue'
 
 const edit = ref(false)
 const productStore = useProductStore()
-productStore.fetchProducts()
+productStore.fetch()
 
-async function remove (workshop) {
-    await productStore.delete(workshop.id)
+async function remove (product) {
+    await productStore.delete(product.id)
 }
 </script>
 
@@ -22,11 +21,15 @@ async function remove (workshop) {
 
     <div class="col-10 p-1">
       <!-- action buttons -->
-      <button class="btn float-end p-3 hover-darken">
+      <router-link class="btn float-end p-3 hover-darken" to="/products/new">
         <font-awesome-icon :icon="['fas', 'plus']" class="fa-2x" />
-      </button>
+      </router-link>
 
-      <button class="btn float-end p-3 hover-darken" :class="{'bg-primary': edit}" @click="edit = !edit">
+      <button
+        class="btn float-end p-3 hover-darken"
+        :class="{'bg-primary': edit}"
+        @click="edit = !edit"
+      >
         <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-2x" />
       </button>
     </div>
@@ -34,11 +37,11 @@ async function remove (workshop) {
 
   <div class="row box-md bg-white border-top">
     <!-- product list -->
-    <ProductCard
-        v-for="product in productStore.products"
-        :key="product.id"
-        :product="product"
-        :edit="edit"
-        @delete='remove' />
+    <ProductItem
+      v-for="product in productStore.products"
+      :key="product.id"
+      :product="product"
+      :edit="edit"
+      @delete="remove" />
   </div>
 </template>

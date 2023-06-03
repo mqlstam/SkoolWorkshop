@@ -31,7 +31,7 @@ function update () {
     <span class="mx-3">{{ name }}</span>
 
     <div class="ms-auto d-flex align-items-center">
-      <div role="button" @click="value = Math.max(value -1, 0); update()">
+      <div role="button" @click="value = Math.max(value - 1, 0); update()">
         <font-awesome-icon
             :icon="['fas', 'minus']"
             class="p-3 mx-2 rounded-3 hover-darken" />

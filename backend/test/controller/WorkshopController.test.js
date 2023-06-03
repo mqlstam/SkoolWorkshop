@@ -42,7 +42,7 @@ describe('controller/WorkshopController', () => {
             const db = { workshop: { findUnique: sinon.stub().returns(workshops[0]) } }
             const controller = new WorkshopController(db)
 
-            await controller.get({params: 1}, res)
+            await controller.get({ params: 1 }, res)
             expect(db.workshop.findUnique.calledOnce).to.be.true
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(workshops[0])).to.be.true
@@ -54,11 +54,48 @@ describe('controller/WorkshopController', () => {
             const controller = new WorkshopController(db)
 
             try {
-                await controller.get({params: 1}, res)
+                await controller.get({ params: 1 }, res)
                 expect.fail('should have thrown an error')
             } catch (err) {
                 expect(err.message).to.equal('workshop not found')
                 expect(db.workshop.findUnique.calledOnce).to.be.true
+            }
+        })
+    })
+
+    describe('post', () => {
+        it('should create a new workshop', async () => {
+            const req = { body: workshops[0] }
+            delete req.body.id
+
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { workshop: { create: sinon.stub().returns(workshops[0]) } }
+            const controller = new WorkshopController(db)
+
+            await controller.post(req, res)
+            expect(db.workshop.create.calledOnce).to.be.true
+            expect(res.status.calledOnceWith(201)).to.be.true
+            expect(res.send.calledOnceWith(workshops[0])).to.be.true
+        })
+
+        it('should return 400 when there is a conflict', async () => {
+            const error = new Error()
+            error.code = 'P2002'
+
+            const req = { body: workshops[0] }
+            delete req.body.id
+
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const db = { workshop: { create: sinon.stub().throws(error) } }
+            const controller = new WorkshopController(db)
+
+            try {
+                await controller.post(req, res)
+                expect.fail('should have thrown an error')
+            } catch (err) {
+                expect(db.workshop.create.calledOnce).to.be.true
+                expect(err.message).to.equal('workshop already exists')
+                expect(err.status).to.equal(400)
             }
         })
     })
