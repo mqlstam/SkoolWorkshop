@@ -1,7 +1,13 @@
+<script setup>
+import NavigationBar from './component/layout/NavigationBar.vue'
+</script>
+
 <template>
-    <div class="container justify-content-center ">
+  <div>
     <suspense>
-      <router-view />
+      <router-view/>
     </suspense>
+
+    <navigation-bar />
   </div>
 </template>

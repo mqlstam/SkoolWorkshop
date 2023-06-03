@@ -1,0 +1,39 @@
+$navigation-bar-mobile-size: 4.5rem;
+$navigation-bar-desktop-size: 5rem;
+
+.navigation-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $navigation-bar-mobile-size;
+
+  display: flex;
+  background: white;
+  border-top: $border-width $border-style $border-color !important;
+}
+
+/** navigation bar on mobile */
+@include media-breakpoint-up(sm) {
+  .navigation-bar {
+    top: 0;
+    width: $navigation-bar-desktop-size;
+    right: unset;
+    height: unset;
+
+    flex-direction: column;
+    border-top: unset !important;
+    border-right: $border-width $border-style $border-color !important;
+  }
+}
+
+.content {
+  @extend .container;
+  padding-bottom: $navigation-bar-mobile-size;
+}
+
+@include media-breakpoint-up(sm) {
+.content {
+    padding-left: $navigation-bar-desktop-size;
+  }
+}

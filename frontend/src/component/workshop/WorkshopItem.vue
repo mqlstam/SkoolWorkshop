@@ -21,7 +21,7 @@ const props = defineProps({
        :to="`/workshops/${props.workshop.id}`">
 
     <!-- image and title -->
-    <font-awesome-icon :icon="['fas', 'inbox']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>
+    <font-awesome-icon :icon="['fas', 'people-robbery']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>
     <span class="h5"> {{ props.workshop.name }} </span>
 
     <div v-if="!props.edit" class="ms-auto">
