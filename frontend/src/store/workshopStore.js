@@ -58,6 +58,9 @@ export const useWorkshopStore = defineStore('workshop', {
             } else {
                 throw new Error(response.message)
             }
+        },
+        search (query) {
+            return this.workshops.filter(workshop => workshop.name.toLowerCase().includes(query.toLowerCase()))
         }
     }
 })
