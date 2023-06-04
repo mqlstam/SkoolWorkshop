@@ -28,7 +28,7 @@ export const useWorkshopStore = defineStore('workshop', {
                 this.workshops.push(response)
                 return response
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -37,7 +37,7 @@ export const useWorkshopStore = defineStore('workshop', {
             if (ok) {
                 this.workshops.push(response)
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -47,7 +47,7 @@ export const useWorkshopStore = defineStore('workshop', {
                 const idx = this.workshops.findIndex(p => p.id === data.id)
                 this.workshops[idx] = response
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -56,7 +56,7 @@ export const useWorkshopStore = defineStore('workshop', {
             if (ok) {
                 this.workshops = this.workshops.filter(w => w.id !== id)
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
