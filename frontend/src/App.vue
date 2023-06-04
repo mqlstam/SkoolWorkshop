@@ -4,10 +4,12 @@ import NavigationBar from './component/layout/NavigationBar.vue'
 
 <template>
   <div>
-    <suspense>
-      <router-view/>
-    </suspense>
+    <div class="content">
+      <suspense>
+        <router-view/>
+      </suspense>
+    </div>
 
-    <navigation-bar />
+    <navigation-bar/>
   </div>
 </template>
