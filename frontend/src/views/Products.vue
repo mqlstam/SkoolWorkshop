@@ -10,7 +10,7 @@ productStore.fetch()
 const search = ref('')
 
 const filteredProducts = computed(() => {
-    return productStore.products.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
+    return productStore.search(search.value)
 })
 
 async function remove (product) {
@@ -47,6 +47,7 @@ async function remove (product) {
     <ProductItem
   v-for="product in filteredProducts"
   :key="product.id"
+
       :product="product"
       :edit="edit"
       @delete="remove" />

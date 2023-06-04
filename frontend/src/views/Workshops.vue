@@ -10,9 +10,8 @@ workshopStore.fetch()
 const search = ref('')
 
 const filteredWorkshops = computed(() => {
-    return workshopStore.workshops.filter(workshop => workshop.name.toLowerCase().includes(search.value.toLowerCase()));
+    return workshopStore.search(search.value)
 })
-
 
 async function remove (workshop) {
     await workshopStore.delete(workshop.id)
@@ -31,7 +30,7 @@ async function remove (workshop) {
         <font-awesome-icon :icon="['fas', 'plus']" class="fa-2x" />
       </router-link>
 
-      <button class="btn float-end p-3 hover-darken" :class="{'bg-primary': edit}" @click="edit = !edit">
+      <button class="btn float-end p-3 hover-darken" :class="{ 'bg-primary': edit }" @click="edit = !edit">
         <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-2x" />
       </button>
     </div>
@@ -41,11 +40,7 @@ async function remove (workshop) {
     <input type="text" v-model="search" placeholder="Search workshops..." class="form-control search p-4">
 
     <!-- workshop list -->
-    <workshop-item
-        v-for="workshop in filteredWorkshops"
-        :key="workshop.name"
-        :workshop="workshop"
-        :edit="edit"
-        @delete="remove" />
+    <WorkshopItem v-for="workshop in filteredWorkshops" :key="workshop.id" :workshop="workshop" :edit="edit"
+      @delete="remove" />
   </div>
 </template>
