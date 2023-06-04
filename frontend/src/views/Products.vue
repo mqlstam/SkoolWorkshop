@@ -1,8 +1,8 @@
 <script setup>
-import {useProductStore} from '../store/productStore.js'
+import { useProductStore } from '../store/productStore.js'
 import ProductItem from '../component/product/ProductItem.vue'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {ref, computed} from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { ref, computed } from 'vue'
 
 const edit = ref(false)
 const productStore = useProductStore()
@@ -11,8 +11,8 @@ productStore.fetch()
 const search = ref('')
 const filteredProducts = computed(() => productStore.search(search.value))
 
-async function remove(product) {
-  await productStore.delete(product.id)
+async function remove (product) {
+    await productStore.delete(product.id)
 }
 </script>
 

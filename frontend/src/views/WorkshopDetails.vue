@@ -2,8 +2,8 @@
 import { useRoute } from 'vue-router'
 import { useWorkshopStore } from '../store/workshopStore.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import TextInput from "../component/input/TextInput.vue";
-import NumberInput from "../component/input/NumberInput.vue";
+import TextInput from '../component/input/TextInput.vue'
+import NumberInput from '../component/input/NumberInput.vue'
 
 const route = useRoute()
 const workshopStore = useWorkshopStore()
@@ -12,8 +12,8 @@ const workshopId = Number(route.params.id)
 const workshop = await workshopStore.get(workshopId)
 
 async function save () {
-  const { id, ...data } = workshop
-  await workshopStore.update(data, id)
+    const { id, ...data } = workshop
+    await workshopStore.update(data, id)
 }
 </script>
 

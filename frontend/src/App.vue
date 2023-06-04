@@ -1,13 +1,13 @@
 <script setup>
 import NavigationBar from './component/layout/NavigationBar.vue'
-import {onErrorCaptured, ref} from "vue";
-import ErrorNotification from "./component/layout/ErrorNotification.vue";
+import { onErrorCaptured, ref } from 'vue'
+import ErrorNotification from './component/layout/ErrorNotification.vue'
 
 // handle exceptions from components
 const message = ref('')
 onErrorCaptured((error) => {
-  message.value = error.message
-  setTimeout(() => message.value = '', 5000)
+    message.value = error.message
+    setTimeout(() => { message.value = '' }, 5000)
 })
 </script>
 

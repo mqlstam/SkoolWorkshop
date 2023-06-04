@@ -1,16 +1,16 @@
 <script setup>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const emit = defineEmits(['close'])
 const props = defineProps({
-  shown: {
-    type: Boolean,
-    required: true
-  },
-  message: {
-    type: String,
-    required: true
-  }
+    shown: {
+        type: Boolean,
+        required: true
+    },
+    message: {
+        type: String,
+        required: true
+    }
 })
 </script>
 

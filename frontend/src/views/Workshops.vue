@@ -1,8 +1,8 @@
 <script setup>
-import {useWorkshopStore} from '../store/workshopStore.js'
+import { useWorkshopStore } from '../store/workshopStore.js'
 import WorkshopItem from '../component/workshop/WorkshopItem.vue'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {ref, computed} from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { ref, computed } from 'vue'
 
 const edit = ref(false)
 const workshopStore = useWorkshopStore()
@@ -11,8 +11,8 @@ workshopStore.fetch()
 const search = ref('')
 const filteredWorkshops = computed(() => workshopStore.search(search.value))
 
-async function remove(workshop) {
-  await workshopStore.delete(workshop.id)
+async function remove (workshop) {
+    await workshopStore.delete(workshop.id)
 }
 </script>
 

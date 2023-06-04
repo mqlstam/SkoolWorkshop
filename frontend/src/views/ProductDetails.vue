@@ -1,9 +1,9 @@
 <script setup>
-import {useProductStore} from '../store/productStore.js'
-import {useRoute} from 'vue-router'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import TextInput from "../component/input/TextInput.vue";
-import NumberInput from "../component/input/NumberInput.vue";
+import { useProductStore } from '../store/productStore.js'
+import { useRoute } from 'vue-router'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import TextInput from '../component/input/TextInput.vue'
+import NumberInput from '../component/input/NumberInput.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -11,9 +11,9 @@ const productStore = useProductStore()
 const productId = Number(route.params.id)
 const product = await productStore.get(productId)
 
-async function save() {
-  const {id, ...data} = product
-  await productStore.update(data, id)
+async function save () {
+    const { id, ...data } = product
+    await productStore.update(data, id)
 }
 </script>
 
