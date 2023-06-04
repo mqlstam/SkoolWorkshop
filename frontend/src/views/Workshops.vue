@@ -35,7 +35,7 @@ async function remove (workshop) {
     <!-- workshop list -->
     <workshop-item
         v-for="workshop in workshopStore.workshops"
-        :key="workshop.name"
+        :key="workshop.id"
         :workshop="workshop"
         :edit="edit"
         @delete="remove" />

@@ -25,7 +25,6 @@ export const useWorkshopStore = defineStore('workshop', {
 
             const { response, ok } = await API.Req('GET', `/api/workshops/${id}`)
             if (ok) {
-                this.workshops.push(response)
                 return response
             } else {
                 throw new Error(response.message)
