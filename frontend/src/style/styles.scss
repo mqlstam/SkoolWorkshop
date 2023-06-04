@@ -23,7 +23,6 @@ $container-max-widths: (
 
 @import "~bootstrap/scss/bootstrap";
 @import "layout";
-@import "box";
 @import "animations";
 
 a {
@@ -32,7 +31,7 @@ a {
 }
 
 .hover-darken:hover {
-  background-color: #7771;
+  background-color: #0002 !important;
 }
 
 .card {

@@ -1,34 +1,38 @@
 <script setup>
 import {useProductStore} from '../store/productStore.js'
 import {useRoute} from 'vue-router'
-import EditProductForm from '../component/product/ProductInfo.vue'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import TextInput from "../component/input/TextInput.vue";
+import NumberInput from "../component/input/NumberInput.vue";
 
 const route = useRoute()
-const productId = Number(route.params.id)
-
 const productStore = useProductStore()
+
+const productId = Number(route.params.id)
 const product = await productStore.get(productId)
+
+async function save() {
+  const {id, ...data} = product
+  await productStore.update(data, id)
+}
 </script>
 
 <template>
-  <div class="row">
-    <div class="col-4 d-flex align-items-center">
-      <h3 class="fw-bold">{{ product.name }}</h3>
+  <div class="row box-header">
+    <div class="d-flex align-items-center m-0" style="width: min-content">
+      <a class="btn p-2 bg-secondary hover-darken" @click="$router.back()">
+        <font-awesome-icon :icon="['fas', 'caret-left']" class="fa-xl" style="width: 24px"/>
+      </a>
     </div>
-    <div class="col-8 d-flex justify-content-end align-items-center">
-      <!-- action buttons -->
-      <button class="btn p-3 hover-darken">
-        <font-awesome-icon :icon="['fas', 'plus']" class="fa-2x"/>
-      </button>
-      <button class="btn p-3 hover-darken">
-        <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-2x"/>
-      </button>
+
+    <div class="col d-flex align-items-center">
+      <h3 class="m-0">Product Info</h3>
     </div>
   </div>
-  <div class="row mt-3">
-    <div class="col">
-      <EditProductForm :productId="product.id"/>
-    </div>
+
+  <div class="row box-sm bg-white border-top">
+    <text-input name="Name" v-model:value="product.name" @update:value="save"/>
+    <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
+    <number-input name="Minimum Stock" v-model:value="product.minStock" @update:value="save"/>
   </div>
 </template>

@@ -7,7 +7,7 @@ export const useWorkshopStore = defineStore('workshop', {
         workshops: []
     }),
     actions: {
-        async fetch (force) {
+        async fetch (force = false) {
             if (this.fetched && !force) return
 
             const { response, ok } = await API.Req('GET', '/api/workshops')
@@ -59,6 +59,7 @@ export const useWorkshopStore = defineStore('workshop', {
                 throw new Error(response.message)
             }
         },
+
         search (query) {
             return this.workshops.filter(workshop => workshop.name.toLowerCase().includes(query.toLowerCase()))
         }

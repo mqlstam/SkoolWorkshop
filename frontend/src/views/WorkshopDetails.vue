@@ -1,32 +1,37 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { useWorkshopStore } from '../store/workshopStore.js'
-import WorkshopInfo from '../component/workshop/WorkshopInfo.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import TextInput from "../component/input/TextInput.vue";
+import NumberInput from "../component/input/NumberInput.vue";
 
 const route = useRoute()
-const workshopId = Number(route.params.id)
-
 const workshopStore = useWorkshopStore()
+
+const workshopId = Number(route.params.id)
 const workshop = await workshopStore.get(workshopId)
+
+async function save () {
+  const { id, ...data } = workshop
+  await workshopStore.update(data, id)
+}
 </script>
 
 <template>
-  <div class="row">
-    <div class="col-4 d-flex align-items-center">
-      <h3 class="fw-bold">{{workshop.name}}</h3>
+  <div class="row box-header">
+    <div class="d-flex align-items-center m-0" style="width: min-content">
+      <a class="btn p-2 bg-secondary hover-darken" @click="$router.back()">
+        <font-awesome-icon :icon="['fas', 'caret-left']" class="fa-xl" style="width: 24px" />
+      </a>
     </div>
 
-    <div class="col-8 p-1">
-      <!-- action buttons -->
-      <button class="btn float-end p-3 hover-darken">
-        <font-awesome-icon :icon="['fas', 'plus']" class="fa-2x" />
-      </button>
-
-      <button class="btn float-end p-3 hover-darken">
-        <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-2x" />
-      </button>
+    <div class="col d-flex align-items-center">
+      <h3 class="m-0">Workshop Info</h3>
     </div>
   </div>
-  <workshop-info :workshopId="workshop.id"/>
+
+  <div class="row box-sm bg-white border-top">
+    <text-input name="Name" v-model:value="workshop.name" @update:value="save" placeholder="name"/>
+    <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" placeholder="group size" />
+  </div>
 </template>

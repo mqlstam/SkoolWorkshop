@@ -59,6 +59,7 @@ export const useProductStore = defineStore('product', {
                 throw new Error(response.message)
             }
         },
+
         search (query) {
             return this.products.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
         }
