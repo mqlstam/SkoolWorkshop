@@ -31,6 +31,7 @@ const app = express()
 // Register routes.
 app
     .get('/api/workshops', (req, res) => controller.workshop.all(req, res))
+    .post('/api/workshops', (req, res) => controller.workshop.post(req, res))
     .get('/api/workshops/:id', (req, res) => controller.workshop.get(req, res))
     .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))

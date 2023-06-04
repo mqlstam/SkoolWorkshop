@@ -1,11 +1,18 @@
 $body-bg: #fafafa;
 $input-focus-border-color: #f49700;
 $input-focus-box-shadow: unset;
+
 $theme-colors: (
   'primary': #f49700,
   'success': #28a745,
   'secondary': #ededed,
   'danger': #dc3545,
+  'black': #444444,
+  'green': #8EA604,
+  'red': #DF2935,
+  'grey': #666666,
+  'light-grey': #CACACA,
+  'white': #FFFFFF 
 );
 
 $container-max-widths: (
@@ -30,6 +37,8 @@ a {
 .card {
   background-color: #ededed;
 }
+
+
 
 .img {
   background-color: white;

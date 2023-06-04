@@ -8,7 +8,8 @@ import {
     faPlus,
     faMinus,
     faXmark,
-    faPen
+    faPen,
+    faX
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -20,5 +21,6 @@ library.add(
     faPlus,
     faMinus,
     faXmark,
-    faPen
+    faPen,
+    faX
 )
