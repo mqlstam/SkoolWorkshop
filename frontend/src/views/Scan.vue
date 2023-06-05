@@ -1,18 +1,18 @@
 <script setup>
 import CodeScanner from '../component/scanner/CodeScanner.vue'
-import {useProductStore} from '../store/productStore.js'
-import {onErrorCaptured, ref} from 'vue'
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import { useProductStore } from '../store/productStore.js'
+import { onErrorCaptured, ref } from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const productStore = useProductStore()
 productStore.fetch()
 
 const message = ref('')
 onErrorCaptured((error) => {
-  message.value = error.message
-  setTimeout(() => {
-    message.value = ''
-  }, 5000)
+    message.value = error.message
+    setTimeout(() => {
+        message.value = ''
+    }, 5000)
 })
 </script>
 
