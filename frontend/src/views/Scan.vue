@@ -1,19 +1,20 @@
 <script setup>
-import CodeScanner from '../component/scanner/CodeScanner.vue'
 import { useProductStore } from '../store/productStore.js'
-import { onErrorCaptured, ref } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { StreamBarcodeReader } from 'vue-barcode-reader'
+import router from '../router/router.js'
 
 const productStore = useProductStore()
 productStore.fetch()
 
-const message = ref('')
-onErrorCaptured((error) => {
-    message.value = error.message
-    setTimeout(() => {
-        message.value = ''
-    }, 5000)
-})
+function onDecode (result) {
+    const product = productStore.findCode(result)
+    if (product) {
+        router.push('/products/' + product.id)
+    } else {
+        throw Error('unknown product')
+    }
+}
 </script>
 
 <template>
@@ -25,8 +26,7 @@ onErrorCaptured((error) => {
           <font-awesome-icon :icon="['fas', 'x']"/>
         </router-link>
       </div>
-      <code-scanner :products="productStore.products" class="ps-3 pe-3"/>
+      <stream-barcode-reader @decode="onDecode" class="ps-3 pe-3"/>
     </div>
   </div>
-
 </template>
