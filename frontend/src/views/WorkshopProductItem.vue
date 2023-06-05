@@ -16,7 +16,7 @@ const workshop = await workshopStore.get(workshopId)
 <template>
   <div>
     <div class="container pt-2">
-      <button class="btn btn-primary rounded-pill" @click="router.back()">
+      <button class="btn" @click="router.back()">
         Back
       </button>
     </div>
