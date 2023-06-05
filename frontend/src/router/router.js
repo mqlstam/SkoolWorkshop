@@ -19,7 +19,7 @@ const routes = [
         name: 'workshop-create',
         role: 'workshop',
         meta: { nav: 'workshop' },
-        component: () => import('../views/WorkshopForm.vue')
+        component: () => import('../views/WorkshopCreate.vue')
     },
     {
         path: '/products',
