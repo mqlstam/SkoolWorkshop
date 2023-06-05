@@ -15,10 +15,11 @@ const route = useRoute()
       <font-awesome-icon :icon="['fas', 'people-group']" class="fa-2x p-3"/>
     </router-link>
 
-    <router-link to="/search"
-                 class="d-flex justify-content-center align-items-center w-100"
-                 :class="{'text-primary': route.meta.nav === 'search'}">
-      <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="fa-2x p-3"/>
+    <router-link to="/scan"
+                 class="d-flex d-sm-none justify-content-center align-items-center bg-primary rounded-circle"
+                 :class="{'text-primary': route.meta.nav === 'scan'}"
+                 style="height: 4rem; width: 4rem; margin-top: -1rem">
+      <font-awesome-icon :icon="['fas', 'qrcode']" class="fa-2x p-3"/>
     </router-link>
 
     <router-link to="/products"
