@@ -8,7 +8,8 @@ describe('controller/request/product/PostProductRequest', () => {
             body: {
                 name: 'product 1',
                 stock: 10,
-                minStock: 5
+                minStock: 5,
+                code: '0123456789'
             }
         }
 

@@ -8,7 +8,8 @@ export class PutProductRequest extends Request {
         properties: {
             name: { type: 'string' },
             stock: { type: 'number' },
-            minStock: { type: 'number' }
+            minStock: { type: 'number' },
+            code: { type: 'string' }
         }
     }
 

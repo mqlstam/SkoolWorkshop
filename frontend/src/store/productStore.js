@@ -62,6 +62,10 @@ export const useProductStore = defineStore('product', {
 
         search (query) {
             return this.products.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
+        },
+
+        findCode (code) {
+            return this.products.find(product => product.code === code)
         }
     }
 })

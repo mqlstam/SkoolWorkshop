@@ -35,7 +35,14 @@ async function remove (product) {
   </div>
 
   <div class="row box bg-white border-top">
-    <input type="text" v-model="search" placeholder="Search products..." class="form-control search p-4">
+    <div class="p-0 input-group align-items-end">
+      <input type="text" v-model="search" placeholder="Search products..." class="form-control search p-4">
+      <router-link to="/scan"
+                   class="d-flex justify-content-center align-items-center bg-primary h-100"
+                   style="height: 3rem; width: 5rem; margin-top: -1rem">
+        <font-awesome-icon :icon="['fas', 'qrcode']" class="fa-2x"/>
+      </router-link>
+    </div>
 
     <!-- product list -->
     <ProductItem

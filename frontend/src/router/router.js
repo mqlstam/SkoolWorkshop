@@ -38,6 +38,12 @@ const routes = [
         name: 'product-details',
         meta: { nav: 'product' },
         component: () => import('../views/ProductDetails.vue')
+    },
+    {
+        path: '/scan',
+        name: 'scan',
+        meta: { nav: 'scan' },
+        component: () => import('../views/Scan.vue')
     }
 ]
 

@@ -17,7 +17,6 @@ const route = useRoute()
 
     <router-link to="/scan"
                  class="d-flex d-sm-none justify-content-center align-items-center bg-primary rounded-circle"
-                 :class="{'text-primary': route.meta.nav === 'scan'}"
                  style="height: 4rem; width: 4rem; margin-top: -1rem">
       <font-awesome-icon :icon="['fas', 'qrcode']" class="fa-2x p-3"/>
     </router-link>
