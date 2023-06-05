@@ -24,11 +24,11 @@ async function remove (workshop) {
 
     <div class="col-10 d-flex align-items-center justify-content-end">
       <!-- action buttons -->
-      <router-link class="btn p-2 hover-darken" to="/workshops/new">
+      <router-link class="btn p-3 hover-darken" to="/workshops/new">
         <font-awesome-icon :icon="['fas', 'plus']" class="fa-xl"/>
       </router-link>
 
-      <button class="btn p-2 hover-darken" :class="{ 'bg-primary': edit }" @click="edit = !edit">
+      <button class="btn p-3 hover-darken" :class="{ 'bg-primary': edit }" @click="edit = !edit">
         <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-xl"/>
       </button>
     </div>
