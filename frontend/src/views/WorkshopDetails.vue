@@ -1,5 +1,5 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useWorkshopStore } from '../store/workshopStore.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
@@ -7,9 +7,11 @@ import NumberInput from '../component/input/NumberInput.vue'
 import WorkshopProductItem from '../component/workshop/WorkshopProductItem.vue'
 
 const route = useRoute()
+const router = useRouter()
 const workshopStore = useWorkshopStore()
 
 const workshopId = Number(route.params.id)
+const rout = `/workshops/${workshopId}/addproduct`
 const workshop = await workshopStore.get(workshopId)
 
 async function save () {
@@ -42,4 +44,8 @@ async function save () {
         :key="index"
         :product="item.product" />
     </div>
+
+    <div class="row mt-3"> <!-- Button container -->
+    <button class="btn btn-primary rounded-pill" @click=router.push(rout)>Add Product</button>
+  </div>
 </template>

@@ -53,6 +53,35 @@ export class WorkshopController {
         res.status(200).send(workshop)
     }
 
+    async getProductsWithoutWorkshop(req, res) {
+        const workshopId = req.params.id; 
+    
+        const productsInWorkshop = await this.db.workshopProduct.findMany({
+            where: {
+                workshopId: parseInt(workshopId),
+            },
+            select: {
+                productId: true
+            }
+        });
+    
+        const productIdsInWorkshop = productsInWorkshop.map(wp => wp.productId);
+    
+        const productsNotInWorkshop = await this.db.product.findMany({
+            where: {
+                id: {
+                    notIn: productIdsInWorkshop
+                }
+            }
+        });
+    
+        if (!productsNotInWorkshop.length) {
+            throw new HttpError(404, 'no products found that are not in this workshop')
+        }
+    
+        res.status(200).send(productsNotInWorkshop);
+    }
+
     async put(req, res) {
         const id = req.params.id
         const workshop = new PutWorkshopRequest(req).data()
@@ -121,22 +150,6 @@ export class WorkshopController {
         });
 
         return res.status(201).json(workshopProduct);
-    }
-
-    async getProductByWorkshop(req, res) {
-        const workshopId = parseInt(req.params.id);
-
-        const workshop = await this.db.workshop.findUnique({
-            where: { id: workshopId },
-            include: { items: { include: { product: true } } },
-          });
-      
-        if (!workshop) {
-            return res.status(404).json({ error: 'Workshop not found' });
-        }
-        
-        return res.status(200).json(workshop.items);
-
     }
 
     

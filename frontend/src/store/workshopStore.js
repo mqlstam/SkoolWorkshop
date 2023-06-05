@@ -31,6 +31,15 @@ export const useWorkshopStore = defineStore('workshop', {
             }
         },
 
+        async fetchProductsNotInWorkshop(workshopId) {
+            const { response, ok } = await API.Req('GET', `/api/workshops/${workshopId}/productsNotInWorkshop`);
+            if (ok) {
+                return response;
+            } else {
+                throw new Error(response.error);
+            }
+        },
+
         async create (workshop) {
             const { response, ok } = await API.Req('POST', '/api/workshops', { body: workshop })
             if (ok) {

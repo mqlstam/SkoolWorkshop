@@ -22,6 +22,12 @@ const routes = [
         component: () => import('../views/WorkshopForm.vue')
     },
     {
+        path: '/workshops/:id/addproduct',
+        name: 'workshop-addproduct',
+        meta: { nav: 'workshop' },
+        component: () => import('../views/WorkshopAddProduct.vue')
+    },
+    {
         path: '/products',
         name: 'products',
         meta: { nav: 'product' },
@@ -38,7 +44,8 @@ const routes = [
         name: 'product-details',
         meta: { nav: 'product' },
         component: () => import('../views/ProductDetails.vue')
-    }
+    },
+    
 
 ]
 
