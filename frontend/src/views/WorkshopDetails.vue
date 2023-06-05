@@ -38,14 +38,20 @@ async function save () {
     <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" placeholder="group size" />
   </div>
 
-  <div class="row box bg-white border-top mt-3">
-          <WorkshopProductItem
-        v-for="(item, index) in workshop.items"
-        :key="index"
-        :product="item.product" />
-    </div>
+  <!-- Title for the product list -->
+  <div class="row">
+    <h4 class="ml-3 mt-3">Workshop Items:</h4>
+  </div>
 
-    <div class="row mt-3"> <!-- Button container -->
-    <button class="btn btn-primary rounded-pill" @click=router.push(rout)>Add Product</button>
+  <div class="row box bg-white border-top mt-3">
+    <WorkshopProductItem
+      v-for="(item, index) in workshop.items"
+      :key="index"
+      :product="item.product" />
+  </div>
+
+  <div class="row mt-3"> <!-- Button container -->
+    <button class="btn btn-primary rounded-pill py-3 px-2" @click=router.push(rout)>Add Product</button>
   </div>
 </template>
+
