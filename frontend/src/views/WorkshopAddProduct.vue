@@ -6,44 +6,41 @@ import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const route = useRoute()
-const edit = ref(false)
 const productStore = useProductStore()
 productStore.fetch()
 
-const workshopStore = useWorkshopStore();
+const workshopStore = useWorkshopStore()
 const workshopId = Number(route.params.id)
-const productsNotInWorkshop = ref([]);
+const productsNotInWorkshop = ref([])
 const productsInWorkshop = ref([]);
 
 (async () => {
-    productsNotInWorkshop.value = await workshopStore.fetchProductsNotInWorkshop(workshopId);
-})();
+    productsNotInWorkshop.value = await workshopStore.fetchProductsNotInWorkshop(workshopId)
+})()
 
 const search = ref('')
 const filteredProducts = computed(() => {
     if (search.value) {
         return productsNotInWorkshop.value.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
     } else {
-        return productsNotInWorkshop.value;
+        return productsNotInWorkshop.value
     }
-});
+})
 
 const addProductToWorkshop = async (product) => {
-    await workshopStore.addProduct(workshopId, product.id, 1);  // Assuming you want to add one product at a time
-    productsInWorkshop.value.push(product);
-    const index = productsNotInWorkshop.value.indexOf(product);
+    await workshopStore.addProduct(workshopId, product.id, 1) // Assuming you want to add one product at a time
+    productsInWorkshop.value.push(product)
+    const index = productsNotInWorkshop.value.indexOf(product)
     if (index > -1) {
-        productsNotInWorkshop.value.splice(index, 1);
+        productsNotInWorkshop.value.splice(index, 1)
     }
 }
 
 const handleStockClick = (product) => {
-    console.log('Stock button clicked for', product.name);
-    addProductToWorkshop(product);
+    console.log('Stock button clicked for', product.name)
+    addProductToWorkshop(product)
 }
 </script>
-
-
 
 <template>
   <div class="row box-header">
@@ -59,7 +56,7 @@ const handleStockClick = (product) => {
     <div v-for="product in filteredProducts" :key="product.id" class="d-flex align-items-center border-bottom hover-darken">
       <font-awesome-icon :icon="['fas', 'box']" class="fa-3x img border p-3 ms-1 me-3 my-3 text-dark"></font-awesome-icon>
       <span class="h5">{{ product.name }}</span>
-  
+
       <div class="ms-auto">
         <!-- product stock status -->
         <button v-if=" !productsInWorkshop.includes(product)" class="btn btn-sm p-1 hover-darken" @click="handleStockClick(product)">

@@ -18,7 +18,7 @@ const router = useRouter()
 
 const handleClick = (workshop) => {
     emit('click', workshop)
-    const route = `/workshops/${workshop.id}` 
+    const route = `/workshops/${workshop.id}`
     router.push(route)
 }
 </script>

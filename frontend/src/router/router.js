@@ -44,8 +44,7 @@ const routes = [
         name: 'product-details',
         meta: { nav: 'product' },
         component: () => import('../views/ProductDetails.vue')
-    },
-    
+    }
 
 ]
 
