@@ -51,7 +51,7 @@ async function save () {
   </div>
 
   <div class="row mt-3"> <!-- Button container -->
-    <button class="btn btn-primary rounded-pill py-3 px-2" style="font-size: 20px;" @click=router.push(rout)>Add Product</button>
+    <button class="btn btn-primary rounded-pill py-3 px-2 fs-5" @click=router.push(rout)>Add Product</button>
   </div>
 </template>
 
