@@ -21,7 +21,7 @@ function onDecode (result) {
 </script>
 
 <template>
-  <div class="d-flex h-100 align-items-center justify-content-center">
+  <div>
     <stream-barcode-reader @decode="onDecode"/>
   </div>
 </template>
