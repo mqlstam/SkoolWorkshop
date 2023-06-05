@@ -15,7 +15,14 @@ $navigation-bar-desktop-size: 5rem;
 
 .content {
   @extend .container;
-  padding-bottom: $navigation-bar-mobile-size;
+  overflow-y: auto;
+  height: calc(100vh - $navigation-bar-mobile-size);
+
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
 
 /** navigation bar on mobile */
@@ -34,7 +41,7 @@ $navigation-bar-desktop-size: 5rem;
 
 @include media-breakpoint-up(sm) {
 .content {
-    padding-left: $navigation-bar-desktop-size;
+    height: 100vh;
   }
 }
 
