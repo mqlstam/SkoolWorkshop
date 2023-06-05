@@ -28,7 +28,7 @@ export const useProductStore = defineStore('product', {
                 this.products.push(response)
                 return response
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -37,7 +37,7 @@ export const useProductStore = defineStore('product', {
             if (ok) {
                 this.products.push(response)
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -47,7 +47,7 @@ export const useProductStore = defineStore('product', {
                 const idx = this.products.findIndex(p => p.id === data.id)
                 this.products[idx] = response
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -56,9 +56,10 @@ export const useProductStore = defineStore('product', {
             if (ok) {
                 this.products = this.products.filter(w => w.id !== id)
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
+
         search (query) {
             return this.products.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
         }
