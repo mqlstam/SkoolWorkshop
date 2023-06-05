@@ -38,13 +38,11 @@ $navigation-bar-desktop-size: 5rem;
   }
 }
 
-/** single block item, rounded on desktop full screen on mobile */
-@include media-breakpoint-up(sm) {
-  .box-sm {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-    border-radius: var(--bs-border-radius-2xl) !important;
-    overflow: hidden;
-  }
+.box {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border-radius: var(--bs-border-radius-2xl) !important;
+  overflow: hidden;
+  margin: 0;
 }
 
 .box-header {

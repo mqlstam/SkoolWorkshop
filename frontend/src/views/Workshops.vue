@@ -34,7 +34,7 @@ async function remove (workshop) {
     </div>
   </div>
 
-  <div class="row box-sm bg-white border-top">
+  <div class="row box bg-white border-top">
     <input type="text" v-model="search" placeholder="Search workshops..." class="form-control search p-4">
 
     <!-- workshop list -->

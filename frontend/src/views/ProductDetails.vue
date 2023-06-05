@@ -30,7 +30,7 @@ async function save () {
     </div>
   </div>
 
-  <div class="row box-sm bg-white border-top">
+  <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
     <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
     <number-input name="Minimum Stock" v-model:value="product.minStock" @update:value="save"/>
