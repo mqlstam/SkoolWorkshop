@@ -7,7 +7,7 @@ export const useWorkshopStore = defineStore('workshop', {
         workshops: []
     }),
     actions: {
-        async fetch (force) {
+        async fetch (force = false) {
             if (this.fetched && !force) return
 
             const { response, ok } = await API.Req('GET', '/api/workshops')
@@ -27,7 +27,7 @@ export const useWorkshopStore = defineStore('workshop', {
             if (ok) {
                 return response
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -36,7 +36,7 @@ export const useWorkshopStore = defineStore('workshop', {
             if (ok) {
                 this.workshops.push(response)
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -46,7 +46,7 @@ export const useWorkshopStore = defineStore('workshop', {
                 const idx = this.workshops.findIndex(p => p.id === data.id)
                 this.workshops[idx] = response
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
 
@@ -55,9 +55,10 @@ export const useWorkshopStore = defineStore('workshop', {
             if (ok) {
                 this.workshops = this.workshops.filter(w => w.id !== id)
             } else {
-                throw new Error(response.message)
+                throw new Error(response.error)
             }
         },
+
         search (query) {
             return this.workshops.filter(workshop => workshop.name.toLowerCase().includes(query.toLowerCase()))
         },

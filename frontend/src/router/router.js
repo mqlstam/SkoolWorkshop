@@ -5,16 +5,13 @@ const routes = [
         path: '/',
         alias: '/workshops',
         name: 'workshops',
+        meta: { nav: 'workshop' },
         component: () => import('../views/Workshops.vue')
-    },
-    {
-        path: '/products',
-        name: 'products',
-        component: () => import('../views/Products.vue')
     },
     {
         path: '/workshops/:id',
         name: 'workshop-details',
+        meta: { nav: 'workshop' },
         component: () => import('../views/WorkshopDetails.vue')
     },
     {
@@ -23,25 +20,31 @@ const routes = [
         component: () => import('../views/WorkshopProductItem.vue')
     },
     {
+        path: '/workshops/new',
+        name: 'workshop-create',
+        role: 'workshop',
+        meta: { nav: 'workshop' },
+        component: () => import('../views/WorkshopForm.vue')
+    },
+    {
+        path: '/products',
+        name: 'products',
+        meta: { nav: 'product' },
+        component: () => import('../views/Products.vue')
+    },
+    {
         path: '/products/new',
         name: 'product-create',
+        meta: { nav: 'product' },
         component: () => import('../views/ProductCreate.vue')
     },
     {
         path: '/products/:id',
         name: 'product-details',
+        meta: { nav: 'product' },
         component: () => import('../views/ProductDetails.vue')
     },
-    {
-        path: '/workshops/new',
-        name: 'workshop-create',
-        component: () => import('../views/WorkshopForm.vue')
-    },
-    {
-        path: '/workshops/:id/products',
-        name: 'workshop-products',
-        component: () => import('../views/WorkshopProductItem.vue')
-    }
+  
 ]
 
 export default createRouter({

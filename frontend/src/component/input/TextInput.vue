@@ -19,7 +19,7 @@ const props = defineProps({
 const value = ref(props.value)
 watch(() => props.value, (newValue) => { value.value = newValue })
 
-const edit = ref(false)
+const edit = ref(value.value === '')
 
 function update () {
     if (value.value === '' && edit.value) value.value = props.value
@@ -34,7 +34,7 @@ function update () {
 
     <div class="ms-auto d-flex align-items-center">
       <span v-if="!edit">{{value}}</span>
-      <input v-else type="text" class="form-control" v-model="value" autofocus />
+      <input v-else type="text" class="form-control" v-model="value" @keydown.enter="update" autofocus />
       <div role="button" @click="update">
         <font-awesome-icon
             :icon="['fas', 'pen']"

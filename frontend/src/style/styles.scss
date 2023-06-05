@@ -21,24 +21,22 @@ $container-max-widths: (
         lg: 960px
 );
 
+@import "~bootstrap/scss/bootstrap";
+@import "layout";
+@import "animations";
+
 a {
   color: unset !important;
   text-decoration: none !important;
 }
 
-@import "~bootstrap/scss/bootstrap";
-@import "box";
-@import "animations";
-
 .hover-darken:hover {
-  background-color: #7771;
+  background-color: #0002 !important;
 }
 
 .card {
   background-color: #ededed;
 }
-
-
 
 .img {
   background-color: white;
