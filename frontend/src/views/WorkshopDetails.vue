@@ -14,9 +14,9 @@ const workshopId = Number(route.params.id)
 const rout = `/workshops/${workshopId}/addproduct`
 const workshop = await workshopStore.get(workshopId)
 
-async function save () {
-    const { id, ...data } = workshop
-    await workshopStore.update(data, id)
+async function save() {
+  const { id, ...data } = workshop
+  await workshopStore.update(data, id)
 }
 </script>
 
@@ -34,24 +34,22 @@ async function save () {
   </div>
 
   <div class="row box bg-white border-top">
-    <text-input name="Name" v-model:value="workshop.name" @update:value="save" placeholder="name"/>
+    <text-input name="Name" v-model:value="workshop.name" @update:value="save" placeholder="name" />
     <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" placeholder="group size" />
   </div>
 
   <!-- Title for the product list -->
-  <div class="row">
-    <h4 class="ml-3 mt-3">Workshop Items:</h4>
-  </div>
+<div class="d-flex justify-content-between align-items-center">
+  <h4 class="ml-3 mt-3">Workshop Items:</h4>
+  <button class="btn btn-primary  py-1 px-2 fs-5 ml-3 mt-3" @click=router.push(rout)>Add Product</button>
+</div>
+
+
+
 
   <div class="row box bg-white border-top mt-3">
-    <WorkshopProductItem
-      v-for="(item, index) in workshop.items"
-      :key="index"
-      :product="item.product" />
+    <WorkshopProductItem v-for="(item, index) in workshop.items" :key="index" :product="item.product" />
   </div>
 
-  <div class="row mt-3"> <!-- Button container -->
-    <button class="btn btn-primary rounded-pill py-3 px-2 fs-5" @click=router.push(rout)>Add Product</button>
-  </div>
 </template>
 
