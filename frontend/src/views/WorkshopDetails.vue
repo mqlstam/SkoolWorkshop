@@ -4,6 +4,7 @@ import { useWorkshopStore } from '../store/workshopStore.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
+import WorkshopProductItem from '../component/workshop/WorkshopProductItem.vue'
 
 const route = useRoute()
 const workshopStore = useWorkshopStore()
@@ -34,4 +35,11 @@ async function save () {
     <text-input name="Name" v-model:value="workshop.name" @update:value="save" placeholder="name"/>
     <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" placeholder="group size" />
   </div>
+
+  <div class="row box bg-white border-top mt-3">
+          <WorkshopProductItem
+        v-for="(item, index) in workshop.items"
+        :key="index"
+        :product="item.product" />
+    </div>
 </template>
