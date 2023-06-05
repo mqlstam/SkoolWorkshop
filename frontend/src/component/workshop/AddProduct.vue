@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref } from 'vue'
 import { useWorkshopStore } from '../../store/workshopStore.js'
@@ -15,20 +14,19 @@ const props = defineProps({
 const workshopStore = useWorkshopStore()
 const productStore = useProductStore()
 
-let selectedProductId = ref(null)
+const selectedProductId = ref(null)
 let quantity = 1
 
-let addedProducts = ref([])
+const addedProducts = ref([])
 
-async function addProduct() {
-    
+async function addProduct () {
     if (!selectedProductId.value) {
-        alert("No product selected!")
+        alert('No product selected!')
         return
     }
     const product = productStore.products.find(product => product.id === selectedProductId.value)
     if (!product) {
-        alert("Invalid product!")
+        alert('Invalid product!')
         return
     }
     await workshopStore.addProduct(props.workshopId, selectedProductId.value, quantity)
@@ -37,7 +35,7 @@ async function addProduct() {
     quantity = 1
 }
 
-async function fetchProducts() {
+async function fetchProducts () {
     await productStore.fetch()
 }
 fetchProducts()
@@ -50,7 +48,7 @@ fetchProducts()
       <label for="product">Product:</label>
       <select id="product" v-model="selectedProductId" class="form-select w-100">
         <option disabled value="">Please select a product</option>
-        <option v-for="product in productStore.products" :value="product.id">
+        <option v-for="product in productStore.products" :key="product.id">
           {{ product.name }}
         </option>
       </select>
@@ -65,5 +63,3 @@ fetchProducts()
     </div>
   </div>
 </template>
-
-

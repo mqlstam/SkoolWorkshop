@@ -4,22 +4,22 @@ import { useRouter } from 'vue-router'
 
 const emit = defineEmits(['click', 'delete'])
 const props = defineProps({
-  workshop: {
-    type: Object,
-    required: true
-  },
-  edit: {
-    type: Boolean,
-    default: false
-  }
+    workshop: {
+        type: Object,
+        required: true
+    },
+    edit: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const router = useRouter()
 
 const handleClick = (workshop) => {
-  emit('click', workshop)
-  const route = props.edit ? `/workshops/${workshop.id}` : `/workshops/${workshop.id}/products`
-  router.push(route)
+    emit('click', workshop)
+    const route = props.edit ? `/workshops/${workshop.id}` : `/workshops/${workshop.id}/products`
+    router.push(route)
 }
 </script>
 
@@ -45,4 +45,3 @@ const handleClick = (workshop) => {
     </div>
   </div>
 </template>
-

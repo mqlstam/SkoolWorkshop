@@ -10,7 +10,6 @@ const workshopId = route.params.id
 const workshopStore = useWorkshopStore()
 const workshop = await workshopStore.get(workshopId)
 
-
 </script>
 
 <template>
@@ -21,7 +20,6 @@ const workshop = await workshopStore.get(workshopId)
       </button>
     </div>
 
-  
     <h2>{{ workshop.name }}</h2>
     <p>Group Size: {{ workshop.groupSize }}</p>
     <div>
@@ -32,8 +30,3 @@ const workshop = await workshopStore.get(workshopId)
     </div>
   </div>
 </template>
-
-
-
-
-
