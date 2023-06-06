@@ -8,6 +8,7 @@ import { colorConsole } from 'tracer'
 import { AccessLogger } from './middleware/AccessLogger.js'
 import { ErrorHandler } from './middleware/ErrorHandler.js'
 import { UnknownRouteHandler } from './middleware/UnknownRouteHandler.js'
+import {UserController} from "./controller/UserController.js";
 dotenv.config()
 
 const db = new PrismaClient()
@@ -19,7 +20,8 @@ const middleware = {
 }
 const controller = {
     workshop: new WorkshopController(db),
-    product: new ProductController(db)
+    product: new ProductController(db),
+    user: new UserController(db),
 }
 
 // Create express app and register middleware.
@@ -42,6 +44,13 @@ app
     .post('/api/products', (req, res) => controller.product.post(req, res))
     .put('/api/products/:id', (req, res) => controller.product.put(req, res))
     .delete('/api/products/:id', (req, res) => controller.product.delete(req, res))
+
+app
+    .get('/api/users', (req, res) => controller.user.all(req, res))
+    .get('/api/users/:id', (req, res) => controller.user.get(req, res))
+    .post('/api/users', (req, res) => controller.user.post(req, res))
+    .put('/api/users/:id', (req, res) => controller.user.put(req, res))
+    .delete('/api/users/:id', (req, res) => controller.user.delete(req, res))
 
 // Register error handlers.
 app
