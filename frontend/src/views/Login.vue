@@ -1,55 +1,41 @@
 <script setup>
-import { useProductStore } from '../store/productStore.js'
-import ProductItem from '../component/product/ProductItem.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ref, computed } from 'vue'
+import {ref} from "vue";
+import {useAuthStore} from "../store/authStore.js";
+import {useRouter} from "vue-router";
 
-const edit = ref(false)
-const productStore = useProductStore()
-productStore.fetch()
+const router = useRouter()
+const authStore = useAuthStore()
 
-const search = ref('')
-const filteredProducts = computed(() => productStore.search(search.value))
+const name = ref('')
+const password = ref('')
 
-async function remove (product) {
-    await productStore.delete(product.id)
+async function login() {
+  if(await authStore.login(name.value, password.value)) {
+    await router.push('/')
+  } else {
+    throw new Error('Invalid credentials')
+  }
 }
 </script>
 
 <template>
-  <div class="row box-header">
-    <div class="col-2 d-flex align-items-center">
-      <h3 class="m-2">Products</h3>
-    </div>
+  <div class="d-flex align-items-center justify-content-center h-100">
+    <div class="box bg-white p-3 d-flex flex-column align-items-center">
+      <img src="../assets/banner.png" alt="banner" class="m-5" style="width: 15rem"/>
 
-    <div class="col-10 d-flex align-items-center justify-content-end">
-      <!-- action buttons -->
-      <router-link class="btn p-3 hover-darken" to="/products/new">
-        <font-awesome-icon :icon="['fas', 'plus']" class="fa-xl"/>
-      </router-link>
+      <div class="mb-4">
+        <label class="form-label" for="name">Name</label>
+        <input type="email" id="name" class="form-control" v-model="name" />
+      </div>
 
-      <button class="btn p-3 hover-darken" :class="{'bg-primary': edit}" @click="edit = !edit">
-        <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-xl"/>
+      <div class="mb-4">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" class="form-control" v-model="password" />
+      </div>
+
+      <button class="btn btn-primary my-4" style="width: 10rem" @click="login">
+        Sign in
       </button>
     </div>
-  </div>
-
-  <div class="row box bg-white border-top">
-    <div class="p-0 input-group align-items-end">
-      <input type="text" v-model="search" placeholder="Search products..." class="form-control search p-4">
-      <router-link to="/scan"
-                   class="d-flex justify-content-center align-items-center bg-primary h-100"
-                   style="height: 3rem; width: 5rem; margin-top: -1rem">
-        <font-awesome-icon :icon="['fas', 'qrcode']" class="fa-2x"/>
-      </router-link>
-    </div>
-
-    <!-- product list -->
-    <ProductItem
-        v-for="product in filteredProducts"
-        :key="product.id"
-        :product="product"
-        :edit="edit"
-        @delete="remove"/>
   </div>
 </template>

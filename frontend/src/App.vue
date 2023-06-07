@@ -19,7 +19,7 @@ onErrorCaptured((error) => {
       </suspense>
     </div>
 
-    <navigation-bar/>
+    <navigation-bar v-if="$route.meta.nav"/>
     <error-notification :message="message" :shown="!!message" @close="message = ''"/>
   </div>
 </template>

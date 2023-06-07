@@ -1,71 +1,39 @@
 import { defineStore } from 'pinia'
-import { API } from '../util/Api.js'
+import jwt_decode from "jwt-decode";
+import axios from "axios";
 
-export const useProductStore = defineStore('product', {
+export const useAuthStore = defineStore('auth', {
     state: () => ({
-        fetched: false,
-        products: []
+        isLoggedIn: false,
+        token: {},
+        data: {}
     }),
     actions: {
-        async fetch (force = false) {
-            if (this.fetched && !force) return
+        async login (name, password) {
+            try {
+                const { data } = await axios.post('/api/auth/login', { name, password })
 
-            const { response, ok } = await API.Req('GET', '/api/products')
-            if (ok) {
-                this.products = response
-                this.fetched = true
-            } else {
-                this.products = []
+                console.log(data)
+                this.isLoggedIn = true
+                this.token = data.token
+                this.data = jwt_decode(data.token)
+                return true
+            } catch (err) {
+                return false
             }
         },
 
-        async get (id) {
-            const product = this.products.find(item => item.id === id)
-            if (product) return product
+        async refresh () {
+            try {
+                const { data } = await axios.post('/api/auth/token')
 
-            const { response, ok } = await API.Req('GET', `/api/products/${id}`)
-            if (ok) {
-                this.products.push(response)
-                return response
-            } else {
-                throw new Error(response.error)
+                this.isLoggedIn = true
+                this.token = data.token
+                this.data = jwt_decode(data.token)
+                return true
+            } catch {
+                return false
             }
-        },
-
-        async create (product) {
-            const { response, ok } = await API.Req('POST', '/api/products', { body: product })
-            if (ok) {
-                this.products.push(response)
-            } else {
-                throw new Error(response.error)
-            }
-        },
-
-        async update (data, id) {
-            const { response, ok } = await API.Req('PUT', `/api/products/${id}`, { body: data })
-            if (ok) {
-                const idx = this.products.findIndex(p => p.id === data.id)
-                this.products[idx] = response
-            } else {
-                throw new Error(response.error)
-            }
-        },
-
-        async delete (id) {
-            const { response, ok } = await API.Req('DELETE', `/api/products/${id}`)
-            if (ok) {
-                this.products = this.products.filter(w => w.id !== id)
-            } else {
-                throw new Error(response.error)
-            }
-        },
-
-        search (query) {
-            return this.products.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
-        },
-
-        findCode (code) {
-            return this.products.find(product => product.code === code)
         }
     }
 })
