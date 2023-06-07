@@ -6,7 +6,7 @@ import { UserController } from '../../src/controller/UserController.js'
 describe('controller/UserController', () => {
     const users = [
         { id: 1, name: 'admin', password: 'password', role: 'admin' },
-        { id: 2, name: 'user', password: 'password', role: 'user' },
+        { id: 2, name: 'user', password: 'password', role: 'user' }
     ]
 
     describe('all', () => {
@@ -18,7 +18,7 @@ describe('controller/UserController', () => {
             await controller.all({}, res)
             expect(db.user.findMany.calledOnce).to.be.true
             expect(res.status.calledOnceWith(200)).to.be.true
-            expect(res.send.calledOnceWith(users.map(({password, ...user}) => user))).to.be.true
+            expect(res.send.calledOnceWith(users.map(({ password, ...user }) => user))).to.be.true
         })
 
         it('should return 404 if no users are found', async () => {

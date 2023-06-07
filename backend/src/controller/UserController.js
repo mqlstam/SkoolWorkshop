@@ -1,6 +1,6 @@
 import { HttpError } from './error/HttpError.js'
-import {PostUserRequest} from "./request/user/PostUserRequest.js"
-import {PutUserRequest} from "./request/user/PutUserRequest.js"
+import { PostUserRequest } from './request/user/PostUserRequest.js'
+import { PutUserRequest } from './request/user/PutUserRequest.js'
 import * as argon2 from 'argon2'
 
 export class UserController {
@@ -14,7 +14,7 @@ export class UserController {
             throw new HttpError(404, 'no users found')
         }
 
-        res.status(200).send(users.map(({password, ...result}) => result))
+        res.status(200).send(users.map(({ password, ...result }) => result))
     }
 
     async get (req, res) {
@@ -36,7 +36,7 @@ export class UserController {
         user.password = await argon2.hash(user.password)
 
         try {
-            const {password, ...result} = await this.db.user.create({ data: user })
+            const { password, ...result } = await this.db.user.create({ data: user })
             res.status(201).send(result)
         } catch (err) {
             if (err.code === 'P2002') {
@@ -52,7 +52,7 @@ export class UserController {
 
         try {
             user.password = await argon2.hash(user.password)
-            const {password, ...result} = await this.db.user.update({
+            const { password, ...result } = await this.db.user.update({
                 where: { id: parseInt(id) },
                 data: user
             })

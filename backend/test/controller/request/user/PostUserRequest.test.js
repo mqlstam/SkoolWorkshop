@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
-import {PostUserRequest} from "../../../../src/controller/request/user/PostUserRequest.js"
+import { PostUserRequest } from '../../../../src/controller/request/user/PostUserRequest.js'
 
 describe('controller/request/user/PostUserRequest', () => {
     it('should accept valid requests', async () => {
