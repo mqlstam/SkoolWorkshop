@@ -2,22 +2,22 @@
 
 const emit = defineEmits(['update:value'])
 const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  value: {
-    type: String,
-    default: ''
-  },
-  options: {
-    type: Array,
-    default: []
-  }
+    name: {
+        type: String,
+        required: true
+    },
+    value: {
+        type: String,
+        default: ''
+    },
+    options: {
+        type: Array,
+        required: true
+    }
 })
 
-function update(event) {
-  emit('update:value', event.target.value)
+function update (event) {
+    emit('update:value', event.target.value)
 }
 </script>
 

@@ -13,7 +13,6 @@ export const useAuthStore = defineStore('auth', {
             try {
                 const { data } = await axios.post('/api/auth/login', { name, password })
 
-                console.log(data)
                 this.isLoggedIn = true
                 this.token = data.token
                 this.data = jwtDecode(data.token)

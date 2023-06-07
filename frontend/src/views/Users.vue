@@ -1,8 +1,8 @@
 <script setup>
-import {useUserStore} from '../store/userStore.js'
+import { useUserStore } from '../store/userStore.js'
 import UserItem from '../component/user/UserItem.vue'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {ref, computed} from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { ref, computed } from 'vue'
 
 const edit = ref(false)
 const userStore = useUserStore()
@@ -11,8 +11,8 @@ userStore.fetch()
 const search = ref('')
 const filteredUsers = computed(() => userStore.search(search.value))
 
-async function remove(user) {
-  await userStore.delete(user.id)
+async function remove (user) {
+    await userStore.delete(user.id)
 }
 </script>
 

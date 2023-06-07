@@ -1,15 +1,15 @@
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {useRoute, useRouter} from 'vue-router'
-import {useAuthStore} from "../../store/authStore.js";
+import { useRoute, useRouter } from 'vue-router'
+import { useAuthStore } from '../../store/authStore.js'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 
 async function logout () {
-  await authStore.logout()
-  await router.push('/login')
+    await authStore.logout()
+    await router.push('/login')
 }
 </script>
 

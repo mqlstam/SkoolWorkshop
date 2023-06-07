@@ -3,16 +3,15 @@ import { useUserStore } from '../store/userStore.js'
 import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
-import NumberInput from '../component/input/NumberInput.vue'
-import PasswordInput from "../component/input/PasswordInput.vue";
-import OptionsInput from "../component/input/OptionsInput.vue";
+import PasswordInput from '../component/input/PasswordInput.vue'
+import OptionsInput from '../component/input/OptionsInput.vue'
 
 const route = useRoute()
 const userStore = useUserStore()
 const roles = [
-  {id: 'admin', name: 'admin'},
-  {id: 'user', name: 'user'},
-  {id: 'intern', name: 'intern'}
+    { id: 'admin', name: 'admin' },
+    { id: 'user', name: 'user' },
+    { id: 'intern', name: 'intern' }
 ]
 
 const userId = Number(route.params.id)

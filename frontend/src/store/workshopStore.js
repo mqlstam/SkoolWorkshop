@@ -53,7 +53,8 @@ export const useWorkshopStore = defineStore('workshop', {
 
         async delete (id) {
             try {
-                const { data } = await axios.delete(`/api/workshops/${id}`)
+                await axios.delete(`/api/workshops/${id}`)
+                this.workshops = this.products.filter(w => w.id !== id)
             } catch (err) {
                 throw new Error(err.response.data.error)
             }

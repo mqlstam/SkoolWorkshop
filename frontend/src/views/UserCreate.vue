@@ -1,31 +1,31 @@
 <script setup>
-import {useUserStore} from '../store/userStore.js'
-import {useRouter} from 'vue-router'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import { useUserStore } from '../store/userStore.js'
+import { useRouter } from 'vue-router'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
-import {ref} from 'vue'
-import PasswordInput from "../component/input/PasswordInput.vue";
-import OptionsInput from "../component/input/OptionsInput.vue";
+import { ref } from 'vue'
+import PasswordInput from '../component/input/PasswordInput.vue'
+import OptionsInput from '../component/input/OptionsInput.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
 const roles = [
-  {id: 'admin', name: 'admin'},
-  {id: 'user', name: 'user'},
-  {id: 'intern', name: 'intern'}
+    { id: 'admin', name: 'admin' },
+    { id: 'user', name: 'user' },
+    { id: 'intern', name: 'intern' }
 ]
 
 const user = ref({
-  name: '',
-  password: '',
-  role: 'user'
+    name: '',
+    password: '',
+    role: 'user'
 })
 
-async function create() {
-  if (user.value.name === '') throw new Error('name is empty')
-  if (user.value.password === '') throw new Error('password is empty')
-  await userStore.create(user.value)
-  await router.back()
+async function create () {
+    if (user.value.name === '') throw new Error('name is empty')
+    if (user.value.password === '') throw new Error('password is empty')
+    await userStore.create(user.value)
+    await router.back()
 }
 </script>
 
