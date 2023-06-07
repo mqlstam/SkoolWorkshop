@@ -19,7 +19,8 @@ import {
     faToggleOn,
     faToggleOff,
     faUserGear,
-    faRightFromBracket
+    faRightFromBracket,
+    faUser
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -42,5 +43,6 @@ library.add(
     faToggleOn,
     faToggleOff,
     faUserGear,
-    faRightFromBracket
+    faRightFromBracket,
+    faUser
 )
