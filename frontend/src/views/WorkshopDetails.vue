@@ -15,14 +15,12 @@ const workshopId = Number(route.params.id)
 const rout = `/workshops/${workshopId}/addproduct`
 const workshop = await workshopStore.get(workshopId)
 
-async function save() {
-  const { id, ...data } = workshop
-  await workshopStore.update(data, id)
-}
+
 
 async function removeProduct(item) {
-    await workshopStore.removeProduct(item.product.id) 
-}
+    await workshopStore.removeProduct(workshopId ,item.id);
+  }
+
 </script>
 
 <template>
@@ -47,7 +45,7 @@ async function removeProduct(item) {
     <h4 class="ml-3 mt-3">Workshop Items:</h4>
     <div>
       <!-- updated class here -->
-      <button class="btn py-1 px-2 fs-5 ml-3 mt-3 me-2 hover-darken" :class="{'bg-primary': edit}" @click="edit = !edit">
+      <button class="btn py-1 px-2 fs-5 ml-3 mt-3 me-2 hover-darken" :class="{ edit}" @click="edit = !edit">
         <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-xl"/>
       </button>
       <button class="btn btn-primary py-1 px-2 fs-5 ml-3 mt-3" @click="router.push(rout)">Add Product</button>
