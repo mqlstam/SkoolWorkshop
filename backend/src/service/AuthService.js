@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken'
  */
 export class AuthService {
     sessionSize = 64 // 64 bytes
-    sessionLifetime = 604800 // 7 days in seconds
+    sessionLifetime = 604800000 // 7 days in milliseconds
     accessTokenLifetime = '10m'
 
     constructor (db) {
@@ -22,7 +22,7 @@ export class AuthService {
             data: {
                 id: hash,
                 created: new Date(),
-                expires: new Date(Date.now() + this.sessionLifetime * 1000),
+                expires: new Date(Date.now() + this.sessionLifetime),
                 ipaddr,
                 user: { connect: { id: user.id } }
             }
@@ -52,7 +52,7 @@ export class AuthService {
             data: {
                 id: hash,
                 ipaddr,
-                expires: new Date(Date.now() + this.sessionLifetime * 1000)
+                expires: new Date(Date.now() + this.sessionLifetime)
             }
         })
         return sessionId
