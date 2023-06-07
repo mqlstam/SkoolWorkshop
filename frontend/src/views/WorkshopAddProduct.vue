@@ -44,8 +44,14 @@ const handleStockClick = (product) => {
 
 <template>
   <div class="row box-header">
-    <div class="col-2 d-flex align-items-center">
-      <h3 class="m-2"> AddProducts</h3>
+    <div class="d-flex align-items-center m-0" style="width: min-content">
+      <a class="btn p-2 bg-secondary hover-darken" @click="$router.back()">
+        <font-awesome-icon :icon="['fas', 'caret-left']" class="fa-xl" style="width: 24px"/>
+      </a>
+    </div>
+
+    <div class="col d-flex align-items-center">
+      <h3 class="m-0"> AddProducts</h3>
     </div>
   </div>
 
@@ -67,3 +73,5 @@ const handleStockClick = (product) => {
     </div>
   </div>
 </template>
+
+
