@@ -57,6 +57,18 @@ const routes = [
         path: '/users',
         meta: { nav: 'user', role: ['admin'] },
         component: () => import('../views/Users.vue')
+    },
+    {
+        name: 'user-create',
+        path: '/users/new',
+        meta: { nav: 'user', role: ['admin'] },
+        component: () => import('../views/UserCreate.vue')
+    },
+    {
+        name: 'user-details',
+        path: '/users/:id',
+        meta: { nav: 'user', role: ['admin'] },
+        component: () => import('../views/UserDetails.vue')
     }
 ]
 

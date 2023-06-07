@@ -4,10 +4,16 @@ import { useAuthStore } from '../store/authStore.js'
 export default async function authInterceptor (to, from) {
     if (to.meta.public) return
 
-    // Check whether the user is logged in, or try to refresh the token
     const authStore = useAuthStore()
-    if (authStore.isLoggedIn || await authStore.refresh()) return
+    if (!authStore.isLoggedIn && !(await authStore.refresh())) {
+        // If user is not logged in, and refresh fails, redirect
+        // to login
+        await router.push('/login')
+    }
 
-    // If not, redirect to login
-    await router.push('/login')
+    if (to.meta.role && !to.meta.role.includes(authStore.data.role)) {
+        // If user is logged in, but doesn't have the required
+        // role, go to home page
+        await router.push('/')
+    }
 }
