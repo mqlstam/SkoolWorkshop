@@ -6,9 +6,12 @@ import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import { ref } from 'vue'
+import {StreamBarcodeReader} from "vue-barcode-reader";
 
 const router = useRouter()
 const productStore = useProductStore()
+
+const showScanner = ref(false)
 
 const product = ref({
     name: '',
@@ -20,6 +23,24 @@ async function create () {
     if (product.value.name === '') throw new Error('name is empty')
     await productStore.create(product.value)
     await router.back()
+}
+
+function onDecode(result) {
+    if(productStore.findCode(result)) {
+      throw Error('Product already exists')
+    } else {
+      product.value.code = result.toString()
+      showScanner.value = false
+    }
+}
+
+function generateCode() {
+  const code = Math.floor(Math.random() * 1000000)
+  if(productStore.findCode(code)) {
+    generateCode()
+  } else {
+    product.value.code = code.toString()
+  }
 }
 </script>
 
@@ -40,6 +61,33 @@ async function create () {
     <text-input name="Name" v-model:value="product.name" />
     <number-input name="Stock" v-model:value="product.stock" />
     <checkbox-input name="Reusable" v-model:value="product.reusable" />
+    <number-input name="Minimum Stock" v-model:value="product.minStock" />
+    <div type="button" class="d-flex align-items-center p-2 border-bottom">
+      <span class="mx-3">Add Code: {{ product.code }}</span>
+      <div class="justify-content-center">
+        <div v-if="showScanner" class="d-flex justify-content-center align-items-center">
+          <div class="position-absolute d-flex flex-column">
+            <stream-barcode-reader @decode="onDecode" class="ps-3 pe-3"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms-auto d-flex align-items-center">
+        <div class="d-flex align-items-center" role="button" @click="showScanner = !showScanner">
+          Scan
+          <font-awesome-icon
+            :icon="['fas', 'qrcode']"
+            class="p-3 mx-2 rounded-3 hover-darken" />
+        </div>
+
+        <div class="ps-3 d-flex align-items-center" role="button" @click="generateCode">
+          Generate
+          <font-awesome-icon
+            :icon="['fas', 'plus']"
+            class="p-3 mx-2 rounded-3 hover-darken" />
+        </div>
+      </div>
+    </div>
 
     <button class="m-3 ms-auto btn p-2 bg-primary d-flex justify-content-center" @click="create" style="width: 10rem">
       <font-awesome-icon :icon="['fas', 'floppy-disk']" class="fa-xl" />
