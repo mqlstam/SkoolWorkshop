@@ -44,12 +44,6 @@ const routes = [
         name: 'scan',
         meta: { nav: 'scan' },
         component: () => import('../views/Scan.vue')
-    },
-    {
-        path: '/products/new/add-code/:name',
-        name: 'add-code',
-        meta: { nav: 'add-code' },
-        component: () => import('../views/ScanToAdd.vue')
     }
 ]
 

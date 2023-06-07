@@ -21,6 +21,7 @@ const product = ref({
 
 async function create () {
     if (product.value.name === '') throw new Error('name is empty')
+    if(product.value.code === '') delete product.value ['code']
     await productStore.create(product.value)
     await router.back()
 }

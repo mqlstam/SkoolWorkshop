@@ -14,6 +14,7 @@ const product = await productStore.get(productId)
 
 async function save () {
     const { id, ...data } = product
+    if(data.code === '') delete data ['code']
     await productStore.update(data, id)
 }
 </script>
