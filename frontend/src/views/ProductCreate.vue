@@ -6,7 +6,7 @@ import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import { ref } from 'vue'
-import {StreamBarcodeReader} from "vue-barcode-reader";
+import { StreamBarcodeReader } from 'vue-barcode-reader'
 
 const router = useRouter()
 const productStore = useProductStore()
@@ -21,27 +21,27 @@ const product = ref({
 
 async function create () {
     if (product.value.name === '') throw new Error('name is empty')
-    if(product.value.code === '') delete product.value ['code']
+    if (product.value.code === '') delete product.value.code
     await productStore.create(product.value)
     await router.back()
 }
 
-function onDecode(result) {
-    if(productStore.findCode(result)) {
-      throw Error('Product already exists')
+function onDecode (result) {
+    if (productStore.findCode(result)) {
+        throw Error('Product already exists')
     } else {
-      product.value.code = result.toString()
-      showScanner.value = false
+        product.value.code = result.toString()
+        showScanner.value = false
     }
 }
 
-function generateCode() {
-  const code = Math.floor(Math.random() * 1000000)
-  if(productStore.findCode(code)) {
-    generateCode()
-  } else {
-    product.value.code = code.toString()
-  }
+function generateCode () {
+    const code = Math.floor(Math.random() * 1000000)
+    if (productStore.findCode(code)) {
+        generateCode()
+    } else {
+        product.value.code = code.toString()
+    }
 }
 </script>
 
