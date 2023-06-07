@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import authInterceptor from './authInterceptor.js'
 
 const routes = [
+    {
+        path: '/login',
+        name: 'login',
+        meta: { public: true },
+        component: () => import('../views/Login.vue')
+    },
     {
         path: '/',
         alias: '/workshops',
@@ -47,7 +54,11 @@ const routes = [
     }
 ]
 
-export default createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+router.beforeEach(authInterceptor)
+
+export default router

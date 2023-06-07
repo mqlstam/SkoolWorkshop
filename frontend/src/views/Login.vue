@@ -1,7 +1,7 @@
 <script setup>
-import {ref} from "vue";
-import {useAuthStore} from "../store/authStore.js";
-import {useRouter} from "vue-router";
+import { ref } from 'vue'
+import { useAuthStore } from '../store/authStore.js'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -9,12 +9,12 @@ const authStore = useAuthStore()
 const name = ref('')
 const password = ref('')
 
-async function login() {
-  if(await authStore.login(name.value, password.value)) {
-    await router.push('/')
-  } else {
-    throw new Error('Invalid credentials')
-  }
+async function login () {
+    if (await authStore.login(name.value, password.value)) {
+        await router.push('/')
+    } else {
+        throw new Error('Invalid credentials')
+    }
 }
 </script>
 

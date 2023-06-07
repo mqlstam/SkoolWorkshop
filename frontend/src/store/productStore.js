@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { API } from '../util/Api.js'
+import axios from 'axios'
 
 export const useProductStore = defineStore('product', {
     state: () => ({
@@ -10,11 +10,11 @@ export const useProductStore = defineStore('product', {
         async fetch (force = false) {
             if (this.fetched && !force) return
 
-            const { response, ok } = await API.Req('GET', '/api/products')
-            if (ok) {
-                this.products = response
+            try {
+                const { data } = await axios.get('/api/products')
+                this.products = data
                 this.fetched = true
-            } else {
+            } catch {
                 this.products = []
             }
         },
@@ -23,40 +23,40 @@ export const useProductStore = defineStore('product', {
             const product = this.products.find(item => item.id === id)
             if (product) return product
 
-            const { response, ok } = await API.Req('GET', `/api/products/${id}`)
-            if (ok) {
-                this.products.push(response)
-                return response
-            } else {
-                throw new Error(response.error)
+            try {
+                const { data } = await axios.get(`/api/products/${id}`)
+                this.products.push(data)
+                return data
+            } catch (err) {
+                throw new Error('Product not found')
             }
         },
 
         async create (product) {
-            const { response, ok } = await API.Req('POST', '/api/products', { body: product })
-            if (ok) {
-                this.products.push(response)
-            } else {
-                throw new Error(response.error)
+            try {
+                const { data } = await axios.post('/api/products', product)
+                this.products.push(data)
+            } catch (err) {
+                throw new Error(err.response.data.error)
             }
         },
 
-        async update (data, id) {
-            const { response, ok } = await API.Req('PUT', `/api/products/${id}`, { body: data })
-            if (ok) {
+        async update (product, id) {
+            try {
+                const { data } = await axios.put(`/api/products/${id}`, product)
                 const idx = this.products.findIndex(p => p.id === data.id)
-                this.products[idx] = response
-            } else {
-                throw new Error(response.error)
+                this.products[idx] = data
+            } catch (err) {
+                throw new Error(err.response.data.error)
             }
         },
 
         async delete (id) {
-            const { response, ok } = await API.Req('DELETE', `/api/products/${id}`)
-            if (ok) {
+            try {
+                await axios.delete(`/api/products/${id}`)
                 this.products = this.products.filter(w => w.id !== id)
-            } else {
-                throw new Error(response.error)
+            } catch (err) {
+                throw new Error(err.response.data.error)
             }
         },
 

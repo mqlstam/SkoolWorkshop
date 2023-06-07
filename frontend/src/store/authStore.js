@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import jwt_decode from "jwt-decode";
-import axios from "axios";
+import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', {
                 console.log(data)
                 this.isLoggedIn = true
                 this.token = data.token
-                this.data = jwt_decode(data.token)
+                this.data = jwtDecode(data.token)
                 return true
             } catch (err) {
                 return false
@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('auth', {
 
                 this.isLoggedIn = true
                 this.token = data.token
-                this.data = jwt_decode(data.token)
+                this.data = jwtDecode(data.token)
                 return true
             } catch {
                 return false
