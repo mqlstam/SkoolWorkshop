@@ -51,7 +51,7 @@ export class UserController {
         const user = new PutUserRequest(req).data()
 
         try {
-            user.password = await argon2.hash(user.password)
+            if (user.password) user.password = await argon2.hash(user.password)
             const { password, ...result } = await this.db.user.update({
                 where: { id: parseInt(id) },
                 data: user

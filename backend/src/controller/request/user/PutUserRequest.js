@@ -4,7 +4,7 @@ export class PutUserRequest extends Request {
     schema = {
         type: 'object',
         additionalProperties: false,
-        required: ['name', 'password', 'role'],
+        required: ['name', 'role'],
         properties: {
             name: { type: 'string' },
             password: { type: 'string' },
