@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken'
 export class AuthService {
     sessionSize = 64 // 64 bytes
     sessionLifetime = 604800 // 7 days in seconds
+    accessTokenLifetime = '10m'
 
     constructor (db) {
         this.db = db
@@ -66,7 +67,7 @@ export class AuthService {
         return jwt.sign(
             { id, role },
             process.env.JWT_SECRET,
-            { expiresIn: '10m' }
+            { expiresIn: this.accessTokenLifetime }
         )
     }
 }
