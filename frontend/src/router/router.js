@@ -51,6 +51,12 @@ const routes = [
         name: 'scan',
         meta: { nav: 'scan' },
         component: () => import('../views/Scan.vue')
+    },
+    {
+        name: 'users',
+        path: '/users',
+        meta: { nav: 'user', role: ['admin'] },
+        component: () => import('../views/Users.vue')
     }
 ]
 
