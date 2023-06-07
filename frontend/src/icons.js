@@ -15,8 +15,10 @@ import {
     faBox,
     faQrcode,
     faCaretLeft,
-    faFloppyDisk
+    faFloppyDisk,
+    faCheckSquare
 } from '@fortawesome/free-solid-svg-icons'
+import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
     faCircleInfo,
@@ -34,5 +36,7 @@ library.add(
     faBox,
     faQrcode,
     faCaretLeft,
-    faFloppyDisk
+    faFloppyDisk,
+    faCheckSquare,
+    faSquare
 )
