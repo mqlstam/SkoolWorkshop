@@ -1,10 +1,10 @@
 import { join } from 'path'
 
 /**
- * UnknownRouteHandler handles all unknown routes. It returns
+ * UnknownRouteMiddleware handles all unknown routes. It returns
  * an error message or index.html when route is not an API.
  */
-export class UnknownRouteHandler {
+export class UnknownRouteMiddleware {
     exec (req, res, next) {
         if (req.path.startsWith('/api')) {
             res.status(404).json({ error: 'API route not found' })

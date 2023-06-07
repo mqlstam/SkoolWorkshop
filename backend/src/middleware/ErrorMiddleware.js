@@ -1,7 +1,7 @@
 /**
- * ErrorHandler catches and logs errors and sends them to the client.
+ * ErrorMiddleware catches and logs errors and sends them to the client.
  */
-export class ErrorHandler {
+export class ErrorMiddleware {
     constructor (logger, production) {
         this.logger = logger
         this.production = production

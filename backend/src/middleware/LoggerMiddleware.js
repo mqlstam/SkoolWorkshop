@@ -1,7 +1,7 @@
 /**
- * AccessLogger logs all requests to the console.
+ * LoggerMiddleware logs all requests to the console.
  */
-export class AccessLogger {
+export class LoggerMiddleware {
     constructor (logger) {
         this.logger = logger
     }
