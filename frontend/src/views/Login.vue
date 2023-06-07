@@ -25,12 +25,12 @@ async function login () {
 
       <div class="mb-4">
         <label class="form-label" for="name">Name</label>
-        <input type="email" id="name" class="form-control" v-model="name" />
+        <input type="email" id="name" class="form-control" v-model="name" @keydown.enter="login" />
       </div>
 
       <div class="mb-4">
         <label class="form-label" for="password">Password</label>
-        <input type="password" id="password" class="form-control" v-model="password" />
+        <input type="password" id="password" class="form-control" v-model="password" @keydown.enter="login" />
       </div>
 
       <button class="btn btn-primary my-4" style="width: 10rem" @click="login">
