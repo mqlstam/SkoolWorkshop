@@ -13,12 +13,13 @@ const workshopStore = useWorkshopStore()
 const edit = ref(false)
 const workshopId = Number(route.params.id)
 const rout = `/workshops/${workshopId}/addproduct`
-const workshop = await workshopStore.get(workshopId)
+const workshop = ref(await workshopStore.get(workshopId))
 
 
 
 async function removeProduct(item) {
     await workshopStore.removeProduct(workshopId ,item.id);
+    workshop.value = await workshopStore.get(workshopId);
   }
 
 </script>
