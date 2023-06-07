@@ -152,5 +152,29 @@ export class WorkshopController {
         return res.status(201).json(workshopProduct);
     }
 
-    
+    async removeProduct(req, res) {
+        const workshopId = parseInt(req.params.id);
+        const productId = parseInt(req.params.productId);
+
+        const workshopProduct = await this.db.workshopProduct.findFirst({
+            where: {
+                workshopId,
+                productId
+            }
+        });
+
+        if (!workshopProduct) {
+            return res.status(404).json({ error: 'Product not found in the specified workshop' });
+        }
+
+        await this.db.workshopProduct.delete({
+            where: {
+                workshopId,
+                productId
+            }
+        });
+
+        return res.status(200).json({ message: 'Product removed from the workshop' });
+    }
+
 }

@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import WorkshopProductItem from '../component/workshop/WorkshopProductItem.vue'
+import { ref } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
 const workshopStore = useWorkshopStore()
-
+const edit = ref(false)
 const workshopId = Number(route.params.id)
 const rout = `/workshops/${workshopId}/addproduct`
 const workshop = await workshopStore.get(workshopId)
@@ -17,6 +18,10 @@ const workshop = await workshopStore.get(workshopId)
 async function save() {
   const { id, ...data } = workshop
   await workshopStore.update(data, id)
+}
+
+async function removeProduct(item) {
+    await workshopStore.removeProduct(item.product.id) 
 }
 </script>
 
@@ -38,18 +43,25 @@ async function save() {
     <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" placeholder="group size" />
   </div>
 
-  <!-- Title for the product list -->
-<div class="d-flex justify-content-between align-items-center">
-  <h4 class="ml-3 mt-3">Workshop Items:</h4>
-  <button class="btn btn-primary  py-1 px-2 fs-5 ml-3 mt-3" @click=router.push(rout)>Add Product</button>
-</div>
-
-
-
-
-  <div class="row box bg-white border-top mt-3">
-    <WorkshopProductItem v-for="(item, index) in workshop.items" :key="index" :product="item.product" />
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="ml-3 mt-3">Workshop Items:</h4>
+    <div>
+      <!-- updated class here -->
+      <button class="btn py-1 px-2 fs-5 ml-3 mt-3 me-2 hover-darken" :class="{'bg-primary': edit}" @click="edit = !edit">
+        <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-xl"/>
+      </button>
+      <button class="btn btn-primary py-1 px-2 fs-5 ml-3 mt-3" @click="router.push(rout)">Add Product</button>
+    </div>
   </div>
 
+  <div class="row box bg-white border-top mt-3">
+    <WorkshopProductItem
+        v-for="(item, index) in workshop.items"
+        :key="index"
+        :product="item.product"
+        :edit="edit"
+        @delete="removeProduct"/>
+  </div>
 </template>
+
 

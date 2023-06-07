@@ -93,6 +93,22 @@ export const useWorkshopStore = defineStore('workshop', {
             } else {
                 throw new Error(response.message)
             }
+        },
+
+        async removeProduct (workshopId, productId) {
+            const { response, ok } = await API.Req('DELETE', `/api/workshops/${workshopId}/products/${productId}`)
+            if (ok) {
+                const workshopIndex = this.workshops.findIndex(workshop => workshop.id === workshopId)
+                if (workshopIndex !== -1) {
+                    const productIndex = this.workshops[workshopIndex].items.findIndex(item => item.product.id === productId)
+                    if (productIndex !== -1) {
+                        // Remove the product from the workshop
+                        this.workshops[workshopIndex].items.splice(productIndex, 1)
+                    }
+                }
+            } else {
+                throw new Error(response.message)
+            }
         }
 
     }

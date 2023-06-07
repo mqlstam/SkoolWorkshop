@@ -36,7 +36,9 @@ app
     .get('/api/workshops/:id/productsNotInWorkshop', (req, res) => controller.workshop.getProductsWithoutWorkshop(req, res))
     .put('/api/workshops/:id', (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', (req, res) => controller.workshop.delete(req, res))
+    .delete('/api/workshops/:id/products/:productId', (req, res) => controller.workshop.deleteProduct(req, res))
     .post('/api/workshops/:id/products', (req, res) => controller.workshop.addProduct(req, res))
+
 
 app
     .get('/api/products', (req, res) => controller.product.all(req, res))
