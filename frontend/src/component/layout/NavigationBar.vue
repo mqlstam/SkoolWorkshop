@@ -36,6 +36,7 @@ async function logout () {
     </router-link>
 
     <router-link to="/users"
+                 v-if="authStore.data.role === 'admin'"
                  class="d-none d-sm-flex justify-content-center align-items-center w-100"
                  :class="{'text-primary': route.meta.nav === 'user'}">
       <font-awesome-icon :icon="['fas', 'user-gear']" class="fa-2x p-3"/>
