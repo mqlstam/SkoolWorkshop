@@ -16,9 +16,9 @@ import {
     faQrcode,
     faCaretLeft,
     faFloppyDisk,
-    faCheckSquare
+    faToggleOn,
+    faToggleOff
 } from '@fortawesome/free-solid-svg-icons'
-import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
     faCircleInfo,
@@ -37,6 +37,6 @@ library.add(
     faQrcode,
     faCaretLeft,
     faFloppyDisk,
-    faCheckSquare,
-    faSquare
+    faToggleOn,
+    faToggleOff
 )

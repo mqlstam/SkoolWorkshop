@@ -31,8 +31,8 @@ function update () {
     <div class="ms-auto d-flex align-items-center">
       <div role="button" @click="checked = !checked; update()">
         <font-awesome-icon
-            :icon="checked ? ['fas', 'check-square'] : ['far', 'square']"
-            class="p-3 mx-2 rounded-3 hover-darken" />
+            :icon="checked ? ['fas', 'toggle-on'] : ['fas', 'toggle-off']"
+            class="fa-2x p-3 mx-2 rounded-3" />
       </div>
     </div>
   </div>
