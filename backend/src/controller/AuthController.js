@@ -26,6 +26,9 @@ export class AuthController {
         const ipaddr = req.headers['x-forwarded-for'] || req.socket.remoteAddress
         const sessionId = await this.authService.generateSession(user, ipaddr)
 
+        // return token and set session cookie, which
+        // can be used to refresh the token by calling
+        // /api/auth/token
         res.status(200)
             .cookie('session', sessionId, {
                 httpOnly: true,
@@ -48,6 +51,7 @@ export class AuthController {
             throw new HttpError(401, 'unauthorized')
         }
 
+        // refresh and extend session, then return a new token
         const ipaddr = req.headers['x-forwarded-for'] || req.socket.remoteAddress
         const newSessionId = await this.authService.refreshSession(session, ipaddr)
         res.status(200)

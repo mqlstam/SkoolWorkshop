@@ -1,6 +1,8 @@
 import router from './router.js'
 import { useAuthStore } from '../store/authStore.js'
 
+// interceptor that is called before every route,
+// guards routes that require authentication
 export default async function authInterceptor (to, from) {
     if (to.meta.public) return
 
