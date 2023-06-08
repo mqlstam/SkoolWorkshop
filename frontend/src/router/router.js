@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import authInterceptor from './authInterceptor.js'
 
 const routes = [
+    {
+        path: '/login',
+        name: 'login',
+        meta: { public: true },
+        component: () => import('../views/Login.vue')
+    },
     {
         path: '/',
         alias: '/workshops',
@@ -44,10 +51,32 @@ const routes = [
         name: 'scan',
         meta: { nav: 'scan' },
         component: () => import('../views/Scan.vue')
+    },
+    {
+        name: 'users',
+        path: '/users',
+        meta: { nav: 'user', role: ['admin'] },
+        component: () => import('../views/Users.vue')
+    },
+    {
+        name: 'user-create',
+        path: '/users/new',
+        meta: { nav: 'user', role: ['admin'] },
+        component: () => import('../views/UserCreate.vue')
+    },
+    {
+        name: 'user-details',
+        path: '/users/:id',
+        meta: { nav: 'user', role: ['admin'] },
+        component: () => import('../views/UserDetails.vue')
     }
 ]
 
-export default createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+router.beforeEach(authInterceptor)
+
+export default router

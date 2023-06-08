@@ -1,0 +1,45 @@
+import { defineStore } from 'pinia'
+import jwtDecode from 'jwt-decode'
+import axios from 'axios'
+
+export const useAuthStore = defineStore('auth', {
+    state: () => ({
+        isLoggedIn: false,
+        token: {},
+        data: {}
+    }),
+    actions: {
+        async login (name, password) {
+            try {
+                const { data } = await axios.post('/api/auth/login', { name, password })
+
+                this.isLoggedIn = true
+                this.token = data.token
+                this.data = jwtDecode(data.token)
+                return true
+            } catch (err) {
+                return false
+            }
+        },
+
+        async refresh () {
+            try {
+                const { data } = await axios.post('/api/auth/token')
+
+                this.isLoggedIn = true
+                this.token = data.token
+                this.data = jwtDecode(data.token)
+                return true
+            } catch {
+                return false
+            }
+        },
+
+        async logout () {
+            await axios.post('/api/auth/logout')
+            this.isLoggedIn = false
+            this.token = {}
+            this.data = {}
+        }
+    }
+})

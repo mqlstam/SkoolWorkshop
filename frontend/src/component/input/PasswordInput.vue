@@ -11,6 +11,10 @@ const props = defineProps({
     value: {
         type: String,
         default: ''
+    },
+    empty: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -21,7 +25,7 @@ watch(() => props.value, (newValue) => {
     value.value = newValue
 })
 
-const edit = ref(value.value === '')
+const edit = ref(props.empty)
 
 function update () {
     if (!edit.value) {
@@ -42,7 +46,7 @@ function update () {
     <span class="mx-3">{{ name }}</span>
 
     <div class="ms-auto d-flex align-items-center">
-      <span v-if="!edit">{{ value }}</span>
+      <span v-if="!edit" class="h4">•••••••</span>
       <input v-else type="text" class="form-control" v-model="value" @keydown.enter="update" @focusout="update" autofocus/>
       <div role="button" @click="update">
         <font-awesome-icon
