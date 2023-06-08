@@ -6,15 +6,16 @@ import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
+import {ref} from "vue";
 
 const route = useRoute()
 const productStore = useProductStore()
 
 const productId = Number(route.params.id)
-const product = await productStore.get(productId)
+const product = ref(await productStore.get(productId))
 
 async function save () {
-    const { id, ...data } = product
+    const { id, ...data } = product.value
     if (data.code === '') delete data.code
     await productStore.update(data, id)
 }
