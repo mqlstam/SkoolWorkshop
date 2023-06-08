@@ -6,6 +6,7 @@ import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import { ref } from 'vue'
+import ScanInput from '../component/input/ScanInput.vue'
 
 const router = useRouter()
 const productStore = useProductStore()
@@ -39,6 +40,7 @@ async function create () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" />
     <number-input name="Stock" v-model:value="product.stock" />
+    <scan-input v-model:value="product.code" />
     <checkbox-input name="Reusable" v-model:value="product.reusable" />
 
     <button class="m-3 ms-auto btn p-2 bg-primary d-flex justify-content-center" @click="create" style="width: 10rem">

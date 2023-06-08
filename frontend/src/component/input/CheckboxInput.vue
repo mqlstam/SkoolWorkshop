@@ -25,7 +25,7 @@ function update () {
 </script>
 
 <template>
-  <div class="d-flex align-items-center p-2 border-bottom">
+  <div class="d-flex align-items-center border-bottom">
     <span class="mx-3">{{ name }}</span>
 
     <div class="ms-auto d-flex align-items-center">
