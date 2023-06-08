@@ -30,7 +30,7 @@ model Workshop {
   groupSize    Int
   timesPerWeek Int
 
-  items WorkshopProduct[]
+  items WorkshopItem[]
 }
 
 model Product {
@@ -40,14 +40,14 @@ model Product {
   code     String? @unique
   reusable Boolean
 
-  workshops WorkshopProduct[]
+  workshopItems WorkshopItem[]
 }
 
-model WorkshopProduct {
+model WorkshopItem {
   workshopId Int
   productId  Int
-  workshop   Workshop @relation(references: [id], fields: [workshopId])
-  product    Product  @relation(references: [id], fields: [productId])
+  workshop   Workshop @relation(references: [id], fields: [workshopId], onDelete: Cascade)
+  product    Product  @relation(references: [id], fields: [productId], onDelete: Cascade)
 
   quantity Int
 
