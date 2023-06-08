@@ -14,7 +14,13 @@ import {
     faBoxesStacked,
     faBox,
     faQrcode,
-    faCaretLeft
+    faCaretLeft,
+    faFloppyDisk,
+    faToggleOn,
+    faToggleOff,
+    faUserGear,
+    faRightFromBracket,
+    faUser
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -32,5 +38,11 @@ library.add(
     faBoxesStacked,
     faBox,
     faQrcode,
-    faCaretLeft
+    faCaretLeft,
+    faFloppyDisk,
+    faToggleOn,
+    faToggleOff,
+    faUserGear,
+    faRightFromBracket,
+    faUser
 )

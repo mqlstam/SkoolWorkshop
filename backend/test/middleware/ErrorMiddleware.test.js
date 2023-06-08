@@ -1,9 +1,9 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { ErrorHandler } from '../../src/middleware/ErrorHandler.js'
+import { ErrorMiddleware } from '../../src/middleware/ErrorMiddleware.js'
 
-describe('middleware/ErrorHandler', () => {
+describe('middleware/ErrorMiddleware', () => {
     it('should handle errors', async () => {
         const logger = { error: sinon.stub() }
         const err = {
@@ -15,8 +15,8 @@ describe('middleware/ErrorHandler', () => {
         const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
         const next = sinon.stub()
 
-        const errorHandler = new ErrorHandler(logger, false)
-        await errorHandler.exec(err, req, res, next)
+        const errorMiddleware = new ErrorMiddleware(logger, false)
+        await errorMiddleware.exec(err, req, res, next)
 
         expect(res.status.calledOnceWith(err.status)).to.be.true
         expect(res.send.calledOnceWith({ error: err.message })).to.be.true
@@ -35,8 +35,8 @@ describe('middleware/ErrorHandler', () => {
         const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
         const next = sinon.stub()
 
-        const errorHandler = new ErrorHandler(logger, true)
-        await errorHandler.exec(err, req, res, next)
+        const errorMiddleware = new ErrorMiddleware(logger, true)
+        await errorMiddleware.exec(err, req, res, next)
 
         expect(res.status.calledOnceWith(err.status)).to.be.true
         expect(res.send.calledOnceWith({ error: 'internal server error' })).to.be.true

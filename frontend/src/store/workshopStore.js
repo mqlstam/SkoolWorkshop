@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { API } from '../util/Api.js'
+import axios from 'axios'
 
 export const useWorkshopStore = defineStore('workshop', {
     state: () => ({
@@ -10,11 +10,11 @@ export const useWorkshopStore = defineStore('workshop', {
         async fetch (force = false) {
             if (this.fetched && !force) return
 
-            const { response, ok } = await API.Req('GET', '/api/workshops')
-            if (ok) {
-                this.workshops = response
+            try {
+                const { data } = await axios.get('/api/workshops')
+                this.workshops = data
                 this.fetched = true
-            } else {
+            } catch {
                 this.workshops = []
             }
         },
@@ -23,48 +23,40 @@ export const useWorkshopStore = defineStore('workshop', {
             const workshop = this.workshops.find(item => item.id === id)
             if (workshop) return workshop
 
-            const { response, ok } = await API.Req('GET', `/api/workshops/${id}`)
-            if (ok) {
-                return response
-            } else {
-                throw new Error(response.error)
-            }
-        },
-
-        async fetchProductsNotInWorkshop (workshopId) {
-            const { response, ok } = await API.Req('GET', `/api/workshops/${workshopId}/productsNotInWorkshop`)
-            if (ok) {
-                return response
-            } else {
-                throw new Error(response.error)
+            try {
+                const { data } = await axios.get(`/api/workshops/${id}`)
+                this.workshops.push(data)
+                return data
+            } catch {
+                throw new Error('Workshop not found')
             }
         },
 
         async create (workshop) {
-            const { response, ok } = await API.Req('POST', '/api/workshops', { body: workshop })
-            if (ok) {
-                this.workshops.push(response)
-            } else {
-                throw new Error(response.error)
+            try {
+                const { data } = await axios.post('/api/workshops', workshop)
+                this.workshops.push(data)
+            } catch (err) {
+                throw new Error(err.response.data.error)
             }
         },
 
-        async update (data, id) {
-            const { response, ok } = await API.Req('PUT', `/api/workshops/${id}`, { body: data })
-            if (ok) {
+        async update (product, id) {
+            try {
+                const { data } = await axios.put(`/api/workshops/${id}`, product)
                 const idx = this.workshops.findIndex(p => p.id === data.id)
-                this.workshops[idx] = response
-            } else {
-                throw new Error(response.error)
+                this.workshops[idx] = data
+            } catch (err) {
+                throw new Error(err.response.data.error)
             }
         },
 
         async delete (id) {
-            const { response, ok } = await API.Req('DELETE', `/api/workshops/${id}`)
-            if (ok) {
-                this.workshops = this.workshops.filter(w => w.id !== id)
-            } else {
-                throw new Error(response.error)
+            try {
+                await axios.delete(`/api/workshops/${id}`)
+                this.workshops = this.products.filter(w => w.id !== id)
+            } catch (err) {
+                throw new Error(err.response.data.error)
             }
         },
 
@@ -110,6 +102,5 @@ export const useWorkshopStore = defineStore('workshop', {
                 throw new Error(response.message)
             }
         }
-
     }
 })

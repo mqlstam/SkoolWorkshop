@@ -31,7 +31,7 @@ function update () {
     <span class="mx-3">{{ name }}</span>
 
     <div class="ms-auto d-flex align-items-center">
-      <div role="button" @click="value = Math.max(value - 1, 0); update()">
+      <div role="button" @click="value = Math.max(value - 1, 0); update()" class="user-select-none">
         <font-awesome-icon
             :icon="['fas', 'minus']"
             class="p-3 mx-2 rounded-3 hover-darken" />
@@ -39,7 +39,7 @@ function update () {
 
       <input type="number" class="form-control-plaintext" style="width: 2rem" v-model="value" @input="update" />
 
-      <div role="button" @click="value += 1; update()">
+      <div role="button" @click="value += 1; update()" class="user-select-none">
         <font-awesome-icon
             :icon="['fas', 'plus']"
             class="p-3 mx-2 rounded-3 hover-darken" />
@@ -47,3 +47,16 @@ function update () {
     </div>
   </div>
 </template>
+
+<style scoped>
+/* hide number input arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>

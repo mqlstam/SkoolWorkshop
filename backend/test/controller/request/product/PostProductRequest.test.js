@@ -8,10 +8,9 @@ describe('controller/request/product/PostProductRequest', () => {
             body: {
                 name: 'product 1',
                 stock: 10,
-                minStock: 5
+                reusable: false
             }
         }
-
         const data = new PostProductRequest(req).data()
         expect(data).to.deep.equal(req.body)
     })

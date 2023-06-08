@@ -5,8 +5,8 @@ import { ProductController } from '../../src/controller/ProductController.js'
 
 describe('controller/ProductController', () => {
     const products = [
-        { id: 1, name: 'Product 1', stock: 100, minStock: 10 },
-        { id: 2, name: 'Product 2', stock: 200, minStock: 20 }
+        { id: 1, name: 'Product 1', stock: 100, reusable: true },
+        { id: 2, name: 'Product 2', stock: 200, reusable: false }
     ]
 
     describe('all', () => {

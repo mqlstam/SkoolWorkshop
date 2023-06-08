@@ -7,10 +7,10 @@ describe('controller/request/workshop/PostWorkshopRequest', () => {
         const req = {
             body: {
                 name: 'workshop 1',
-                groupSize: 10
+                groupSize: 10,
+                timesPerWeek: 2
             }
         }
-
         const data = new PostWorkshopRequest(req).data()
         expect(data).to.deep.equal(req.body)
     })

@@ -6,11 +6,11 @@ describe('controller/request/workshop/PutWorkshopRequest', () => {
     it('should accept valid requests', async () => {
         const req = {
             body: {
-                name: 'Workshop 1',
-                groupSize: 10
+                name: 'workshop 1',
+                groupSize: 10,
+                timesPerWeek: 2
             }
         }
-
         const data = new PutWorkshopRequest(req).data()
         expect(data).to.deep.equal(req.body)
     })

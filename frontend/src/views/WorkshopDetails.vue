@@ -12,9 +12,7 @@ const router = useRouter()
 const workshopStore = useWorkshopStore()
 const edit = ref(false)
 const workshopId = Number(route.params.id)
-const rout = `/workshops/${workshopId}/addproduct`
 const workshop = ref(await workshopStore.get(workshopId))
-
 
 
 async function removeProduct(item) {
@@ -22,6 +20,10 @@ async function removeProduct(item) {
     workshop.value = await workshopStore.get(workshopId);
   }
 
+async function save () {
+    const { id, ...data } = workshop.value
+    await workshopStore.update(data, id)
+}
 </script>
 
 <template>
@@ -38,8 +40,9 @@ async function removeProduct(item) {
   </div>
 
   <div class="row box bg-white border-top">
-    <text-input name="Name" v-model:value="workshop.name" @update:value="save" placeholder="name" />
-    <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" placeholder="group size" />
+    <text-input name="Name" v-model:value="workshop.name" @update:value="save" />
+    <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" />
+    <number-input name="Times per week" v-model:value="workshop.timesPerWeek" @update:value="save" />
   </div>
 
   <div class="d-flex justify-content-between align-items-center">
@@ -62,5 +65,3 @@ async function removeProduct(item) {
         @delete="removeProduct"/>
   </div>
 </template>
-
-

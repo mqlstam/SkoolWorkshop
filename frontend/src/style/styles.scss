@@ -1,6 +1,7 @@
 $body-bg: #fafafa;
 $input-focus-border-color: #f49700;
 $input-focus-box-shadow: unset;
+$form-select-focus-box-shadow: unset;
 
 $theme-colors: (
   'primary': #f49700,
@@ -12,7 +13,7 @@ $theme-colors: (
   'red': #DF2935,
   'grey': #666666,
   'light-grey': #CACACA,
-  'white': #FFFFFF 
+  'white': #FFFFFF
 );
 
 $container-max-widths: (
