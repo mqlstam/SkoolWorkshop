@@ -29,7 +29,7 @@ function update () {
     <span class="mx-3">{{ name }}</span>
 
     <div class="ms-auto d-flex align-items-center">
-      <div role="button" @click="checked = !checked; update()">
+      <div role="button" @click="checked = !checked; update()" class="user-select-none">
         <font-awesome-icon
             :icon="checked ? ['fas', 'toggle-on'] : ['fas', 'toggle-off']"
             class="fa-2x p-3 mx-2 rounded-3" />

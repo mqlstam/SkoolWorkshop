@@ -44,7 +44,7 @@ function update () {
     <div class="ms-auto d-flex align-items-center">
       <span v-if="!edit">{{ value }}</span>
       <input v-else type="text" class="form-control" v-model="value" @keydown.enter="update" @focusout="update" autofocus/>
-      <div role="button" @click="update">
+      <div role="button" @click="update" class="user-select-none">
         <font-awesome-icon
             :icon="['fas', 'pen']"
             class="p-3 mx-2 rounded-3 hover-darken"

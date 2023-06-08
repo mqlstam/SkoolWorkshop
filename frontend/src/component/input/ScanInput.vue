@@ -42,14 +42,14 @@ function generateCode () {
     </div>
 
     <div class="ms-auto d-flex align-items-center">
-      <div class="d-flex align-items-center" role="button" @click="showScanner = !showScanner">
+      <div class="d-flex align-items-center user-select-none" role="button" @click="showScanner = !showScanner">
         Scan
         <font-awesome-icon
           :icon="['fas', 'qrcode']"
           class="p-3 mx-2 rounded-3 hover-darken"/>
       </div>
 
-      <div class="ps-3 d-flex align-items-center" role="button" @click="generateCode">
+      <div class="ps-3 d-flex align-items-center user-select-none" role="button" @click="generateCode">
         Generate
         <font-awesome-icon
           :icon="['fas', 'plus']"
