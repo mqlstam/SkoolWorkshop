@@ -13,7 +13,7 @@ const workshopId = Number(route.params.id)
 const workshop = ref(await workshopStore.get(workshopId))
 
 async function save () {
-    const { id, ...data } = workshop
+    const { id, ...data } = workshop.value
     await workshopStore.update(data, id)
 }
 </script>
