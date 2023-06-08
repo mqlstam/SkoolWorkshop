@@ -8,7 +8,7 @@ export class PutProductRequest extends Request {
         properties: {
             name: { type: 'string' },
             stock: { type: 'number' },
-            code: { type: 'string?' },
+            code: { type: ['string', 'null'] },
             reusable: { type: 'boolean' }
         }
     }
