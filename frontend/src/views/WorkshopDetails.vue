@@ -33,5 +33,6 @@ async function save () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="workshop.name" @update:value="save" />
     <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" />
+    <number-input name="Times per week" v-model:value="workshop.timesPerWeek" @update:value="save" />
   </div>
 </template>

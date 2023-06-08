@@ -15,7 +15,9 @@ import {
     faBox,
     faQrcode,
     faCaretLeft,
-    faFloppyDisk
+    faFloppyDisk,
+    faToggleOn,
+    faToggleOff
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -34,5 +36,7 @@ library.add(
     faBox,
     faQrcode,
     faCaretLeft,
-    faFloppyDisk
+    faFloppyDisk,
+    faToggleOn,
+    faToggleOff
 )

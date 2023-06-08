@@ -8,15 +8,16 @@ datasource db {
 }
 
 model Workshop {
-  id        Int    @id @default(autoincrement())
-  name      String @unique
-  groupSize Int
+  id           Int    @id @default(autoincrement())
+  name         String @unique
+  groupSize    Int
+  timesPerWeek Int
 }
 
 model Product {
   id       Int     @id @default(autoincrement())
   name     String  @unique
   stock    Int
-  minStock Int
   code     String? @unique
+  reusable Boolean
 }

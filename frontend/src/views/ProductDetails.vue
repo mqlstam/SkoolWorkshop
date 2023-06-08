@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
+import CheckboxInput from '../component/input/CheckboxInput.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -33,6 +34,6 @@ async function save () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
     <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
-    <number-input name="Minimum Stock" v-model:value="product.minStock" @update:value="save"/>
+    <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
   </div>
 </template>

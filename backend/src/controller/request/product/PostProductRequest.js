@@ -4,12 +4,12 @@ export class PostProductRequest extends Request {
     schema = {
         type: 'object',
         additionalProperties: false,
-        required: ['name', 'stock', 'minStock'],
+        required: ['name', 'stock', 'reusable'],
         properties: {
             name: { type: 'string' },
             stock: { type: 'number' },
-            minStock: { type: 'number' },
-            code: { type: 'string' }
+            code: { type: ['string', 'null'] },
+            reusable: { type: 'boolean' }
         }
     }
 
