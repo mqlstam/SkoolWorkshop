@@ -6,7 +6,7 @@ import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
-import {ref} from "vue";
+import { ref } from 'vue'
 
 const route = useRoute()
 const productStore = useProductStore()
