@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
+import ScanInput from '../component/input/ScanInput.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -36,5 +37,6 @@ async function save () {
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
     <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
     <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
+    <scan-input v-model:value="product.code" @update:value="save"/>
   </div>
 </template>

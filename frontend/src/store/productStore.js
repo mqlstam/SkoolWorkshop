@@ -66,11 +66,6 @@ export const useProductStore = defineStore('product', {
 
         findCode (code) {
             return this.products.find(product => product.code === code)
-        },
-
-        async addCode (code, productName) {
-            await this.update({ code }, this.products.find(productName))
-            this.products.find(product => product.name === productName).code = code
         }
     }
 })
