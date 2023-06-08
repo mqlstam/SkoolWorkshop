@@ -16,7 +16,6 @@ const product = ref(await productStore.get(productId))
 
 async function save () {
     const { id, ...data } = product.value
-    if (data.code === '') delete data.code
     await productStore.update(data, id)
 }
 </script>
@@ -37,7 +36,7 @@ async function save () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
     <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
-    <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
     <scan-input v-model:value="product.code" @update:value="save"/>
+    <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
   </div>
 </template>
