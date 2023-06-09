@@ -3,7 +3,6 @@ import { useWorkshopStore } from '../store/workshopStore.js'
 import WorkshopBlock from '../component/workshop/WorkshopBlock.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, computed } from 'vue'
-import ProductBlock from "../component/product/ProductBlock.vue";
 
 const edit = ref(false)
 const workshopStore = useWorkshopStore()

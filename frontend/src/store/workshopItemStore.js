@@ -6,7 +6,7 @@ export const useWorkshopItemStore = defineStore('workshopItem', {
         cache: {}
     }),
     actions: {
-        async byWorkshop(id, force = false) {
+        async byWorkshop (id, force = false) {
             if (this.cache[id] && !force) return this.cache[id]
 
             try {

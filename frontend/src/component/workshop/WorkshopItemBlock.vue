@@ -3,18 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const emit = defineEmits(['add', 'remove'])
 const props = defineProps({
-  workshopItem: {
-    type: Object,
-    default: () => null
-  },
-  product: {
-    type: Object,
-    required: true
-  },
-  edit: {
-    type: Boolean,
-    default: false
-  }
+    workshopItem: {
+        type: Object,
+        default: () => null
+    },
+    product: {
+        type: Object,
+        required: true
+    },
+    edit: {
+        type: Boolean,
+        default: false
+    }
 })
 </script>
 

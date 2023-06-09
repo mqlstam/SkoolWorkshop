@@ -1,13 +1,13 @@
 <script setup>
-import {useRoute} from 'vue-router'
-import {useWorkshopStore} from '../store/workshopStore.js'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import { useRoute } from 'vue-router'
+import { useWorkshopStore } from '../store/workshopStore.js'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
-import {ref} from 'vue'
-import WorkshopItemBlock from "../component/workshop/WorkshopItemBlock.vue";
-import {useProductStore} from "../store/productStore.js";
-import {useWorkshopItemStore} from "../store/workshopItemStore.js";
+import { ref } from 'vue'
+import WorkshopItemBlock from '../component/workshop/WorkshopItemBlock.vue'
+import { useProductStore } from '../store/productStore.js'
+import { useWorkshopItemStore } from '../store/workshopItemStore.js'
 
 const route = useRoute()
 const workshopStore = useWorkshopStore()
@@ -16,18 +16,18 @@ const productStore = useProductStore()
 const workshopId = Number(route.params.id)
 
 const tasks = await Promise.all([
-  workshopStore.get(workshopId),
-  workshopItemStore.byWorkshop(workshopId),
-  productStore.fetch(),
+    workshopStore.get(workshopId),
+    workshopItemStore.byWorkshop(workshopId),
+    productStore.fetch()
 ])
 
 const workshop = ref(tasks[0])
 const items = ref(tasks[1])
 const products = productStore.getMany(items.value.map(item => item.productId))
 
-async function save() {
-  const {id, ...data} = workshop.value
-  await workshopStore.update(data, id)
+async function save () {
+    const { id, ...data } = workshop.value
+    await workshopStore.update(data, id)
 }
 </script>
 

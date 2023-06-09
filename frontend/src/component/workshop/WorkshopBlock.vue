@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const emit = defineEmits(['click', 'delete'])
 const props = defineProps({
-  workshop: {
-    type: Object,
-    required: true
-  },
-  edit: {
-    type: Boolean,
-    default: false
-  }
+    workshop: {
+        type: Object,
+        required: true
+    },
+    edit: {
+        type: Boolean,
+        default: false
+    }
 })
 </script>
 

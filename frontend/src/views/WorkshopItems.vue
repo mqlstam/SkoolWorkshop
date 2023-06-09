@@ -3,35 +3,35 @@ import { useProductStore } from '../store/productStore.js'
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {useWorkshopItemStore} from "../store/workshopItemStore.js";
-import WorkshopItemBlock from "../component/workshop/WorkshopItemBlock.vue";
+import { useWorkshopItemStore } from '../store/workshopItemStore.js'
+import WorkshopItemBlock from '../component/workshop/WorkshopItemBlock.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
 const workshopItemStore = useWorkshopItemStore()
 
 const tasks = await Promise.all([
-  workshopItemStore.byWorkshop(route.params.id),
-  productStore.fetch(),
+    workshopItemStore.byWorkshop(route.params.id),
+    productStore.fetch()
 ])
 
 const items = ref(tasks[0])
 const query = ref('')
 
 const filteredProducts = computed(() => {
-  return productStore.search(query.value)
+    return productStore.search(query.value)
 })
 
-async function add(product) {
-  await workshopItemStore.create({
-    workshopId: Number(route.params.id),
-    productId: product.id,
-    quantity: 1
-  })
+async function add (product) {
+    await workshopItemStore.create({
+        workshopId: Number(route.params.id),
+        productId: product.id,
+        quantity: 1
+    })
 }
 
-async function remove(workshopItem) {
-  await workshopItemStore.delete(workshopItem.id)
+async function remove (workshopItem) {
+    await workshopItemStore.delete(workshopItem.id)
 }
 </script>
 
@@ -64,5 +64,3 @@ async function remove(workshopItem) {
         @remove="remove" />
   </div>
 </template>
-
-
