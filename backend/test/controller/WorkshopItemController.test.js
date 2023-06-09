@@ -20,20 +20,6 @@ describe('controller/WorkshopItemController', () => {
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(workshopItems)).to.be.true
         })
-
-        it('should return 404 if no workshopItems are found', async () => {
-            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
-            const db = { workshopItem: { findMany: sinon.stub().returns([]) } }
-            const controller = new WorkshopItemController(db)
-
-            try {
-                await controller.all({}, res)
-                expect.fail('should have thrown an error')
-            } catch (err) {
-                expect(err.message).to.equal('no workshopItems found')
-                expect(db.workshopItem.findMany.calledOnce).to.be.true
-            }
-        })
     })
 
     describe('get', () => {

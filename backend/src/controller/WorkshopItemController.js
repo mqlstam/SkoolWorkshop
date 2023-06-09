@@ -9,10 +9,6 @@ export class WorkshopItemController {
 
     async all (req, res) {
         const workshopItems = await this.db.workshopItem.findMany()
-        if (!workshopItems.length) {
-            throw new HttpError(404, 'no workshopItems found')
-        }
-
         res.status(200).send(workshopItems)
     }
 

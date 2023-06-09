@@ -9,11 +9,6 @@ export class WorkshopController {
 
     async all (req, res) {
         const workshops = await this.db.workshop.findMany()
-
-        if (!workshops.length) {
-            throw new HttpError(404, 'no workshops found')
-        }
-
         res.status(200).send(workshops)
     }
 
@@ -82,10 +77,6 @@ export class WorkshopController {
         const items = await this.db.workshopItem.findMany({
             where: { workshopId: parseInt(id) }
         })
-
-        if (!items.length) {
-            throw new HttpError(404, 'no items found')
-        }
 
         res.status(200).send(items)
     }

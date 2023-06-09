@@ -9,10 +9,6 @@ export class ProductController {
 
     async all (req, res) {
         const products = await this.db.product.findMany()
-        if (!products.length) {
-            throw new HttpError(404, 'no products found')
-        }
-
         res.status(200).send(products)
     }
 

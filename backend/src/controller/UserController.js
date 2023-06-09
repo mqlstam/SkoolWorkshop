@@ -10,10 +10,6 @@ export class UserController {
 
     async all (req, res) {
         const users = await this.db.user.findMany()
-        if (!users.length) {
-            throw new HttpError(404, 'no users found')
-        }
-
         res.status(200).send(users.map(({ password, ...result }) => result))
     }
 
