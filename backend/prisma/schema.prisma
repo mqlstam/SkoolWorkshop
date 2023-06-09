@@ -44,12 +44,13 @@ model Product {
 }
 
 model WorkshopItem {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
   workshopId Int
   productId  Int
   workshop   Workshop @relation(references: [id], fields: [workshopId], onDelete: Cascade)
   product    Product  @relation(references: [id], fields: [productId], onDelete: Cascade)
 
-  quantity Int
-
-  @@id([workshopId, productId])
+  @@unique([workshopId, productId])
 }
