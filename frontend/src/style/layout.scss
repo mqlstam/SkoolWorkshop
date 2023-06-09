@@ -1,6 +1,10 @@
 $navigation-bar-mobile-size: 4.5rem;
 $navigation-bar-desktop-size: 5rem;
 
+html {
+  scroll-behavior: auto !important;
+}
+
 .navigation-bar {
   position: fixed;
   bottom: 0;
@@ -16,8 +20,7 @@ $navigation-bar-desktop-size: 5rem;
 .content {
   @extend .container;
   overflow-y: auto;
-  height: calc(100vh - $navigation-bar-mobile-size);
-
+  padding-bottom: $navigation-bar-mobile-size;
   scrollbar-width: none;
 }
 
@@ -42,7 +45,6 @@ $navigation-bar-desktop-size: 5rem;
 @include media-breakpoint-up(sm) {
 .content {
     padding-left: $navigation-bar-desktop-size;
-    height: 100vh;
   }
 }
 
@@ -56,3 +58,4 @@ $navigation-bar-desktop-size: 5rem;
 .box-header {
   height: 4.5rem;
 }
+
