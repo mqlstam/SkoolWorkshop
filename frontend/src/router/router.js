@@ -80,6 +80,9 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
+    scrollBehavior(to, from, savedPosition) {
+        return savedPosition
+    },
     routes
 })
 
