@@ -19,8 +19,8 @@ async function login () {
 </script>
 
 <template>
-  <div class="d-flex align-items-center justify-content-center h-100">
-    <div class="box bg-white p-3 d-flex flex-column align-items-center">
+  <div class="d-flex justify-content-center mt-4">
+    <div class="box bg-white p-3 mt-4 d-flex flex-column align-items-center">
       <img src="../assets/banner.png" alt="banner" class="m-5" style="width: 15rem"/>
 
       <div class="mb-4">
