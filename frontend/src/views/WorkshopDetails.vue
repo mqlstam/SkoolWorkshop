@@ -51,7 +51,7 @@ async function save () {
   </div>
 
   <!-- items -->
-  <div class="row box-header mt-3">
+  <div class="row box-header">
     <div class="col-2 d-flex align-items-center">
       <h3 class="m-2">Items</h3>
     </div>
