@@ -1,28 +1,33 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
-import { useWorkshopStore } from '../store/workshopStore.js'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {useRoute} from 'vue-router'
+import {useWorkshopStore} from '../store/workshopStore.js'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
-import WorkshopProductItem from '../component/workshop/WorkshopProductItem.vue'
-import { ref } from 'vue'
+import {ref} from 'vue'
+import WorkshopItemBlock from "../component/workshop/WorkshopItemBlock.vue";
+import {useProductStore} from "../store/productStore.js";
+import {useWorkshopItemStore} from "../store/workshopItemStore.js";
 
 const route = useRoute()
-const router = useRouter()
 const workshopStore = useWorkshopStore()
-const edit = ref(false)
+const workshopItemStore = useWorkshopItemStore()
+const productStore = useProductStore()
 const workshopId = Number(route.params.id)
-const workshop = ref(await workshopStore.get(workshopId))
 
+const tasks = await Promise.all([
+  workshopStore.get(workshopId),
+  workshopItemStore.byWorkshop(workshopId),
+  productStore.fetch(),
+])
 
-async function removeProduct(item) {
-    await workshopStore.removeProduct(workshopId ,item.id);
-    workshop.value = await workshopStore.get(workshopId);
-  }
+const workshop = ref(tasks[0])
+const items = ref(tasks[1])
+const products = productStore.getMany(items.value.map(item => item.productId))
 
-async function save () {
-    const { id, ...data } = workshop.value
-    await workshopStore.update(data, id)
+async function save() {
+  const {id, ...data} = workshop.value
+  await workshopStore.update(data, id)
 }
 </script>
 
@@ -30,7 +35,7 @@ async function save () {
   <div class="row box-header">
     <div class="d-flex align-items-center m-0" style="width: min-content">
       <a class="btn p-2 bg-secondary hover-darken" @click="$router.back()">
-        <font-awesome-icon :icon="['fas', 'caret-left']" class="fa-xl" style="width: 24px" />
+        <font-awesome-icon :icon="['fas', 'caret-left']" class="fa-xl" style="width: 24px"/>
       </a>
     </div>
 
@@ -40,28 +45,31 @@ async function save () {
   </div>
 
   <div class="row box bg-white border-top">
-    <text-input name="Name" v-model:value="workshop.name" @update:value="save" />
-    <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save" />
-    <number-input name="Times per week" v-model:value="workshop.timesPerWeek" @update:value="save" />
+    <text-input name="Name" v-model:value="workshop.name" @update:value="save"/>
+    <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save"/>
+    <number-input name="Times per week" v-model:value="workshop.timesPerWeek" @update:value="save"/>
   </div>
 
-  <div class="d-flex justify-content-between align-items-center">
-    <h4 class="ml-3 mt-3">Workshop Items:</h4>
-    <div>
-      <!-- updated class here -->
-      <button class="btn py-1 px-2 fs-5 ml-3 mt-3 me-2 hover-darken" :class="{ edit}" @click="edit = !edit">
+  <!-- items -->
+  <div class="row box-header mt-3">
+    <div class="col-2 d-flex align-items-center">
+      <h3 class="m-2">Items</h3>
+    </div>
+
+    <div class="col-10 d-flex align-items-center justify-content-end">
+      <!-- action buttons -->
+      <router-link class="btn p-3 hover-darken" :to="`/workshops/${workshop.id}/items`">
         <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-xl"/>
-      </button>
-      <button class="btn btn-primary py-1 px-2 fs-5 ml-3 mt-3" @click="router.push(rout)">Add Product</button>
+      </router-link>
     </div>
   </div>
 
-  <div class="row box bg-white border-top mt-3">
-    <WorkshopProductItem
-        v-for="(item, index) in workshop.items"
-        :key="index"
-        :product="item.product"
-        :edit="edit"
-        @delete="removeProduct"/>
+  <div class="row box bg-white border-top">
+    <!-- workshop items list -->
+    <workshop-item-block
+        v-for="item in items"
+        :key="item.id"
+        :workshop-item="item"
+        :product="products.find(p => p.id === item.productId)"/>
   </div>
 </template>

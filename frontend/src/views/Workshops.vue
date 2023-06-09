@@ -1,8 +1,9 @@
 <script setup>
 import { useWorkshopStore } from '../store/workshopStore.js'
-import WorkshopItem from '../component/workshop/WorkshopItem.vue'
+import WorkshopBlock from '../component/workshop/WorkshopBlock.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, computed } from 'vue'
+import ProductBlock from "../component/product/ProductBlock.vue";
 
 const edit = ref(false)
 const workshopStore = useWorkshopStore()
@@ -35,6 +36,7 @@ async function remove (workshop) {
   </div>
 
   <div class="row box bg-white border-top">
+    <!-- workshop list -->
     <div class="p-0 input-group align-items-end">
       <input type="text" v-model="search" placeholder="Search workshops..." class="form-control search p-4">
       <router-link to="/scan"
@@ -44,8 +46,7 @@ async function remove (workshop) {
       </router-link>
     </div>
 
-    <!-- workshop list -->
-    <WorkshopItem v-for="workshop in filteredWorkshops"
+    <workshop-block v-for="workshop in filteredWorkshops"
                   :key="workshop.id"
                   :workshop="workshop"
                   :edit="edit"

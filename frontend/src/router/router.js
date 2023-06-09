@@ -29,10 +29,10 @@ const routes = [
         component: () => import('../views/WorkshopCreate.vue')
     },
     {
-        path: '/workshops/:id/addproduct',
-        name: 'workshop-addproduct',
+        path: '/workshops/:id/items',
+        name: 'workshop-items',
         meta: { nav: 'workshop' },
-        component: () => import('../views/WorkshopAddProduct.vue')
+        component: () => import('../views/WorkshopItems.vue')
     },
     {
         path: '/products',
@@ -76,7 +76,6 @@ const routes = [
         meta: { nav: 'user', role: ['admin'] },
         component: () => import('../views/UserDetails.vue')
     }
-
 ]
 
 const router = createRouter({

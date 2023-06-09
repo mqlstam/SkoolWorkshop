@@ -1,6 +1,6 @@
 <script setup>
 import { useUserStore } from '../store/userStore.js'
-import UserItem from '../component/user/UserItem.vue'
+import UserBlock from '../component/user/UserBlock.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, computed } from 'vue'
 
@@ -38,7 +38,7 @@ async function remove (user) {
     <input type="text" v-model="search" placeholder="Search users..." class="form-control search p-4">
 
     <!-- user list -->
-    <UserItem
+    <user-block
         v-for="user in filteredUsers"
         :key="user.id"
         :user="user"

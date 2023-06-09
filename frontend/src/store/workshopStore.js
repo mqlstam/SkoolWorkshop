@@ -62,45 +62,6 @@ export const useWorkshopStore = defineStore('workshop', {
 
         search (query) {
             return this.workshops.filter(workshop => workshop.name.toLowerCase().includes(query.toLowerCase()))
-        },
-
-        async addProduct (workshopId, productId, quantity) {
-            const data = { productId, quantity }
-            const { response, ok } = await API.Req('POST', `/api/workshops/${workshopId}/products`, { body: data })
-            if (ok) {
-                const workshopIndex = this.workshops.findIndex(workshop => workshop.id === workshopId)
-                if (workshopIndex !== -1) {
-                    const productIndex = this.workshops[workshopIndex].items.findIndex(item => item.product.id === productId)
-                    if (productIndex !== -1) {
-                        // Update the quantity if the product already exists in the workshop
-                        this.workshops[workshopIndex].items[productIndex].quantity += quantity
-                    } else {
-                        // Add the product to the workshop if it doesn't already exist
-                        this.workshops[workshopIndex].items.push({
-                            product: response.product,
-                            quantity: response.quantity
-                        })
-                    }
-                }
-            } else {
-                throw new Error(response.message)
-            }
-        },
-
-        async removeProduct (workshopId, productId) {
-            const { response, ok } = await API.Req('DELETE', `/api/workshops/${workshopId}/products/${productId}`)
-            if (ok) {
-                const workshopIndex = this.workshops.findIndex(workshop => workshop.id === workshopId)
-                if (workshopIndex !== -1) {
-                    const productIndex = this.workshops[workshopIndex].items.findIndex(item => item.product.id === productId)
-                    if (productIndex !== -1) {
-                        // Remove the product from the workshop
-                        this.workshops[workshopIndex].items.splice(productIndex, 1)
-                    }
-                }
-            } else {
-                throw new Error(response.message)
-            }
         }
     }
 })

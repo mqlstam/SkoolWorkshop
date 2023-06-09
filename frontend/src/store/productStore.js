@@ -60,6 +60,10 @@ export const useProductStore = defineStore('product', {
             }
         },
 
+        getMany (ids) {
+            return this.products.filter(item => ids.includes(item.id))
+        },
+
         search (query) {
             return this.products.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
         },
