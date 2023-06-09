@@ -1,7 +1,7 @@
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const emit = defineEmits(['click', 'delete'])
+const emit = defineEmits(['delete'])
 const props = defineProps({
     workshop: {
         type: Object,
@@ -17,7 +17,6 @@ const props = defineProps({
 <template>
   <router-link
       class="d-flex align-items-center border-bottom hover-darken"
-      @click="emit('click', props.workshop)"
       :to="`/workshops/${props.workshop.id}`">
 
     <!-- image and title -->

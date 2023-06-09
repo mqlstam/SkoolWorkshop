@@ -22,7 +22,8 @@ import {
     faRightFromBracket,
     faUser,
     faCircleCheck,
-    faCirclePlus
+    faCirclePlus,
+    faWarehouse
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -48,5 +49,6 @@ library.add(
     faRightFromBracket,
     faUser,
     faCircleCheck,
-    faCirclePlus
+    faCirclePlus,
+    faWarehouse
 )
