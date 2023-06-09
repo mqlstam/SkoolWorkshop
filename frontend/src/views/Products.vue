@@ -9,7 +9,11 @@ const productStore = useProductStore()
 productStore.fetch()
 
 const search = ref('')
-const filteredProducts = computed(() => productStore.search(search.value))
+const filteredProducts = computed(
+    () => productStore
+        .search(search.value)
+        .sort((a, b) => a.stock - b.stock)
+)
 
 async function remove (product) {
     await productStore.delete(product.id)
