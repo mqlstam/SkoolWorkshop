@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, watch } from 'vue'
 
-const emit = defineEmits(['workshopItem'])
+const emit = defineEmits(['update:workshopItem'])
 const props = defineProps({
     workshopItem: {
         type: Object,
