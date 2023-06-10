@@ -48,7 +48,7 @@ function update () {
   </div>
 </template>
 
-<style scoped>
+<style>
 /* hide number input arrows */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

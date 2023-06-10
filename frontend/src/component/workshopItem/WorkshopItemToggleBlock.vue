@@ -3,15 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const emit = defineEmits(['add', 'remove'])
 const props = defineProps({
-    workshopItem: {
-        type: Object,
-        default: () => null
-    },
     product: {
         type: Object,
         required: true
     },
-    edit: {
+    exists: {
         type: Boolean,
         default: false
     }
@@ -24,9 +20,9 @@ const props = defineProps({
     <font-awesome-icon :icon="['fas', 'box']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>
     <span class="h5"> {{ props.product.name }} </span>
 
-    <div v-if="props.edit" class="ms-auto">
-      <!-- edit mode buttons -->
-      <button v-if="workshopItem" class="btn p-2 hover-darken" @click.prevent="emit('remove', workshopItem)">
+    <div class="ms-auto">
+      <!-- relation toggle button -->
+      <button v-if="exists" class="btn p-2 hover-darken" @click.prevent="emit('remove')">
         <font-awesome-icon :icon="['fas', 'circle-check']" class="fa-2x p-3 text-success" />
       </button>
       <button v-else class="btn p-2 hover-darken" @click.prevent="emit('add', product)">

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import { ref } from 'vue'
-import WorkshopItemBlock from '../component/workshop/WorkshopItemBlock.vue'
+import WorkshopItemBlock from '../component/workshopItem/WorkshopItemBlock.vue'
 import { useProductStore } from '../store/productStore.js'
 import { useWorkshopItemStore } from '../store/workshopItemStore.js'
 
@@ -28,6 +28,11 @@ const products = productStore.getMany(items.value.map(item => item.productId))
 async function save () {
     const { id, ...data } = workshop.value
     await workshopStore.update(data, id)
+}
+
+async function saveItem (item) {
+    const { id, ...data } = item
+    await workshopItemStore.update(data, id)
 }
 </script>
 
@@ -69,7 +74,9 @@ async function save () {
     <workshop-item-block
         v-for="item in items"
         :key="item.id"
+        :product="products.find(p => p.id === item.productId)"
         :workshop-item="item"
-        :product="products.find(p => p.id === item.productId)"/>
+        @update:workshopItem="saveItem"
+    />
   </div>
 </template>

@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useWorkshopItemStore } from '../store/workshopItemStore.js'
-import WorkshopItemBlock from '../component/workshop/WorkshopItemBlock.vue'
+import WorkshopItemToggleBlock from "../component/workshopItem/WorkshopItemToggleBlock.vue";
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -54,13 +54,13 @@ async function remove (workshopItem) {
     </div>
 
     <!-- product list -->
-    <workshop-item-block
+    <workshop-item-toggle-block
         v-for="product in filteredProducts"
         :key="product.id"
         :product="product"
-        :workshop-item="items.find(item => item.productId === product.id)"
+        :exists="!!items.find(item => item.productId === product.id)"
         :edit="true"
         @add="add"
-        @remove="remove" />
+        @remove="remove(items.find(item => item.productId === product.id))" />
   </div>
 </template>
