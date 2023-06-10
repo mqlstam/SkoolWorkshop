@@ -17,6 +17,7 @@ const props = defineProps({
 <template>
   <router-link
        class="d-flex align-items-center border-bottom hover-darken"
+       :class="{'bg-tint-red': product.stock === 0}"
        :to="`/products/${props.product.id}`">
 
     <!-- image and title -->

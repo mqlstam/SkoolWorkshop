@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useWorkshopItemStore } from '../store/workshopItemStore.js'
-import WorkshopItemToggleBlock from "../component/workshopItem/WorkshopItemToggleBlock.vue";
+import WorkshopItemToggleBlock from '../component/workshopItem/WorkshopItemToggleBlock.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
