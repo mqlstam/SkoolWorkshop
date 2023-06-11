@@ -20,20 +20,6 @@ describe('controller/ProductController', () => {
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(products)).to.be.true
         })
-
-        it('should return 404 if no products are found', async () => {
-            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
-            const db = { product: { findMany: sinon.stub().returns([]) } }
-            const controller = new ProductController(db)
-
-            try {
-                await controller.all({}, res)
-                expect.fail('should have thrown an error')
-            } catch (err) {
-                expect(err.message).to.equal('no products found')
-                expect(db.product.findMany.calledOnce).to.be.true
-            }
-        })
     })
 
     describe('get', () => {

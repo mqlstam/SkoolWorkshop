@@ -20,20 +20,6 @@ describe('controller/UserController', () => {
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(users.map(({ password, ...user }) => user))).to.be.true
         })
-
-        it('should return 404 if no users are found', async () => {
-            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
-            const db = { user: { findMany: sinon.stub().returns([]) } }
-            const controller = new UserController(db)
-
-            try {
-                await controller.all({}, res)
-                expect.fail('should have thrown an error')
-            } catch (err) {
-                expect(err.message).to.equal('no users found')
-                expect(db.user.findMany.calledOnce).to.be.true
-            }
-        })
     })
 
     describe('get', () => {

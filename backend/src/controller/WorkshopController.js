@@ -9,10 +9,6 @@ export class WorkshopController {
 
     async all (req, res) {
         const workshops = await this.db.workshop.findMany()
-        if (!workshops.length) {
-            throw new HttpError(404, 'no workshops found')
-        }
-
         res.status(200).send(workshops)
     }
 
@@ -27,6 +23,20 @@ export class WorkshopController {
         }
 
         res.status(200).send(workshop)
+    }
+
+    async post (req, res) {
+        const workshop = new PostWorkshopRequest(req).data()
+
+        try {
+            const result = await this.db.workshop.create({ data: workshop })
+            res.status(201).send(result)
+        } catch (err) {
+            if (err.code === 'P2002') {
+                throw new HttpError(400, 'workshop already exists')
+            }
+            throw new HttpError(500, 'could not create workshop')
+        }
     }
 
     async put (req, res) {
@@ -51,9 +61,7 @@ export class WorkshopController {
     async delete (req, res) {
         const id = req.params.id
         try {
-            await this.db.workshop.delete({
-                where: { id: parseInt(id) }
-            })
+            await this.db.workshop.delete({ where: { id: parseInt(id) } })
 
             res.status(200).send({ message: 'workshop removed' })
         } catch (err) {
@@ -64,17 +72,12 @@ export class WorkshopController {
         }
     }
 
-    async post (req, res) {
-        const workshop = new PostWorkshopRequest(req).data()
+    async items (req, res) {
+        const id = req.params.id
+        const items = await this.db.workshopItem.findMany({
+            where: { workshopId: parseInt(id) }
+        })
 
-        try {
-            const result = await this.db.workshop.create({ data: workshop })
-            res.status(201).send(result)
-        } catch (err) {
-            if (err.code === 'P2002') {
-                throw new HttpError(400, 'workshop already exists')
-            }
-            throw new HttpError(500, 'could not create workshop')
-        }
+        res.status(200).send(items)
     }
 }

@@ -13,6 +13,7 @@ import { UserController } from './controller/UserController.js'
 import { AuthController } from './controller/AuthController.js'
 import { AuthService } from './service/AuthService.js'
 import { AuthMiddleware } from './middleware/AuthMiddleware.js'
+import { WorkshopItemController } from './controller/WorkshopItemController.js'
 dotenv.config()
 
 const db = new PrismaClient()
@@ -30,6 +31,7 @@ const controller = {
     auth: new AuthController(db, service.auth),
     workshop: new WorkshopController(db),
     product: new ProductController(db),
+    workshopItem: new WorkshopItemController(db),
     user: new UserController(db)
 }
 
@@ -52,6 +54,7 @@ app
     .get('/api/workshops/:id', middleware.auth.validate(), (req, res) => controller.workshop.get(req, res))
     .put('/api/workshops/:id', middleware.auth.validate(), (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', middleware.auth.validate(['admin', 'user']), (req, res) => controller.workshop.delete(req, res))
+    .get('/api/workshops/:id/items', middleware.auth.validate(), (req, res) => controller.workshop.items(req, res))
 
 app
     .get('/api/products', middleware.auth.validate(), (req, res) => controller.product.all(req, res))
@@ -59,6 +62,13 @@ app
     .post('/api/products', middleware.auth.validate(), (req, res) => controller.product.post(req, res))
     .put('/api/products/:id', middleware.auth.validate(), (req, res) => controller.product.put(req, res))
     .delete('/api/products/:id', middleware.auth.validate(['admin', 'user']), (req, res) => controller.product.delete(req, res))
+
+app
+    .get('/api/workshopItems', middleware.auth.validate(), (req, res) => controller.workshopItem.all(req, res))
+    .get('/api/workshopItems/:id', middleware.auth.validate(), (req, res) => controller.workshopItem.get(req, res))
+    .post('/api/workshopItems', middleware.auth.validate(), (req, res) => controller.workshopItem.post(req, res))
+    .put('/api/workshopItems/:id', middleware.auth.validate(), (req, res) => controller.workshopItem.put(req, res))
+    .delete('/api/workshopItems/:id', middleware.auth.validate(['admin', 'user']), (req, res) => controller.workshopItem.delete(req, res))
 
 app
     .get('/api/users', middleware.auth.validate('admin'), (req, res) => controller.user.all(req, res))

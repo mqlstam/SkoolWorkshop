@@ -1,6 +1,6 @@
 import { useAuthStore } from '../store/authStore.js'
 import axios from 'axios'
-import {useRouter} from "vue-router";
+import { useRouter } from 'vue-router'
 
 // Add token to non-auth requests
 axios.interceptors.request.use((config) => {

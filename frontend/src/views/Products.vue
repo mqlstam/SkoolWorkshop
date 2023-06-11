@@ -1,6 +1,6 @@
 <script setup>
 import { useProductStore } from '../store/productStore.js'
-import ProductItem from '../component/product/ProductItem.vue'
+import ProductBlock from '../component/product/ProductBlock.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, computed } from 'vue'
 
@@ -9,7 +9,11 @@ const productStore = useProductStore()
 productStore.fetch()
 
 const search = ref('')
-const filteredProducts = computed(() => productStore.search(search.value))
+const filteredProducts = computed(
+    () => productStore
+        .search(search.value)
+        .sort((a, b) => a.stock - b.stock)
+)
 
 async function remove (product) {
     await productStore.delete(product.id)
@@ -45,7 +49,7 @@ async function remove (product) {
     </div>
 
     <!-- product list -->
-    <ProductItem
+    <product-block
         v-for="product in filteredProducts"
         :key="product.id"
         :product="product"

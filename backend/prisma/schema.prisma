@@ -29,6 +29,8 @@ model Workshop {
   name         String @unique
   groupSize    Int
   timesPerWeek Int
+
+  items WorkshopItem[]
 }
 
 model Product {
@@ -37,4 +39,18 @@ model Product {
   stock    Int
   code     String? @unique
   reusable Boolean
+
+  workshopItems WorkshopItem[]
+}
+
+model WorkshopItem {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
+  workshopId Int
+  productId  Int
+  workshop   Workshop @relation(references: [id], fields: [workshopId], onDelete: Cascade)
+  product    Product  @relation(references: [id], fields: [productId], onDelete: Cascade)
+
+  @@unique([workshopId, productId])
 }

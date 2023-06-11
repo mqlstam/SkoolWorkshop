@@ -29,6 +29,12 @@ const routes = [
         component: () => import('../views/WorkshopCreate.vue')
     },
     {
+        path: '/workshops/:id/items',
+        name: 'workshop-items',
+        meta: { nav: 'workshop' },
+        component: () => import('../views/WorkshopItems.vue')
+    },
+    {
         path: '/products',
         name: 'products',
         meta: { nav: 'product' },
@@ -74,7 +80,7 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    scrollBehavior(to, from, savedPosition) {
+    scrollBehavior (to, from, savedPosition) {
         return savedPosition
     },
     routes
