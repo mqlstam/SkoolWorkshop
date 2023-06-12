@@ -23,7 +23,8 @@ import {
     faUser,
     faCircleCheck,
     faCirclePlus,
-    faWarehouse
+    faWarehouse,
+    faPrint
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -50,5 +51,6 @@ library.add(
     faUser,
     faCircleCheck,
     faCirclePlus,
-    faWarehouse
+    faWarehouse,
+    faPrint
 )

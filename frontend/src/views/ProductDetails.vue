@@ -6,6 +6,7 @@ import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
+import VueQrcode from 'vue-qrcode'
 import { ref } from 'vue'
 
 const route = useRoute()
@@ -17,6 +18,16 @@ const product = ref(await productStore.get(productId))
 async function save () {
     const { id, ...data } = product.value
     await productStore.update(data, id)
+}
+
+function printQr () {
+  const prtContent = document.getElementById('qrCode')
+  const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
+  winPrint.document.write(prtContent.innerHTML)
+  winPrint.document.close()
+  winPrint.focus()
+  winPrint.print()
+  winPrint.close()
 }
 </script>
 
@@ -38,5 +49,25 @@ async function save () {
     <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
     <scan-input v-model:value="product.code" @update:value="save"/>
     <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
+
+    <div type="button" class="d-flex align-items-center p-2 border-bottom">
+      <span class="mx-3">Print QR</span>
+      <div class="ms-auto d-flex align-items-center">
+        <div class="d-flex align-items-center user-select-none" role="button" @click="printQr()">
+          <font-awesome-icon
+            :icon="['fas', 'print']"
+            class="p-3 mx-2 rounded-3 hover-darken"/>
+        </div>
+      </div>
+    </div>
+
+    <div id="qrCode" style="display: none">
+      <vue-qrcode
+        v-if="product.code"
+        :value="product.code"
+        type="image/png"
+        width="250"
+        />
+    </div>
   </div>
 </template>
