@@ -18,7 +18,7 @@ const workshop = ref({
 async function create () {
     if (workshop.value.name === '') throw new Error('name is empty')
     await workshopStore.create(workshop.value)
-    await router.back()
+    router.back()
 }
 </script>
 

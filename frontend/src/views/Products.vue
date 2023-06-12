@@ -6,7 +6,7 @@ import { ref, computed } from 'vue'
 
 const edit = ref(false)
 const productStore = useProductStore()
-productStore.fetch()
+await productStore.fetch()
 
 const search = ref('')
 const filteredProducts = computed(
