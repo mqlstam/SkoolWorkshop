@@ -21,13 +21,13 @@ async function save () {
 }
 
 function printQr () {
-  const prtContent = document.getElementById('qrCode')
-  const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
-  winPrint.document.write(prtContent.innerHTML)
-  winPrint.document.close()
-  winPrint.focus()
-  winPrint.print()
-  winPrint.close()
+    const prtContent = document.getElementById('qrCode')
+    const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
+    winPrint.document.write(prtContent.innerHTML)
+    winPrint.document.close()
+    winPrint.focus()
+    winPrint.print()
+    winPrint.close()
 }
 </script>
 
