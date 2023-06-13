@@ -3,16 +3,13 @@ import { useRouter } from 'vue-router'
 import { useWorkshopStore } from '../store/workshopStore.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
-import NumberInput from '../component/input/NumberInput.vue'
 import { ref } from 'vue'
 
 const router = useRouter()
 const workshopStore = useWorkshopStore()
 
 const workshop = ref({
-    name: '',
-    groupSize: 0,
-    timesPerWeek: 0
+    name: ''
 })
 
 async function create () {
@@ -37,8 +34,6 @@ async function create () {
 
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="workshop.name" />
-    <number-input name="Group size" v-model:value="workshop.groupSize" />
-    <number-input name="Times per week" v-model:value="workshop.timesPerWeek" />
 
     <button class="m-3 ms-auto btn p-2 bg-primary d-flex justify-content-center" @click="create" style="width: 10rem">
       <font-awesome-icon :icon="['fas', 'floppy-disk']" class="fa-xl" />

@@ -5,8 +5,8 @@ import { WorkshopController } from '../../src/controller/WorkshopController.js'
 
 describe('controller/WorkshopController', () => {
     const workshops = [
-        { id: 1, name: 'Workshop 1', groupSize: 10, timesPerWeek: 15 },
-        { id: 2, name: 'Workshop 2', groupSize: 25, timesPerWeek: 10 }
+        { id: 1, name: 'Workshop 1' },
+        { id: 2, name: 'Workshop 2' }
     ]
 
     describe('all', () => {
@@ -172,7 +172,7 @@ describe('controller/WorkshopController', () => {
             const controller = new WorkshopController(db)
 
             await controller.items(req, res)
-            expect(db.workshopItem.findMany.calledOnceWith({where: {workshopId: 1}})).to.be.true
+            expect(db.workshopItem.findMany.calledOnceWith({ where: { workshopId: 1 } })).to.be.true
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(items)).to.be.true
         })
@@ -185,7 +185,7 @@ describe('controller/WorkshopController', () => {
                 workshopId: 1,
                 participantCount: 1,
                 startDate: new Date(),
-                endDate: new Date(),
+                endDate: new Date()
             }]
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
             const req = { params: { id: 1 } }
@@ -193,7 +193,7 @@ describe('controller/WorkshopController', () => {
             const controller = new WorkshopController(db)
 
             await controller.calendar(req, res)
-            expect(db.calendar.findMany.calledOnceWith({where: { workshopId: 1 }})).to.be.true
+            expect(db.calendar.findMany.calledOnceWith({ where: { workshopId: 1 } })).to.be.true
             expect(res.status.calledOnceWith(200)).to.be.true
             expect(res.send.calledOnceWith(calendar)).to.be.true
         })

@@ -8,6 +8,7 @@ describe('controller/request/product/PutProductRequest', () => {
             body: {
                 name: 'product 1',
                 stock: 10,
+                bufferStock: 10,
                 reusable: false
             }
         }

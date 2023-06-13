@@ -27,27 +27,27 @@ model Session {
 }
 
 model Workshop {
-  id           Int    @id @default(autoincrement())
-  name         String @unique
-  groupSize    Int
-  timesPerWeek Int
+  id   Int    @id @default(autoincrement())
+  name String @unique
 
   items    WorkshopItem[]
   calendar Calendar[]
 }
 
 model Product {
-  id       Int     @id @default(autoincrement())
-  name     String  @unique
-  stock    Int
-  code     String? @unique
-  reusable Boolean
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  stock       Int
+  bufferStock Int     @default(0)
+  code        String? @unique
+  reusable    Boolean
 
   workshopItems WorkshopItem[]
 }
 
 model WorkshopItem {
   id       Int @id @default(autoincrement())
+  people   Int
   quantity Int
 
   workshopId Int
