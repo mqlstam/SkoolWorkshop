@@ -24,17 +24,17 @@ async function login () {
       <img src="../assets/banner.png" alt="banner" class="m-5" style="width: 15rem"/>
 
       <div class="mb-4">
-        <label class="form-label" for="name">Name</label>
+        <label class="form-label" for="name">Naam</label>
         <input type="email" id="name" class="form-control" v-model="name" @keydown.enter="login" />
       </div>
 
       <div class="mb-4">
-        <label class="form-label" for="password">Password</label>
+        <label class="form-label" for="password">Wachtwoord</label>
         <input type="password" id="password" class="form-control" v-model="password" @keydown.enter="login" />
       </div>
 
       <button class="btn btn-primary my-4" style="width: 10rem" @click="login">
-        Sign in
+        Inloggen
       </button>
     </div>
   </div>

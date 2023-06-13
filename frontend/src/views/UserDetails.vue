@@ -32,7 +32,7 @@ async function save () {
     </div>
 
     <div class="col d-flex align-items-center">
-      <h3 class="m-0">User Info</h3>
+      <h3 class="m-0">Gebruiker Info</h3>
     </div>
   </div>
 
