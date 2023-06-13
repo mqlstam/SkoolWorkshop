@@ -55,6 +55,7 @@ app
     .put('/api/workshops/:id', middleware.auth.validate(), (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', middleware.auth.validate(['admin', 'user']), (req, res) => controller.workshop.delete(req, res))
     .get('/api/workshops/:id/items', middleware.auth.validate(), (req, res) => controller.workshop.items(req, res))
+    .get('/api/workshops/:id/calendar', middleware.auth.validate(), (req, res) => controller.workshop.calendar(req, res))
 
 app
     .get('/api/products', middleware.auth.validate(), (req, res) => controller.product.all(req, res))
@@ -76,6 +77,10 @@ app
     .post('/api/users', middleware.auth.validate('admin'), (req, res) => controller.user.post(req, res))
     .put('/api/users/:id', middleware.auth.validate('admin'), (req, res) => controller.user.put(req, res))
     .delete('/api/users/:id', middleware.auth.validate('admin'), (req, res) => controller.user.delete(req, res))
+
+app
+    .get('/api/calendar', middleware.auth.validate(), (req, res) => controller.workshop.all(req, res))
+    .get('/api/calendar/:id', middleware.auth.validate(), (req, res) => controller.workshop.get(req, res))
 
 // Register error handlers.
 app
