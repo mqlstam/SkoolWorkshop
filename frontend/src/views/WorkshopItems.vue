@@ -26,7 +26,8 @@ async function add (product) {
     await workshopItemStore.create({
         workshopId: Number(route.params.id),
         productId: product.id,
-        quantity: 1
+        quantity: 1,
+        people: 1
     })
 }
 

@@ -8,10 +8,11 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
+  id       Int    @id @default(autoincrement())
+  name     String @unique
   password String
-  role     String    @default("user")
+  role     String @default("user")
+
   sessions Session[]
 }
 
@@ -21,30 +22,32 @@ model Session {
   expires DateTime
   ipaddr  String
   userId  Int
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Workshop {
-  id           Int    @id @default(autoincrement())
-  name         String @unique
-  groupSize    Int
-  timesPerWeek Int
+  id   Int    @id @default(autoincrement())
+  name String @unique
 
-  items WorkshopItem[]
+  items    WorkshopItem[]
+  calendar Calendar[]
 }
 
 model Product {
-  id       Int     @id @default(autoincrement())
-  name     String  @unique
-  stock    Int
-  code     String? @unique
-  reusable Boolean
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  stock       Int
+  bufferStock Int     @default(0)
+  code        String? @unique
+  reusable    Boolean
 
   workshopItems WorkshopItem[]
 }
 
 model WorkshopItem {
   id       Int @id @default(autoincrement())
+  people   Int
   quantity Int
 
   workshopId Int
@@ -53,4 +56,14 @@ model WorkshopItem {
   product    Product  @relation(references: [id], fields: [productId], onDelete: Cascade)
 
   @@unique([workshopId, productId])
+}
+
+model Calendar {
+  id               Int      @id @default(autoincrement())
+  participantCount Int
+  workshopId       Int
+  startDate        DateTime
+  endDate          DateTime
+
+  workshop Workshop @relation(fields: [workshopId], references: [id])
 }

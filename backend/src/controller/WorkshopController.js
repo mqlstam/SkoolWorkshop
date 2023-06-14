@@ -80,4 +80,13 @@ export class WorkshopController {
 
         res.status(200).send(items)
     }
+
+    async calendar (req, res) {
+        const id = req.params.id
+        const calendar = await this.db.calendar.findMany({
+            where: { workshopId: parseInt(id) }
+        })
+
+        res.status(200).send(calendar)
+    }
 }

@@ -6,9 +6,7 @@ describe('controller/request/workshop/PostWorkshopRequest', () => {
     it('should accept valid requests', async () => {
         const req = {
             body: {
-                name: 'workshop 1',
-                groupSize: 10,
-                timesPerWeek: 2
+                name: 'workshop 1'
             }
         }
         const data = new PostWorkshopRequest(req).data()

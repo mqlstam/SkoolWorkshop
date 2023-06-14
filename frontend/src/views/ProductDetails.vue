@@ -21,13 +21,13 @@ async function save () {
 }
 
 function printQr () {
-  const prtContent = document.getElementById('qrCode')
-  const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
-  winPrint.document.write(prtContent.innerHTML)
-  winPrint.document.close()
-  winPrint.focus()
-  winPrint.print()
-  winPrint.close()
+    const prtContent = document.getElementById('qrCode')
+    const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
+    winPrint.document.write(prtContent.innerHTML)
+    winPrint.document.close()
+    winPrint.focus()
+    winPrint.print()
+    winPrint.close()
 }
 </script>
 
@@ -47,6 +47,7 @@ function printQr () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
     <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
+    <number-input name="BufferStock" v-model:value="product.bufferStock" @update:value="save"/>
     <scan-input v-model:value="product.code" @update:value="save"/>
     <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
 

@@ -3,8 +3,7 @@ import { useRoute } from 'vue-router'
 import { useWorkshopStore } from '../store/workshopStore.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
-import NumberInput from '../component/input/NumberInput.vue'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import WorkshopItemBlock from '../component/workshopItem/WorkshopItemBlock.vue'
 import { useProductStore } from '../store/productStore.js'
 import { useWorkshopItemStore } from '../store/workshopItemStore.js'
@@ -24,18 +23,6 @@ const tasks = await Promise.all([
 const workshop = ref(tasks[0])
 const items = tasks[1]
 const products = productStore.getMany(items.map(item => item.productId))
-
-const sortedItems = computed(() => {
-    const hasEnoughStock = (item) => {
-        const product = products.find(p => p.id === item.productId)
-        return product.stock >= item.quantity
-    }
-
-    return [
-        ...items.filter(item => !hasEnoughStock(item)),
-        ...items.filter(hasEnoughStock)
-    ]
-})
 
 async function save () {
     const { id, ...data } = workshop.value
@@ -63,8 +50,6 @@ async function saveItem (item) {
 
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="workshop.name" @update:value="save"/>
-    <number-input name="Group size" v-model:value="workshop.groupSize" @update:value="save"/>
-    <number-input name="Times per week" v-model:value="workshop.timesPerWeek" @update:value="save"/>
   </div>
 
   <!-- items -->
@@ -84,7 +69,7 @@ async function saveItem (item) {
   <div class="row box bg-white border-top">
     <!-- workshop items list -->
     <workshop-item-block
-        v-for="item in sortedItems"
+        v-for="item in items"
         :key="item.id"
         :product="products.find(p => p.id === item.productId)"
         :workshop-item="item"

@@ -14,6 +14,7 @@ const productStore = useProductStore()
 const product = ref({
     name: '',
     stock: 0,
+    bufferStock: 0,
     reusable: false
 })
 
@@ -40,6 +41,7 @@ async function create () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" />
     <number-input name="Stock" v-model:value="product.stock" />
+    <number-input name="BufferStock" v-model:value="product.bufferStock" />
     <scan-input v-model:value="product.code" />
     <checkbox-input name="Reusable" v-model:value="product.reusable" />
 
