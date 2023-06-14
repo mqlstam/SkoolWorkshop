@@ -2,28 +2,27 @@
 import { useProductStore } from '../store/productStore.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { StreamBarcodeReader } from 'vue-barcode-reader'
-import router from '../router/router.js'
-import {ref} from "vue";
+import { ref } from 'vue'
 
 const productStore = useProductStore()
 productStore.fetch()
 
 const showPopUp = ref(false)
-let productFound = ref(null)
+const productFound = ref(null)
 
 function onDecode (result) {
     const product = productStore.findCode(result)
     if (product) {
-      productFound = product
-      showPopUp.value = true
+        productFound.value = product
+        showPopUp.value = true
     } else {
         throw Error('unknown product')
     }
 }
 
 async function update () {
-  const { id, ...data } = productFound
-  await productStore.update(data, id)
+    const { id, ...data } = productFound
+    await productStore.update(data, id)
 }
 </script>
 
