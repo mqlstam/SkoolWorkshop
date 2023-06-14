@@ -39,7 +39,7 @@ async function remove (workshopItem) {
 <template>
   <div class="row box-header">
     <div class="col-8 d-flex align-items-center">
-      <h3 class="m-2">Manage Products</h3>
+      <h3 class="m-2">Beheer Producten</h3>
     </div>
 
     <div class="col-4 d-flex align-items-center justify-content-end">

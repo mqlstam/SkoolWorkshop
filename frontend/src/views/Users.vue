@@ -19,7 +19,7 @@ async function remove (user) {
 <template>
   <div class="row box-header">
     <div class="col-2 d-flex align-items-center">
-      <h3 class="m-2">Users</h3>
+      <h3 class="m-2">Gebruikers</h3>
     </div>
 
     <div class="col-10 d-flex align-items-center justify-content-end">
@@ -35,7 +35,7 @@ async function remove (user) {
   </div>
 
   <div class="row box bg-white border-top">
-    <input type="text" v-model="search" placeholder="Search users..." class="form-control search p-4">
+    <input type="text" v-model="search" placeholder="Zoek gebruikers..." class="form-control search p-4">
 
     <!-- user list -->
     <user-block
