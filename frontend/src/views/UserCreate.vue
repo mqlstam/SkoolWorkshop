@@ -38,7 +38,7 @@ async function create () {
     </div>
 
     <div class="col d-flex align-items-center">
-      <h3 class="m-0">Nieuwe gebruiker registreren</h3>
+      <h3 class="m-0">Nieuwe gebruiker</h3>
     </div>
   </div>
 

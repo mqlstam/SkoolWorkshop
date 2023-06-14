@@ -6,10 +6,6 @@ import * as path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue(), VitePWA({
-        registerType: 'autoUpdate',
-        devOptions: {
-            enabled: true
-        },
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
         manifest: {
             name: 'Warehouse',
@@ -27,7 +23,7 @@ export default defineConfig({
                     type: 'image/png'
                 }
             ],
-            theme_color: '#ffffff',
+            theme_color: '#f49700',
             background_color: '#ffffff',
             display: 'standalone'
         }

@@ -34,7 +34,7 @@ async function login () {
       </div>
 
       <button class="btn btn-primary my-4" style="width: 10rem" @click="login">
-        Inloggen
+        Log In
       </button>
     </div>
   </div>
