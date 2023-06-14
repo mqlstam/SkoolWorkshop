@@ -61,10 +61,7 @@ html {
   transform: translate(-50%, -50%);
   width: 50%;
   max-width: 100%;
-  background-color: white;
-  border-radius: 5px;
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   opacity: 0;
   animation: popUpAnimation 0.3s ease-out forwards;
 }
@@ -75,7 +72,8 @@ html {
         padding: 0
     }
   .popup-container .icon {
-    font-size: 1em;
+    font-size: 1.7em;
+    padding: 1.5rem
   }
 
   .iconDivMin {

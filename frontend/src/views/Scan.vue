@@ -32,7 +32,7 @@ async function update () {
     <h2 class="pt-4">Scan A QR / Barcode</h2>
     <div class="position-absolute d-flex flex-column">
       <div class="position-relative pe-3">
-        <router-link to="/workshops" class="btn float-end hover-darken mt-4 mb-4">
+        <router-link to="/products" class="btn float-end hover-darken mt-4 mb-4">
           <font-awesome-icon :icon="['fas', 'x']"/>
         </router-link>
       </div>
@@ -40,7 +40,7 @@ async function update () {
     </div>
   </div>
 
-  <div class="popup-container box text-center " v-if="showPopUp">
+  <div class="popup-container box text-center bg-white" v-if="showPopUp">
     <div class="btn float-end hover-darken" @click="showPopUp = !showPopUp">
       <font-awesome-icon :icon="['fas', 'x']"/>
     </div>
