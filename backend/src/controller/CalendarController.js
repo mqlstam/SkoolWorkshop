@@ -1,8 +1,10 @@
 import { HttpError } from './error/HttpError.js'
+import { CalculateRequest } from './request/calendar/CalculateRequest.js'
 
 export class CalendarController {
-    constructor (db) {
+    constructor (db, calendarService) {
         this.db = db
+        this.calendarService = calendarService
     }
 
     async all (req, res) {
@@ -21,5 +23,23 @@ export class CalendarController {
         }
 
         res.status(200).send(calendar)
+    }
+
+    async calculate (req, res) {
+        const request = new CalculateRequest(req).data()
+        const startDate = request.startDate
+        const endDate = request.endDate
+
+        const calendar = await this.calendarService.fetchCalendar(startDate, endDate)
+        const result = await this.calendarService.calculate(calendar)
+
+        res.status(200).send(
+            Object.keys(result).map(key => {
+                return {
+                    productId: parseInt(key),
+                    quantity: result[key]
+                }
+            })
+        )
     }
 }

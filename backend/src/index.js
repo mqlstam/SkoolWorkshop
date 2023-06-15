@@ -14,13 +14,15 @@ import { AuthController } from './controller/AuthController.js'
 import { AuthService } from './service/AuthService.js'
 import { AuthMiddleware } from './middleware/AuthMiddleware.js'
 import { WorkshopItemController } from './controller/WorkshopItemController.js'
-import {CalendarController} from "./controller/CalendarController.js";
+import { CalendarController } from './controller/CalendarController.js'
+import { CalendarService } from './service/CalendarService.js'
 dotenv.config()
 
 const db = new PrismaClient()
 const logger = colorConsole()
 const service = {
-    auth: new AuthService(db)
+    auth: new AuthService(db),
+    calendar: new CalendarService(db)
 }
 const middleware = {
     auth: new AuthMiddleware(),
@@ -34,7 +36,7 @@ const controller = {
     product: new ProductController(db),
     workshopItem: new WorkshopItemController(db),
     user: new UserController(db),
-    calendar: new CalendarController(db)
+    calendar: new CalendarController(db, service.calendar)
 }
 
 // Create express app and register middleware.
@@ -82,6 +84,7 @@ app
 
 app
     .get('/api/calendar', middleware.auth.validate(), (req, res) => controller.calendar.all(req, res))
+    .get('/api/calendar/calculate', middleware.auth.validate(), (req, res) => controller.calendar.calculate(req, res))
     .get('/api/calendar/:id', middleware.auth.validate(), (req, res) => controller.calendar.get(req, res))
 
 // Register error handlers.
