@@ -23,7 +23,7 @@ const workshops = workshopStore.workshops
 
     <div class="col-10 d-flex align-items-center justify-content-end">
       <!-- action buttons -->
-      <div class="btn p-3 hover-darken">
+      <div class="btn p-3 hover-darken" @click="calendarStore.refresh()">
         <font-awesome-icon :icon="['fas', 'arrows-rotate']" class="fa-xl" />
       </div>
     </div>

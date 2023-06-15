@@ -33,6 +33,15 @@ export const useCalendarStore = defineStore('calendar', {
             } catch {
                 this.requiredStock = {}
             }
+        },
+
+        async refresh () {
+            try {
+                await axios.post('/api/calendar/refresh')
+                await this.fetch(true)
+            } catch {
+                throw new Error('failed to refresh calendar')
+            }
         }
     }
 })

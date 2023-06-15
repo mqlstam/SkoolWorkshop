@@ -2,13 +2,18 @@ import { HttpError } from './error/HttpError.js'
 import { CalculateRequest } from './request/calendar/CalculateRequest.js'
 
 export class CalendarController {
-    constructor (db, calendarService) {
+    constructor (db, calendarService, blazorService) {
         this.db = db
         this.calendarService = calendarService
+        this.blazorService = blazorService
     }
 
     async all (req, res) {
-        const calendar = await this.db.calendar.findMany()
+        const calendar = await this.db.calendar.findMany({
+            orderBy: {
+                startDate: 'asc'
+            }
+        })
         res.status(200).send(calendar)
     }
 
@@ -34,5 +39,11 @@ export class CalendarController {
         const result = await this.calendarService.calculate(calendar)
 
         res.status(200).send(result)
+    }
+
+    async refresh (req, res) {
+        const response = await this.blazorService.fetchCalendar()
+        const calendar = await this.blazorService.saveCalendar(response)
+        res.status(200).send(calendar)
     }
 }
