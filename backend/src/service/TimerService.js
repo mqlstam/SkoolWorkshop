@@ -5,7 +5,7 @@ export class TimerService {
 
     async fetchProductsToOrder (requiredStock) {
         const productIds = Object.keys(requiredStock)
-        const products = await this.db.products.findMany({
+        const products = await this.db.product.findMany({
             where: {
                 id: {
                     in: productIds
