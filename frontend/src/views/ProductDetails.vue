@@ -3,7 +3,6 @@ import { useProductStore } from '../store/productStore.js'
 import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
-import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
 import VueQrcode from 'vue-qrcode'
@@ -46,11 +45,21 @@ function printQr () {
 
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
-    <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
+    <div class="d-flex align-items-center p-2 border-bottom">
+      <span class="mx-3">Voorraad</span>
+      <div class="ms-auto d-flex align-items-center">
+        <span>{{product.stock}}</span>
+        <router-link class="d-flex align-items-center user-select-none" role="button" :to='`/products/${productId}/edit-stock`'>
+          <font-awesome-icon
+            :icon="['fas', 'layer-group']"
+            class="p-3 mx-2 rounded-3 hover-darken"/>
+        </router-link>
+      </div>
+    </div>
     <scan-input v-model:value="product.code" @update:value="save"/>
     <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
 
-    <div type="button" class="d-flex align-items-center p-2 border-bottom">
+    <div class="d-flex align-items-center p-2 border-bottom">
       <span class="mx-3">Print QR</span>
       <div class="ms-auto d-flex align-items-center">
         <div class="d-flex align-items-center user-select-none" role="button" @click="printQr()">

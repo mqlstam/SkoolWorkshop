@@ -53,6 +53,12 @@ const routes = [
         component: () => import('../views/ProductDetails.vue')
     },
     {
+        path: '/products/:id/edit-stock',
+        name: 'edit-stock',
+        meta: { nav: 'edit-stock' },
+        component: () => import('../views/EditStock.vue')
+    },
+    {
         path: '/scan',
         name: 'scan',
         meta: { nav: 'scan' },

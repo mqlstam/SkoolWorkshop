@@ -66,11 +66,30 @@ html {
   animation: popUpAnimation 0.3s ease-out forwards;
 }
 
+@media only screen and (max-width: 768px) {
+  .popup-container {
+    width: 70%;
+    padding: 0
+  }
+  .popup-container .icon {
+    font-size: 1.7em;
+    padding: 1.5rem
+  }
+
+  .iconDivMin {
+    margin: -2em;
+  }
+
+  .iconDivMax {
+    margin: -2em;
+  }
+}
+
 @media only screen and (max-width: 425px) {
-    .popup-container {
-        width: 100%;
-        padding: 0
-    }
+  .popup-container {
+    width: 100%;
+    padding: 0
+  }
   .popup-container .icon {
     font-size: 1.7em;
     padding: 1.5rem
@@ -86,6 +105,12 @@ html {
 }
 
 @keyframes popUpAnimation {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
