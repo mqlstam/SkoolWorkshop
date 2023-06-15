@@ -37,11 +37,12 @@ export class CalendarService {
             const overlappingCalendarItems = this.overlappingCalendarItems(calendar.slice(idx + 1), calendarItem)
 
             for (const workshopItem of calendarItem.workshop.items) {
-                const currentQuantity = result[workshopItem.productId] ?? 0
+                result[workshopItem.productId] ??= { quantity: 0 }
+                const currentQuantity = result[workshopItem.productId].quantity
 
                 if (!workshopItem.product.reusable) {
                     // When product is non-reusable, just add the quantity to the total.
-                    result[workshopItem.productId] = currentQuantity + this.neededProductQuantity(
+                    result[workshopItem.productId].quantity = currentQuantity + this.neededProductQuantity(
                         workshopItem,
                         calendarItem.participantCount
                     )
@@ -49,7 +50,7 @@ export class CalendarService {
                     // When product is reusable, find the max required quantity at
                     // any given time. Here we need to take into account the
                     // overlapping calendar items that use the same workshopItem.
-                    result[workshopItem.productId] = Math.max(
+                    result[workshopItem.productId].quantity = Math.max(
                         currentQuantity,
                         this.neededReusableProductQuantity(
                             workshopItem,

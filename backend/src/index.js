@@ -84,7 +84,7 @@ app
 
 app
     .get('/api/calendar', middleware.auth.validate(), (req, res) => controller.calendar.all(req, res))
-    .get('/api/calendar/calculate', middleware.auth.validate(), (req, res) => controller.calendar.calculate(req, res))
+    .get('/api/calendar/requiredStock', middleware.auth.validate(), (req, res) => controller.calendar.requiredStock(req, res))
     .get('/api/calendar/:id', middleware.auth.validate(), (req, res) => controller.calendar.get(req, res))
 
 // Register error handlers.

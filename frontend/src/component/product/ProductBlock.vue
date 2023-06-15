@@ -1,5 +1,6 @@
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { computed } from 'vue'
 
 const emit = defineEmits(['delete'])
 const props = defineProps({
@@ -7,17 +8,32 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    requiredStock: {
+        type: Number,
+        default: 0
+    },
     edit: {
         type: Boolean,
         default: false
     }
 })
+
+const stockColor = computed(() => {
+    if (props.product.stock < props.requiredStock) {
+        return 'text-danger'
+    } else if (props.product.stock < (props.requiredStock + props.product.bufferStock)) {
+        return 'text-primary'
+    } else {
+        return 'text-success'
+    }
+})
+
 </script>
 
 <template>
   <router-link
        class="d-flex align-items-center border-bottom hover-darken"
-       :class="{'bg-tint-red': product.stock === 0}"
+       :class="{'bg-tint-red': stockColor === 'text-danger', 'bg-tint-primary': stockColor === 'text-primary'}"
        :to="`/products/${props.product.id}`">
 
     <!-- image and title -->
@@ -25,7 +41,7 @@ const props = defineProps({
     <span class="h5"> {{ props.product.name }} </span>
 
     <div v-if="!props.edit" class="ms-auto">
-      <div class="p-3 rounded-circle" :class="{'text-danger': product.stock === 0, 'text-primary': product.stock < 10}">
+      <div class="p-3 rounded-circle" :class="stockColor">
         <font-awesome-icon :icon="['fas', 'warehouse']" class="fa-1x" />
         <span class="p-2">{{ props.product.stock }}</span>
       </div>

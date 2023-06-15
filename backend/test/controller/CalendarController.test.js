@@ -49,24 +49,24 @@ describe('controller/CalendarController', () => {
         })
     })
 
-    describe('calculate', () => {
+    describe('requiredStock', () => {
         it('should calculate the total amount of needed products', async () => {
             const req = { query: { startDate: '2023-06-15T12:12:00.000Z', endDate: '2023-08-15T12:12:00.000Z' } }
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
             const calendarService = {
                 fetchCalendar: sinon.stub().returns(calendarItems),
-                calculate: sinon.stub().returns({ 1: 10, 2: 25 })
+                calculate: sinon.stub().returns({ 1: { quantity: 10 }, 2: { quantity: 25 } })
             }
             const controller = new CalendarController({}, calendarService)
 
-            await controller.calculate(req, res)
+            await controller.requiredStock(req, res)
             expect(calendarService.fetchCalendar.calledOnce).to.be.true
             expect(calendarService.calculate.calledOnceWith(calendarItems)).to.be.true
             expect(res.status.calledOnceWith(200)).to.be.true
-            expect(res.send.calledOnceWith([
-                { productId: 1, quantity: 10 },
-                { productId: 2, quantity: 25 }
-            ])).to.be.true
+            expect(res.send.calledOnceWith({
+                1: { quantity: 10 },
+                2: { quantity: 25 }
+            })).to.be.true
         })
     })
 })

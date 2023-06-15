@@ -1,10 +1,17 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+const today = new Date()
+const nextMonth = new Date()
+nextMonth.setMonth(nextMonth.getMonth() + 1)
+
 export const useCalendarStore = defineStore('calendar', {
     state: () => ({
         fetched: false,
-        calendarItems: []
+        calendarItems: [],
+        requiredStock: {},
+        startDate: today,
+        endDate: nextMonth
     }),
     actions: {
         async fetch (force = false) {
@@ -16,6 +23,15 @@ export const useCalendarStore = defineStore('calendar', {
                 this.fetched = true
             } catch {
                 this.calendarItems = []
+            }
+        },
+
+        async fetchRequiredStock () {
+            try {
+                const { data } = await axios.get(`/api/calendar/requiredStock?startDate=${this.startDate.toISOString()}&endDate=${this.endDate.toISOString()}`)
+                this.requiredStock = data
+            } catch {
+                this.requiredStock = {}
             }
         }
     }

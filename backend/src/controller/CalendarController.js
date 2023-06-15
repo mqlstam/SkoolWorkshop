@@ -25,7 +25,7 @@ export class CalendarController {
         res.status(200).send(calendar)
     }
 
-    async calculate (req, res) {
+    async requiredStock (req, res) {
         const request = new CalculateRequest(req).data()
         const startDate = request.startDate
         const endDate = request.endDate
@@ -33,13 +33,6 @@ export class CalendarController {
         const calendar = await this.calendarService.fetchCalendar(startDate, endDate)
         const result = await this.calendarService.calculate(calendar)
 
-        res.status(200).send(
-            Object.keys(result).map(key => {
-                return {
-                    productId: parseInt(key),
-                    quantity: result[key]
-                }
-            })
-        )
+        res.status(200).send(result)
     }
 }
