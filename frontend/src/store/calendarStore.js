@@ -9,6 +9,8 @@ export const useCalendarStore = defineStore('calendar', {
     state: () => ({
         fetched: false,
         calendarItems: [],
+
+        fetchedRequiredStock: false,
         requiredStock: {},
         startDate: today,
         endDate: nextMonth
@@ -26,9 +28,12 @@ export const useCalendarStore = defineStore('calendar', {
             }
         },
 
-        async fetchRequiredStock () {
+        async fetchRequiredStock (force = false) {
+            if (this.fetchedRequiredStock && !force) return
+
             try {
                 const { data } = await axios.get(`/api/calendar/requiredStock?startDate=${this.startDate.toISOString()}&endDate=${this.endDate.toISOString()}`)
+                this.fetchedRequiredStock = true
                 this.requiredStock = data
             } catch {
                 this.requiredStock = {}
@@ -38,7 +43,10 @@ export const useCalendarStore = defineStore('calendar', {
         async refresh () {
             try {
                 await axios.post('/api/calendar/refresh')
-                await this.fetch(true)
+                await Promise.all([
+                    this.fetch(true),
+                    this.fetchRequiredStock(true)
+                ])
             } catch {
                 throw new Error('failed to refresh calendar')
             }
