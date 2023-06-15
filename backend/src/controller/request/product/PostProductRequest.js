@@ -8,6 +8,7 @@ export class PostProductRequest extends Request {
         properties: {
             name: { type: 'string' },
             stock: { type: 'number' },
+            bufferStock: { type: ['number', 'null'] },
             code: { type: ['string', 'null'] },
             reusable: { type: 'boolean' }
         }

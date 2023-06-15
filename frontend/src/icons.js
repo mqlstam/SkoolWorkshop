@@ -24,7 +24,9 @@ import {
     faCircleCheck,
     faCirclePlus,
     faWarehouse,
-    faPrint
+    faPrint,
+    faCalendarDay,
+    faArrowsRotate
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -52,5 +54,7 @@ library.add(
     faCircleCheck,
     faCirclePlus,
     faWarehouse,
-    faPrint
+    faPrint,
+    faCalendarDay,
+    faArrowsRotate
 )

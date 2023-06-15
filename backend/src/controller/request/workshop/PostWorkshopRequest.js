@@ -4,11 +4,9 @@ export class PostWorkshopRequest extends Request {
     schema = {
         type: 'object',
         additionalProperties: false,
-        required: ['name', 'groupSize', 'timesPerWeek'],
+        required: ['name'],
         properties: {
-            name: { type: 'string' },
-            groupSize: { type: 'number' },
-            timesPerWeek: { type: 'number' }
+            name: { type: 'string' }
         }
     }
 

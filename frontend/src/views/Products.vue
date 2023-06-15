@@ -23,7 +23,7 @@ async function remove (product) {
 <template>
   <div class="row box-header">
     <div class="col-2 d-flex align-items-center">
-      <h3 class="m-2">Products</h3>
+      <h3 class="m-2">Producten</h3>
     </div>
 
     <div class="col-10 d-flex align-items-center justify-content-end">
@@ -40,7 +40,7 @@ async function remove (product) {
 
   <div class="row box bg-white border-top">
     <div class="p-0 input-group align-items-end">
-      <input type="text" v-model="search" placeholder="Search products..." class="form-control search p-4">
+      <input type="text" v-model="search" placeholder="Zoek producten..." class="form-control search p-4">
       <router-link to="/scan"
                    class="d-flex justify-content-center align-items-center bg-primary h-100"
                    style="height: 3rem; width: 5rem; margin-top: -1rem">

@@ -8,6 +8,7 @@ export class PutWorkshopItemRequest extends Request {
         properties: {
             workshopId: { type: 'number' },
             productId: { type: 'number' },
+            people: { type: 'number' },
             quantity: { type: 'number' }
         }
     }

@@ -47,6 +47,7 @@ function printQr () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
     <number-input name="Stock" v-model:value="product.stock" @update:value="save"/>
+    <number-input name="BufferStock" v-model:value="product.bufferStock" @update:value="save"/>
     <scan-input v-model:value="product.code" @update:value="save"/>
     <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
 

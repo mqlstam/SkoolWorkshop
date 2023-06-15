@@ -35,6 +35,12 @@ async function logout () {
       <font-awesome-icon :icon="['fas', 'boxes-stacked']" class="fa-2x p-3"/>
     </router-link>
 
+    <router-link to="/calendar"
+                 class="d-none d-sm-flex justify-content-center align-items-center w-100"
+                 :class="{'text-primary': route.meta.nav === 'calendar'}">
+      <font-awesome-icon :icon="['fas', 'calendar-day']" class="fa-2x p-3"/>
+    </router-link>
+
     <router-link to="/users"
                  v-if="authStore.data.role === 'admin'"
                  class="d-none d-sm-flex justify-content-center align-items-center w-100"
