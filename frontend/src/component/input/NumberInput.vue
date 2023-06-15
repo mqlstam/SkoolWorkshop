@@ -20,8 +20,18 @@ const value = ref(props.value)
 watch(() => props.value, (newValue) => {
     value.value = newValue
 })
+function checkEmptyInput () {
+    if (value.value === '' || value.value === null) {
+        value.value = 0
+        update()
+    }
+}
 
 function update () {
+    const parsedValue = parseInt(value.value)
+    if (isNaN(parsedValue)) {
+        return
+    }
     emit('update:value', value.value)
 }
 </script>
@@ -37,7 +47,8 @@ function update () {
             class="p-3 mx-2 rounded-3 hover-darken" />
       </div>
 
-      <input type="number" class="form-control-plaintext" style="width: 2rem" v-model="value" @input="update" />
+      <input type="number" class="form-control-plaintext" style="width: 2rem" v-model="value" @input="update"    @blur="checkEmptyInput"
+    @keyup.enter="checkEmptyInput" />
 
       <div role="button" @click="value += 1; update()" class="user-select-none">
         <font-awesome-icon
