@@ -59,6 +59,12 @@ const routes = [
         component: () => import('../views/EditStock.vue')
     },
     {
+        path: '/calendar',
+        name: 'calendar',
+        meta: { nav: 'calendar' },
+        component: () => import('../views/Calendar.vue')
+    },
+    {
         path: '/scan',
         name: 'scan',
         meta: { nav: 'scan' },

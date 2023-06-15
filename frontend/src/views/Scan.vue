@@ -19,7 +19,7 @@ function onDecode (result) {
 
 <template>
   <div class="d-flex justify-content-center">
-    <h2 class="pt-4">Scan A QR / Barcode</h2>
+    <h2 class="pt-4">Scan QR/Barcode</h2>
     <div class="position-absolute d-flex flex-column">
       <div class="position-relative pe-3">
         <router-link to="/products" class="btn float-end hover-darken mt-4 mb-4">

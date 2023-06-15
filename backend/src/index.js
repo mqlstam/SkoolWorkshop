@@ -14,6 +14,7 @@ import { AuthController } from './controller/AuthController.js'
 import { AuthService } from './service/AuthService.js'
 import { AuthMiddleware } from './middleware/AuthMiddleware.js'
 import { WorkshopItemController } from './controller/WorkshopItemController.js'
+import {CalendarController} from "./controller/CalendarController.js";
 dotenv.config()
 
 const db = new PrismaClient()
@@ -32,7 +33,8 @@ const controller = {
     workshop: new WorkshopController(db),
     product: new ProductController(db),
     workshopItem: new WorkshopItemController(db),
-    user: new UserController(db)
+    user: new UserController(db),
+    calendar: new CalendarController(db)
 }
 
 // Create express app and register middleware.
@@ -55,6 +57,7 @@ app
     .put('/api/workshops/:id', middleware.auth.validate(), (req, res) => controller.workshop.put(req, res))
     .delete('/api/workshops/:id', middleware.auth.validate(['admin', 'user']), (req, res) => controller.workshop.delete(req, res))
     .get('/api/workshops/:id/items', middleware.auth.validate(), (req, res) => controller.workshop.items(req, res))
+    .get('/api/workshops/:id/calendar', middleware.auth.validate(), (req, res) => controller.workshop.calendar(req, res))
 
 app
     .get('/api/products', middleware.auth.validate(), (req, res) => controller.product.all(req, res))
@@ -76,6 +79,10 @@ app
     .post('/api/users', middleware.auth.validate('admin'), (req, res) => controller.user.post(req, res))
     .put('/api/users/:id', middleware.auth.validate('admin'), (req, res) => controller.user.put(req, res))
     .delete('/api/users/:id', middleware.auth.validate('admin'), (req, res) => controller.user.delete(req, res))
+
+app
+    .get('/api/calendar', middleware.auth.validate(), (req, res) => controller.calendar.all(req, res))
+    .get('/api/calendar/:id', middleware.auth.validate(), (req, res) => controller.calendar.get(req, res))
 
 // Register error handlers.
 app

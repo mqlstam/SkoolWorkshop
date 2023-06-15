@@ -56,6 +56,7 @@ function printQr () {
         </router-link>
       </div>
     </div>
+    <number-input name="BufferStock" v-model:value="product.bufferStock" @update:value="save"/>
     <scan-input v-model:value="product.code" @update:value="save"/>
     <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
 
