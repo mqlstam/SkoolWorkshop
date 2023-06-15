@@ -33,13 +33,6 @@ function generateCode () {
 <template>
   <div type="button" class="d-flex align-items-center p-2 border-bottom">
     <span class="mx-3">Code: {{ props.value }}</span>
-    <div class="justify-content-center">
-      <div v-if="showScanner" class="d-flex justify-content-center align-items-center">
-        <div class="position-absolute d-flex flex-column">
-          <stream-barcode-reader @decode="onDecode" class="ps-3 pe-3"/>
-        </div>
-      </div>
-    </div>
 
     <div class="ms-auto d-flex align-items-center">
       <div class="d-flex align-items-center user-select-none" role="button" @click="showScanner = !showScanner">
@@ -57,4 +50,10 @@ function generateCode () {
       </div>
     </div>
   </div>
+  <div v-if="showScanner" class="p-0">
+        <div class=" w-100">
+          <stream-barcode-reader @decode="onDecode"/>
+        </div>
+  </div>
+
 </template>
