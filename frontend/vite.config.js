@@ -7,6 +7,7 @@ import * as path from 'path'
 export default defineConfig({
     plugins: [vue(), VitePWA({
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      
         manifest: {
             name: 'Warehouse',
             short_name: 'Warehouse',
@@ -27,7 +28,6 @@ export default defineConfig({
             background_color: '#ffffff',
             display: 'standalone'
         }
-
     })],
     resolve: {
         alias: {
