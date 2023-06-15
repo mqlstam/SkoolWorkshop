@@ -16,7 +16,7 @@ import { AuthMiddleware } from './middleware/AuthMiddleware.js'
 import { WorkshopItemController } from './controller/WorkshopItemController.js'
 import { CalendarController } from './controller/CalendarController.js'
 import { CalendarService } from './service/CalendarService.js'
-import {BlazorSkoolService} from "./service/BlazorSkoolService.js";
+import { BlazorSkoolService } from './service/BlazorSkoolService.js'
 dotenv.config()
 
 const db = new PrismaClient()

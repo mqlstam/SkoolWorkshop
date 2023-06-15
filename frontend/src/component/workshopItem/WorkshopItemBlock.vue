@@ -25,8 +25,7 @@ function update () {
 </script>
 
 <template>
-  <router-link :to="`/products/${product.id}`"
-               class="d-flex align-items-center border-bottom">
+  <router-link :to="`/products/${product.id}`" class="d-flex align-items-center border-bottom">
     <!-- image and title -->
     <font-awesome-icon :icon="['fas', 'box']" class="fa-3x img border p-3 ms-1 me-3 my-3"/>
     <span class="h5"> {{ props.product.name }} </span>

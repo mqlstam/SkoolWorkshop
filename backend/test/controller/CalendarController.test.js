@@ -69,4 +69,20 @@ describe('controller/CalendarController', () => {
             })).to.be.true
         })
     })
+
+    describe('refresh', () => {
+        it('should refresh the calendar items', async () => {
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const blazorSkoolService = { fetchCalendar: sinon.stub().returns(calendarItems) }
+            const calendarService = { saveCalendar: sinon.stub() }
+            const controller = new CalendarController({}, calendarService, blazorSkoolService)
+
+            await controller.refresh({}, res)
+
+            expect(blazorSkoolService.fetchCalendar.calledOnce).to.be.true
+            expect(calendarService.saveCalendar.calledOnceWith(calendarItems)).to.be.true
+            expect(res.status.calledOnceWith(200)).to.be.true
+            expect(res.send.calledOnceWith({ message: 'calendar refreshed' })).to.be.true
+        })
+    })
 })

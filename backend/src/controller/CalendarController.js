@@ -1,5 +1,5 @@
 import { HttpError } from './error/HttpError.js'
-import { CalculateRequest } from './request/calendar/CalculateRequest.js'
+import { RequiredStockRequest } from './request/calendar/RequiredStockRequest.js'
 
 export class CalendarController {
     constructor (db, calendarService, blazorService) {
@@ -31,7 +31,7 @@ export class CalendarController {
     }
 
     async requiredStock (req, res) {
-        const request = new CalculateRequest(req).data()
+        const request = new RequiredStockRequest(req).data()
         const startDate = request.startDate
         const endDate = request.endDate
 
@@ -43,7 +43,7 @@ export class CalendarController {
 
     async refresh (req, res) {
         const response = await this.blazorService.fetchCalendar()
-        const calendar = await this.blazorService.saveCalendar(response)
-        res.status(200).send(calendar)
+        await this.calendarService.saveCalendar(response)
+        res.status(200).send({ message: 'calendar refreshed' })
     }
 }

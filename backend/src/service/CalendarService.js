@@ -26,6 +26,16 @@ export class CalendarService {
         })
     }
 
+    async saveCalendar (responseData) {
+        await this.db.$transaction([
+            this.db.calendar.deleteMany(),
+            this.db.calendar.createMany({
+                data: responseData
+            })
+        ])
+        return responseData
+    }
+
     async calculate (calendar) {
         if (!calendar.length) {
             return []

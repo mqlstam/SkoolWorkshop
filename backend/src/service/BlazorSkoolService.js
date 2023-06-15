@@ -20,7 +20,7 @@ export class BlazorSkoolService {
         const workshops = await this.db.workshop.findMany({
             select: {
                 id: true,
-                name: true,
+                name: true
             },
             where: {
                 name: {
@@ -46,15 +46,5 @@ export class BlazorSkoolService {
                 }
             ]
         }, [])
-    }
-
-    async saveCalendar (responseData) {
-        await this.db.$transaction([
-            this.db.calendar.deleteMany(),
-            this.db.calendar.createMany({
-                data: responseData
-            })
-        ])
-        return responseData
     }
 }

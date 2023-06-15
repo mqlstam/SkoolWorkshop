@@ -73,7 +73,10 @@ async function saveItem (item) {
         :key="item.id"
         :product="products.find(p => p.id === item.productId)"
         :workshop-item="item"
-        @update:workshopItem="saveItem"
-    />
+        @update:workshopItem="saveItem" />
+
+    <div v-if="!items.length" class="d-flex align-items-center justify-content-center border-bottom">
+      <span class="h5 m-3">Geen items gevonden</span>
+    </div>
   </div>
 </template>

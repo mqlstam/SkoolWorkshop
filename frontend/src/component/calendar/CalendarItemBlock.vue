@@ -24,7 +24,7 @@ function formatDate (startDate, endDate) {
 </script>
 
 <template>
-  <div class="d-flex align-items-center border-bottom hover-darken" :class="{'bg-tint-secondary': new Date(item.endDate) > new Date()}">
+  <div class="d-flex align-items-center border-bottom hover-darken" :class="{'bg-tint-secondary': new Date(item.endDate) < new Date()}">
 
     <!-- image and title -->
     <font-awesome-icon :icon="['fas', 'people-robbery']" class="fa-3x img border p-3 ms-1 me-3 my-3" style="width: 3rem; height: 3rem"/>
@@ -38,7 +38,7 @@ function formatDate (startDate, endDate) {
         </span>
       </div>
 
-      <div class="ms-auto d-flex align-items-center">
+      <div class="ms-auto d-flex align-items-center" :class="{'text-danger': new Date(item.endDate) < new Date()}">
         <font-awesome-icon :icon="['fas', 'calendar-day']" class="fa-1x" style="width: 2rem" />
         <span>{{ formatDate(props.item.startDate, props.item.endDate) }}</span>
       </div>

@@ -1,6 +1,6 @@
 import { Request } from '../Request.js'
 
-export class CalculateRequest extends Request {
+export class RequiredStockRequest extends Request {
     schema = {
         type: 'object',
         additionalProperties: false,
