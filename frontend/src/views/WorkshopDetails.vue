@@ -13,6 +13,7 @@ const workshopStore = useWorkshopStore()
 const workshopItemStore = useWorkshopItemStore()
 const productStore = useProductStore()
 const workshopId = Number(route.params.id)
+const showPopup = ref(false)
 
 const tasks = await Promise.all([
     workshopStore.get(workshopId),
@@ -32,6 +33,24 @@ async function save () {
 async function saveItem (item) {
     const { id, ...data } = item
     await workshopItemStore.update(data, id)
+}
+
+async function saveProduct (product) {
+    const { id, ...data } = product
+    await productStore.update(data, id)
+}
+
+function removeAllProducts () {
+  for(let i = 0; i < products.length; i++) {
+    products[i].stock -= items[i].people
+    if(products[i].stock < 0) {
+      products[i].stock = 0
+      showPopup.value = false
+      throw Error(products[i].name + ' heeft niet genoeg voorraad')
+    }
+    saveProduct(products[i])
+  }
+  showPopup.value = false
 }
 </script>
 
@@ -60,10 +79,21 @@ async function saveItem (item) {
 
     <div class="col-10 d-flex align-items-center justify-content-end">
       <!-- action buttons -->
+      <div type="button" class="btn p-3 hover-darken me-2" @click="showPopup = !showPopup">
+        <font-awesome-icon :icon="['fas', 'minus']" class="fa-xl"/>
+      </div>
       <router-link class="btn p-3 hover-darken" :to="`/workshops/${workshop.id}/items`">
         <font-awesome-icon :icon="['fas', 'pen-to-square']" class="fa-xl"/>
       </router-link>
     </div>
+  </div>
+
+  <!-- conformation pop up -->
+  <div v-if="showPopup" class="conformation-popup">
+    <h2>Weet je het zeker?</h2>
+    <p>Voor alle producten zal de voorraad eraf worden gehaald</p>
+    <div type="button" class="btn btn-danger me-4" @click="showPopup = false">Nee</div>
+    <div type="button" class="btn btn-primary ms-4" @click="removeAllProducts">Ja</div>
   </div>
 
   <div class="row box bg-white border-top">
