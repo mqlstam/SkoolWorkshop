@@ -21,7 +21,7 @@ async function update () {
 <template>
   <div class="popup-container box text-center bg-white justify-content-center">
     <router-link type="button" class="btn float-start hover-darken" :to="`/products/${productId}`">
-      <font-awesome-icon :icon="['fas', 'circle-info']"/>
+      <font-awesome-icon :icon="['fas', 'box']"/>
     </router-link>
     <div type="button" class="btn float-end hover-darken" @click="router.back">
       <font-awesome-icon :icon="['fas', 'x']" />
@@ -55,16 +55,3 @@ async function update () {
     </div>
   </div>
 </template>
-
-<style>
-/* hide number input arrows */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
-</style>
