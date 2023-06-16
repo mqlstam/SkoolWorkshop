@@ -78,4 +78,26 @@ export class ProductController {
             throw new HttpError(500, 'could not delete product')
         }
     }
+
+    async getCalendarItems (req, res) {
+        const productId = Number(req.params.productId)
+
+        // Fetch the associated WorkshopItems
+        const workshopItems = await this.db.workshopItem.findMany({
+            where: { productId }
+        })
+
+        // Fetch the associated Workshops and Calendar items
+        const calendarItems = []
+        for (const workshopItem of workshopItems) {
+            const workshop = await this.db.workshop.findUnique({
+                where: { id: workshopItem.workshopId },
+                include: { calendar: true }
+            })
+            calendarItems.push(...workshop.calendar)
+        }
+
+        // Send the calendar items to the frontend
+        res.json(calendarItems)
+    }
 }

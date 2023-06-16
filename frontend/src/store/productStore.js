@@ -20,14 +20,20 @@ export const useProductStore = defineStore('product', {
         },
 
         async get (id) {
+            this.isLoading = true
             const product = this.products.find(item => item.id === id)
-            if (product) return product
+            if (product) {
+                this.isLoading = false
+                return product
+            }
 
             try {
                 const { data } = await axios.get(`/api/products/${id}`)
                 this.products.push(data)
+                this.isLoading = false
                 return data
             } catch (err) {
+                this.isLoading = false
                 throw new Error('Product not found')
             }
         },
@@ -70,6 +76,15 @@ export const useProductStore = defineStore('product', {
 
         findCode (code) {
             return this.products.find(product => product.code === code)
+        },
+        // in your productStore
+        async getCalendarItems (productId) {
+            try {
+                const { data } = await axios.get(`/api/products/${productId}/calendarItems`)
+                return data
+            } catch (err) {
+                throw new Error('Could not fetch calendar items')
+            }
         }
 
     }
