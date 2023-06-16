@@ -7,7 +7,7 @@ import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
 import VueQrcode from 'vue-qrcode'
-import { ref, onMounted, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import WorkshopBlock from '../component/workshop/WorkshopBlock.vue'
 import { useWorkshopStore } from '../store/workshopStore.js'
 import { useWorkshopItemStore } from '../store/workshopItemStore.js'
@@ -19,30 +19,41 @@ const workshopStore = useWorkshopStore()
 const workshopItemStore = useWorkshopItemStore()
 const calendarStore = useCalendarStore()
 
-const productId = Number(route.params.id)
 const product = ref(null)
 const workshopItems = ref([])
-watchEffect(async () => {
-    product.value = await productStore.get(productId)
-})
-onMounted(async () => {
-    product.value = await productStore.get(productId)
-    calendarStore.fetch()
+let fetchInProgress = false
 
+watchEffect(async () => {
+    // Prevent multiple fetches. Workshops would be duplicated otherwise.
+    if (fetchInProgress) return
+    fetchInProgress = true
+    // Obtain productId from route parameters
+    const productId = Number(route.params.id)
+
+    // Fetch and update product data
+    product.value = await productStore.get(productId)
+
+    // Fetch workshop items by product
     const rawWorkshopItems = await workshopItemStore.byProduct(productId)
+
+    // Fetch calendar items
+    await calendarStore.fetch()
+
+    // Iterate over calendar items and workshop items, then push to workshopItems
     for (const calendarItem of calendarStore.calendarItems) {
         for (const workshopItem of rawWorkshopItems) {
             if (calendarItem.workshopId === workshopItem.workshopId) {
                 const selectedWorkshop = await workshopStore.get(calendarItem.workshopId)
                 const itemWithWorkshopData = { ...workshopItem, ...selectedWorkshop }
                 workshopItems.value.push(itemWithWorkshopData)
-                console.log(itemWithWorkshopData)
             }
         }
     }
+    fetchInProgress = false
 })
 
 async function save () {
+    // Destructure and skip id from product's data
     const { id, ...data } = product.value
     await productStore.update(data, id)
 }
