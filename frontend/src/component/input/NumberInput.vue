@@ -13,8 +13,8 @@ const props = defineProps({
         default: 1
     },
     border: {
-      type: Boolean,
-      default: true
+        type: Boolean,
+        default: true
     }
 })
 
@@ -31,22 +31,22 @@ function update () {
 </script>
 
 <template>
-  <div id="outerDiv" class="d-flex align-items-center p-2 border-bottom">
+  <div class="d-flex align-items-center p-2" v-bind:class="(border)?'border-bottom':''">
     <span class="mx-3">{{ name }}</span>
 
     <div class="ms-auto d-flex align-items-center">
       <div role="button" @click="value = Math.max(value - 1, 0); update()" class="user-select-none">
         <font-awesome-icon
-            :icon="['fas', 'minus']"
-            class="p-3 mx-2 rounded-3 hover-darken" />
+          :icon="['fas', 'minus']"
+          class="p-3 mx-2 rounded-3 hover-darken"/>
       </div>
 
-      <input type="number" class="form-control-plaintext" style="width: 2rem" v-model="value" @input="update" />
+      <input type="number" class="form-control-plaintext" style="width: 2rem" v-model="value" @input="update"/>
 
       <div role="button" @click="value += 1; update()" class="user-select-none">
         <font-awesome-icon
-            :icon="['fas', 'plus']"
-            class="p-3 mx-2 rounded-3 hover-darken" />
+          :icon="['fas', 'plus']"
+          class="p-3 mx-2 rounded-3 hover-darken"/>
       </div>
     </div>
   </div>

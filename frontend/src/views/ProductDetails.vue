@@ -7,8 +7,8 @@ import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
 import VueQrcode from 'vue-qrcode'
 import { ref } from 'vue'
-import NumberInput from "../component/input/NumberInput.vue";
-import StockInput from "../component/input/StockInput.vue";
+import NumberInput from '../component/input/NumberInput.vue'
+import StockInput from '../component/input/StockInput.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -48,7 +48,7 @@ function printQr () {
   <div class="row box bg-white border-top">
     <text-input name="Name" v-model:value="product.name" @update:value="save"/>
     <stock-input :product="product" @update:value="save"/>
-    <number-input name="BufferStock" v-model:value="product.bufferStock" @update:value="save"/>
+    <number-input name="BufferStock" v-model:value="product.bufferStock" @update:value="save" :border="true"/>
     <scan-input v-model:value="product.code" @update:value="save"/>
     <checkbox-input name="Reusable" v-model:value="product.reusable" @update:value="save"/>
 
