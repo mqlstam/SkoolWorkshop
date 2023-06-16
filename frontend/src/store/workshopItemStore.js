@@ -19,6 +19,20 @@ export const useWorkshopItemStore = defineStore('workshopItem', {
             }
         },
 
+        async byProduct (id, force = false) {
+            if (this.cache[id] && !force) return this.cache[id]
+
+            try {
+                let { data } = await axios.get('/api/workshopItems')
+                data = data.filter(item => item.productId === id)
+                this.cache[id] = data
+                return data
+            } catch (err) {
+                this.cache[id] = []
+                return this.cache[id]
+            }
+        },
+
         async create (workshopItem) {
             try {
                 const { data } = await axios.post('/api/workshopItems', workshopItem)

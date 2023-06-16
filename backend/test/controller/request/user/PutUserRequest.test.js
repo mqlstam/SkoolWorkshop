@@ -2,7 +2,7 @@ import { describe, it } from 'mocha'
 import { expect } from 'chai'
 import { PutUserRequest } from '../../../../src/controller/request/user/PutUserRequest.js'
 
-describe('controller/request/user/PutUserRequest', () => {
+describe('controller/request/user/CalculateRequest', () => {
     it('should accept valid requests', async () => {
         const req = {
             body: {

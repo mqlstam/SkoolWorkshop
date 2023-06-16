@@ -3,17 +3,35 @@ import { useProductStore } from '../store/productStore.js'
 import ProductBlock from '../component/product/ProductBlock.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, computed } from 'vue'
+import { useCalendarStore } from '../store/calendarStore.js'
 
 const edit = ref(false)
 const productStore = useProductStore()
-productStore.fetch()
+const calendarStore = useCalendarStore()
+
+await Promise.all([
+    productStore.fetch(),
+    calendarStore.fetchRequiredStock()
+])
 
 const search = ref('')
-const filteredProducts = computed(
-    () => productStore
-        .search(search.value)
-        .sort((a, b) => a.stock - b.stock)
-)
+const products = computed(() => {
+    const danger = []; const warning = []; const good = []
+
+    for (const product of productStore.search(search.value)) {
+        const stock = calendarStore.requiredStock[product.id]?.quantity ?? 0
+
+        if (product.stock < stock) {
+            danger.push(product)
+        } else if (product.stock < (stock + product.bufferStock)) {
+            warning.push(product)
+        } else {
+            good.push(product)
+        }
+    }
+
+    return [...danger, ...warning, ...good]
+})
 
 async function remove (product) {
     await productStore.delete(product.id)
@@ -50,10 +68,11 @@ async function remove (product) {
 
     <!-- product list -->
     <product-block
-        v-for="product in filteredProducts"
+        v-for="product in products"
         :key="product.id"
         :product="product"
         :edit="edit"
+        :requiredStock="calendarStore.requiredStock[product.id]?.quantity ?? null"
         @delete="remove"/>
   </div>
 </template>

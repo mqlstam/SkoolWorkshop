@@ -32,7 +32,7 @@ a {
 }
 
 .hover-darken:hover {
-  background-color: #0001 !important;
+  background-color: #0001;
 }
 
 .card {
@@ -78,7 +78,15 @@ a {
 }
 
 .bg-tint-red {
-  background: #f001;
+  background: #f002 !important;
+}
+
+.bg-tint-primary {
+  background: #f903 !important;
+}
+
+.bg-tint-secondary {
+  background: #1112 !important;
 }
 
 /* hide number input arrows */

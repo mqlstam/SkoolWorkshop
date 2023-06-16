@@ -60,6 +60,10 @@ export const useWorkshopStore = defineStore('workshop', {
             }
         },
 
+        async getMany (ids) {
+            const workshops = ids.map(id => this.get(id))
+            return Promise.all(workshops)
+        },
         search (query) {
             return this.workshops.filter(workshop => workshop.name.toLowerCase().includes(query.toLowerCase()))
         }

@@ -7,15 +7,53 @@ import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
 import VueQrcode from 'vue-qrcode'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
+import WorkshopBlock from '../component/workshop/WorkshopBlock.vue'
+import { useWorkshopStore } from '../store/workshopStore.js'
+import { useWorkshopItemStore } from '../store/workshopItemStore.js'
+import { useCalendarStore } from '../store/calendarStore.js'
 
 const route = useRoute()
 const productStore = useProductStore()
+const workshopStore = useWorkshopStore()
+const workshopItemStore = useWorkshopItemStore()
+const calendarStore = useCalendarStore()
 
-const productId = Number(route.params.id)
-const product = ref(await productStore.get(productId))
+const product = ref(null)
+const workshopItems = ref([])
+let fetchInProgress = false
+
+watchEffect(async () => {
+    // Prevent multiple fetches. Workshops would be duplicated otherwise.
+    if (fetchInProgress) return
+    fetchInProgress = true
+    // Obtain productId from route parameters
+    const productId = Number(route.params.id)
+
+    // Fetch and update product data
+    product.value = await productStore.get(productId)
+
+    // Fetch workshop items by product
+    const rawWorkshopItems = await workshopItemStore.byProduct(productId)
+
+    // Fetch calendar items
+    await calendarStore.fetch()
+
+    // Iterate over calendar items and workshop items, then push to workshopItems
+    for (const calendarItem of calendarStore.calendarItems) {
+        for (const workshopItem of rawWorkshopItems) {
+            if (calendarItem.workshopId === workshopItem.workshopId) {
+                const selectedWorkshop = await workshopStore.get(calendarItem.workshopId)
+                const itemWithWorkshopData = { ...workshopItem, ...selectedWorkshop }
+                workshopItems.value.push(itemWithWorkshopData)
+            }
+        }
+    }
+    fetchInProgress = false
+})
 
 async function save () {
+    // Destructure and skip id from product's data
     const { id, ...data } = product.value
     await productStore.update(data, id)
 }
@@ -32,6 +70,7 @@ function printQr () {
 </script>
 
 <template>
+    <div v-if="product">
   <div class="row box-header">
     <div class="d-flex align-items-center m-0" style="width: min-content">
       <a class="btn p-2 bg-secondary hover-darken" @click="$router.back()">
@@ -68,7 +107,14 @@ function printQr () {
         :value="product.code"
         type="image/png"
         width="250"
-        />
+      />
     </div>
   </div>
+  <div class="row box bg-white border-top">
+      <workshop-block
+        v-for="workshopItem in workshopItems"
+        :key="workshopItem.id"
+        :workshop="workshopItem"/>
+    </div>
+</div>
 </template>

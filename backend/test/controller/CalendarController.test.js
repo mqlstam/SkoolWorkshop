@@ -26,7 +26,7 @@ describe('controller/CalendarController', () => {
         it('should return a specific calendar item', async () => {
             const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
             const db = { calendar: { findUnique: sinon.stub().returns(calendarItems[0]) } }
-            const controller = new CalendarController(db)
+            const controller = new CalendarController(db, {})
 
             await controller.get({ params: 1 }, res)
             expect(db.calendar.findUnique.calledOnce).to.be.true
@@ -46,6 +46,43 @@ describe('controller/CalendarController', () => {
                 expect(err.message).to.equal('calendar not found')
                 expect(db.calendar.findUnique.calledOnce).to.be.true
             }
+        })
+    })
+
+    describe('requiredStock', () => {
+        it('should calculate the total amount of needed products', async () => {
+            const req = { query: { startDate: '2023-06-15T12:12:00.000Z', endDate: '2023-08-15T12:12:00.000Z' } }
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const calendarService = {
+                fetchCalendar: sinon.stub().returns(calendarItems),
+                calculate: sinon.stub().returns({ 1: { quantity: 10 }, 2: { quantity: 25 } })
+            }
+            const controller = new CalendarController({}, calendarService)
+
+            await controller.requiredStock(req, res)
+            expect(calendarService.fetchCalendar.calledOnce).to.be.true
+            expect(calendarService.calculate.calledOnceWith(calendarItems)).to.be.true
+            expect(res.status.calledOnceWith(200)).to.be.true
+            expect(res.send.calledOnceWith({
+                1: { quantity: 10 },
+                2: { quantity: 25 }
+            })).to.be.true
+        })
+    })
+
+    describe('refresh', () => {
+        it('should refresh the calendar items', async () => {
+            const res = { status: sinon.stub().returnsThis(), send: sinon.stub() }
+            const blazorSkoolService = { fetchCalendar: sinon.stub().returns(calendarItems) }
+            const calendarService = { saveCalendar: sinon.stub() }
+            const controller = new CalendarController({}, calendarService, blazorSkoolService)
+
+            await controller.refresh({}, res)
+
+            expect(blazorSkoolService.fetchCalendar.calledOnce).to.be.true
+            expect(calendarService.saveCalendar.calledOnceWith(calendarItems)).to.be.true
+            expect(res.status.calledOnceWith(200)).to.be.true
+            expect(res.send.calledOnceWith({ message: 'calendar refreshed' })).to.be.true
         })
     })
 })
