@@ -1,36 +1,55 @@
 <script setup>
-import { useProductStore } from '../store/productStore.js'
-import { useRoute } from 'vue-router'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {useProductStore} from '../store/productStore.js'
+import {useRoute} from 'vue-router'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
 import VueQrcode from 'vue-qrcode'
-import { ref } from 'vue'
+import {ref} from 'vue'
 import WorkshopBlock from '../component/workshop/WorkshopBlock.vue'
+import {useWorkshopStore} from '../store/workshopStore.js'
+import {useWorkshopItemStore} from '../store/workshopItemStore.js'
+import {useCalendarStore} from "../store/calendarStore.js";
 
 const route = useRoute()
 const productStore = useProductStore()
 const productId = Number(route.params.id)
 const product = ref(await productStore.get(productId))
 
-const workshopItems = product.value.workshopItems
-const workshops = workshopItems.map(item => item.workshop)
+const workshopStore = useWorkshopStore()
+const workshopItemStore = useWorkshopItemStore()
+const calendarStore = useCalendarStore()
+calendarStore.fetch()
 
-async function save () {
-    const { id, ...data } = product.value
-    await productStore.update(data, id)
+const workshopItems = await workshopItemStore.byProduct(productId)
+const workshops = ref([])
+
+for (let calendarItem of calendarStore.calendarItems) {
+  for(let workshopItem of workshopItems) {
+    if (calendarItem.workshopId === workshopItem.workshopId) {
+      const selectedWorkshop = await workshopStore.get(calendarItem.workshopId)
+      workshops.value.push(selectedWorkshop)
+      console.log(selectedWorkshop)
+    }
+
+  }
 }
 
-function printQr () {
-    const prtContent = document.getElementById('qrCode')
-    const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
-    winPrint.document.write(prtContent.innerHTML)
-    winPrint.document.close()
-    winPrint.focus()
-    winPrint.print()
-    winPrint.close()
+async function save() {
+  const {id, ...data} = product.value
+  await productStore.update(data, id)
+}
+
+function printQr() {
+  const prtContent = document.getElementById('qrCode')
+  const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
+  winPrint.document.write(prtContent.innerHTML)
+  winPrint.document.close()
+  winPrint.focus()
+  winPrint.print()
+  winPrint.close()
 }
 </script>
 
@@ -71,14 +90,14 @@ function printQr () {
         :value="product.code"
         type="image/png"
         width="250"
-        />
+      />
     </div>
   </div>
-    <div class="row box bg-white border-top">
+  <div class="row box bg-white border-top">
     <workshop-block
-        v-for="workshop in workshops"
-        :key="workshop.id"
-        :workshop="workshop" />
+      v-for="workshop in workshops"
+      :key="workshop.id"
+      :workshop="workshop"/>
   </div>
 
 </template>
