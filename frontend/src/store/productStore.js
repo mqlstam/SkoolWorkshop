@@ -42,8 +42,11 @@ export const useProductStore = defineStore('product', {
         },
 
         async update (product, id) {
+            const { name, stock, bufferStock, code, reusable } = product // Destructure needed properties
+            const productUpdate = { name, stock, bufferStock, code, reusable } // Create new product object
+
             try {
-                const { data } = await axios.put(`/api/products/${id}`, product)
+                const { data } = await axios.put(`/api/products/${id}`, productUpdate)
                 const idx = this.products.findIndex(p => p.id === data.id)
                 this.products[idx] = data
             } catch (err) {
