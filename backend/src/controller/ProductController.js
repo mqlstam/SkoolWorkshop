@@ -15,13 +15,18 @@ export class ProductController {
     async get (req, res) {
         const id = req.params.id
         const product = await this.db.product.findUnique({
-            where: { id: parseInt(id) }
+            where: { id: parseInt(id) },
+            include: {
+                workshopItems: {
+                    include: {
+                        workshop: true
+                    }
+                }
+            }
         })
-
         if (!product) {
-            throw new HttpError(404, 'product not found')
+            throw new HttpError(404, 'Product not found')
         }
-
         res.status(200).send(product)
     }
 

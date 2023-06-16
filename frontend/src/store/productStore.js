@@ -71,5 +71,6 @@ export const useProductStore = defineStore('product', {
         findCode (code) {
             return this.products.find(product => product.code === code)
         }
+
     }
 })

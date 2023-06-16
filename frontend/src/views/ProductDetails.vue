@@ -8,12 +8,15 @@ import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
 import VueQrcode from 'vue-qrcode'
 import { ref } from 'vue'
+import WorkshopBlock from '../component/workshop/WorkshopBlock.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
-
 const productId = Number(route.params.id)
 const product = ref(await productStore.get(productId))
+
+const workshopItems = product.value.workshopItems
+const workshops = workshopItems.map(item => item.workshop)
 
 async function save () {
     const { id, ...data } = product.value
@@ -71,4 +74,11 @@ function printQr () {
         />
     </div>
   </div>
+    <div class="row box bg-white border-top">
+    <workshop-block
+        v-for="workshop in workshops"
+        :key="workshop.id"
+        :workshop="workshop" />
+  </div>
+
 </template>
