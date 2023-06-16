@@ -1,59 +1,65 @@
 <script setup>
-import {useProductStore} from '../store/productStore.js'
-import {useRoute} from 'vue-router'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import { useProductStore } from '../store/productStore.js'
+import { useRoute } from 'vue-router'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import TextInput from '../component/input/TextInput.vue'
 import NumberInput from '../component/input/NumberInput.vue'
 import CheckboxInput from '../component/input/CheckboxInput.vue'
 import ScanInput from '../component/input/ScanInput.vue'
 import VueQrcode from 'vue-qrcode'
-import {ref} from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
 import WorkshopBlock from '../component/workshop/WorkshopBlock.vue'
-import {useWorkshopStore} from '../store/workshopStore.js'
-import {useWorkshopItemStore} from '../store/workshopItemStore.js'
-import {useCalendarStore} from "../store/calendarStore.js";
+import { useWorkshopStore } from '../store/workshopStore.js'
+import { useWorkshopItemStore } from '../store/workshopItemStore.js'
+import { useCalendarStore } from '../store/calendarStore.js'
 
 const route = useRoute()
 const productStore = useProductStore()
-const productId = Number(route.params.id)
-const product = ref(await productStore.get(productId))
-
 const workshopStore = useWorkshopStore()
 const workshopItemStore = useWorkshopItemStore()
 const calendarStore = useCalendarStore()
-calendarStore.fetch()
 
-const workshopItems = await workshopItemStore.byProduct(productId)
-const workshops = ref([])
+const productId = Number(route.params.id)
+const product = ref(null)
+const workshopItems = ref([])
+watchEffect(async () => {
+    product.value = await productStore.get(productId)
+})
+onMounted(async () => {
+    product.value = await productStore.get(productId)
+    calendarStore.fetch()
 
-for (let calendarItem of calendarStore.calendarItems) {
-  for(let workshopItem of workshopItems) {
-    if (calendarItem.workshopId === workshopItem.workshopId) {
-      const selectedWorkshop = await workshopStore.get(calendarItem.workshopId)
-      workshops.value.push(selectedWorkshop)
-      console.log(selectedWorkshop)
+    const rawWorkshopItems = await workshopItemStore.byProduct(productId)
+    for (const calendarItem of calendarStore.calendarItems) {
+        for (const workshopItem of rawWorkshopItems) {
+            if (calendarItem.workshopId === workshopItem.workshopId) {
+                const selectedWorkshop = await workshopStore.get(calendarItem.workshopId)
+                const itemWithWorkshopData = { ...workshopItem, ...selectedWorkshop }
+                workshopItems.value.push(itemWithWorkshopData)
+                console.log(itemWithWorkshopData)
+            }
+        }
     }
+})
 
-  }
+async function save () {
+    const { id, ...data } = product.value
+    await productStore.update(data, id)
 }
 
-async function save() {
-  const {id, ...data} = product.value
-  await productStore.update(data, id)
-}
-
-function printQr() {
-  const prtContent = document.getElementById('qrCode')
-  const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
-  winPrint.document.write(prtContent.innerHTML)
-  winPrint.document.close()
-  winPrint.focus()
-  winPrint.print()
-  winPrint.close()
+function printQr () {
+    const prtContent = document.getElementById('qrCode')
+    const winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
+    winPrint.document.write(prtContent.innerHTML)
+    winPrint.document.close()
+    winPrint.focus()
+    winPrint.print()
+    winPrint.close()
 }
 </script>
 
 <template>
+    <div v-if="product">
   <div class="row box-header">
     <div class="d-flex align-items-center m-0" style="width: min-content">
       <a class="btn p-2 bg-secondary hover-darken" @click="$router.back()">
@@ -94,10 +100,10 @@ function printQr() {
     </div>
   </div>
   <div class="row box bg-white border-top">
-    <workshop-block
-      v-for="workshop in workshops"
-      :key="workshop.id"
-      :workshop="workshop"/>
-  </div>
-
+      <workshop-block
+        v-for="workshopItem in workshopItems"
+        :key="workshopItem.id"
+        :workshop="workshopItem"/>
+    </div>
+</div>
 </template>
